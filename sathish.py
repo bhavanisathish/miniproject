@@ -1,21 +1,30 @@
 # -*- coding: utf-8 -*-
 """
+Created on Mon Mar  9 22:09:39 2020
+
+@author: dell
+"""
+
+# -*- coding: utf-8 -*-
+"""
 Created on Mon Jan 27 18:17:39 2020
 
 pip install mysql-connector
 
 @author: Bhavani
 """
-import datetime
-from tkinter import messagebox
+
 import webbrowser
 from openpyxl import Workbook
 import os
 import glob
 from fpdf import FPDF
+from tkinter import *
 import tkinter as tk
 import tkinter.ttk as ttk 
 from ttkthemes import ThemedStyle
+import cv2
+import PIL.Image, PIL.ImageTk
 import mysql.connector
 db_cur=mysql.connector.connect(host='localhost',user='root',passwd='',database='studentform')
 db=db_cur.cursor()
@@ -40,9 +49,12 @@ class MyFirstGui(tk.Tk):
                    ('calibri', 5, 'bold')) 
                 style.configure('L.TButton', font =
                    ('calibri', 20, 'bold')) 
+                style.configure('Wild.TRadiobutton', font=('calibri',20,'bold'),   # First argument is the name of style. Needs to end with: .TRadiobutton
+                 background='darkorchid',foreground='black') 
                 self._frame = new_frame
                 self._frame.pack()
                 self.state("zoomed")
+                self.configure(background='darkorchid')
            
        
         
@@ -51,14 +63,28 @@ class StartPage(tk.Frame):
            
       def __init__(self, master):
                     tk.Frame.__init__(self,master)
-                    self.configure(background='powderblue')
-                    
+                    self.configure(background='darkorchid')
+                    #self.state("zoomed")
                     global username,passwords
-                    self.l1=ttk.Label(self,text="Login here",font=("Times 40 italic"),background="powderblue")
+                    self.l1=ttk.Label(self,text="Login here",font=("Times 40 italic"),background="darkorchid")
                     self.l1.grid(row=3,column=1,columnspan=2,sticky='W',padx=10,pady=50)
-                    self.l2=ttk.Label(self,text="Username",font=("Times 30 italic"),background="powderblue")
+                    #self.img = cv2.imread('login.png')
+                    #self.img = cv2.cvtColor(cv2.imread("login1.gif"), cv2.COLOR_BGR2RGB)
+                    #b,g,r = cv2.split(self.img)
+                    #self.img = cv2.merge((r,g,b))
+                    #b,g,r = cv2.split(self.img,1) 
+                    #self.img = cv2.merge((b,g,r))
+                    #self.im = Image.fromarray(self.img)
+                    #self.imgtk = ImageTk.PhotoImage(image=self.im) '''
+                   # self.photo = PIL.ImageTk.PhotoImage(image = PIL.Image.fromarray(self.img))
+                    #self.img =tk.PhotoImage(self,file=r'C:/Users/dell/Desktop/python/guipython/login1.gif')
+                    #self.ll11=tk.Label(self,self.img,w=100,h=100)
+                    #self.lbll22=tk.Label(self,image=self.photo)
+                    #self.ll11.grid(row=4,column=1,columnspan=2,sticky='W')
+                    #self.make_label(master,self.img)
+                    self.l2=ttk.Label(self,text="Username",font=("Times 30 italic"),background="darkorchid")
                     self.l2.grid(row=5,column=0,padx=10,pady=50)
-                    self.password=ttk.Label(self,text="Password",font=("Times 30 italic"),background="powderblue")
+                    self.password=ttk.Label(self,text="Password",font=("Times 30 italic"),background="darkorchid")
                     self.password.grid(row=7,column=0,padx=10,pady=50)
                     self.e1=ttk.Entry(self,font=("Times 18 italic"))
                     self.e1.grid(row=5,column=2,padx=5,pady=5,ipady=5)
@@ -86,14 +112,16 @@ class StartPage(tk.Frame):
                 #self.switch_frame(pageOne)
                 MyFirstGui().switch_frame(pageOne)
                 db_cur.commit()
-            else:
-                 messagebox.showinfo("SIGN IN ERROE", "PLEASE ENTER A VALID USERNAME OR PASSWORD")
+     # def make_label(parent, img):
+      #    label11 = ttk.Label(parent, image=img)
+       #   label11.pack()
 
 
 class registration(tk.Frame):
     def __init__(self,master):
         tk.Frame.__init__(self,master)
-        self.configure(background='powderblue')
+        #self.configure(background='powderblue')
+        self.configure(background='darkorchid')
         self.lb1=ttk.Label(self,text="Register here",font=("Times 40 italic"),background="powderblue")
         self.lb1.grid(row=0,column=0,padx=10,pady=30)
         self.lb2=ttk.Label(self,text="Name",font=("Times 18 italic"),background="powderblue")
@@ -134,8 +162,9 @@ class registration(tk.Frame):
 class pageOne(tk.Frame):
       def __init__(self,master):
              tk.Frame.__init__(self,master)
-             self.configure(background='powderblue')
-             lable1=ttk.Label(self,text="Start page",font=("Times 30 italic"),background="powderblue")
+             self.configure(background='darkorchid')
+             #self.configure(background='powderblue')
+             lable1=ttk.Label(self,text="Start page",font=("Times 30 italic"),background="darkorchid")
              lable1.grid(row=0,column=1,padx=10,pady=90)
              bb1=ttk.Button(self,text="TC generation",style = 'L.TButton',command=lambda: master.switch_frame(transferspecify))
              bb1.grid(row=1,column=1,sticky='W')
@@ -154,8 +183,8 @@ class pageOne(tk.Frame):
 class transferspecify(tk.Frame):
       def __init__(self, master):
              tk.Frame.__init__(self,master)
-             self.configure(background='powderblue')
-             lablle1=ttk.Label(self,text="Certificate",font=("Times 30 italic"),background="powderblue")
+             self.configure(background='darkorchid')
+             lablle1=ttk.Label(self,text="Certificate",font=("Times 30 italic"),background="darkorchid")
              lablle1.grid(row=0,column=1,sticky='NSWE',padx=10,pady=90)
              button=ttk.Button(self,text="Individual Transfer Certificate",style = 'W.TButton',command=lambda: master.switch_frame(transfersingle))
              button.grid(row=1,column=1,sticky='W')
@@ -170,15 +199,15 @@ class transferspecify(tk.Frame):
 class transfergroup(tk.Frame):
         def __init__(self, master):
                 tk.Frame.__init__(self,master)
-                self.configure(background='powderblue')
-                l=ttk.Label(self,text="Enter the Details",font=("Times 30 italic"),background="powderblue")
+                self.configure(background='darkorchid')
+                l=ttk.Label(self,text="Enter the Details",font=("Times 30 italic"),background="darkorchid")
                 l.grid(row=0,padx=10,pady=70)
                 
-                l1=ttk.Label(self,text="Batch",bg="powderblue",font=("Times 30 italic"),background="powderblue")
+                l1=ttk.Label(self,text="Batch",bg="powderblue",font=("Times 30 italic"),background="darkorchid")
                 l1.grid(row=1,column=0,padx=10,pady=50,sticky='W')
                 e1=ttk.Entry(self,font=("Times 18 italic"))
                 e1.grid(row=1,column=2,sticky='W',padx=5,pady=5,ipady=5)
-                l2=ttk.Label(self,text="Leaving Date",bg="powderblue",font=("Times 30 italic"),background="powderblue")
+                l2=ttk.Label(self,text="Leaving Date",bg="powderblue",font=("Times 30 italic"),background="darkorchid")
                 l2.grid(row=2,column=0,padx=10,pady=50,sticky='W')
                 e2=ttk.Entry(self,font=("Times 18 italic"))
                 e2.grid(row=2,column=2,padx=5,pady=5,ipady=5,sticky='W')
@@ -195,15 +224,15 @@ class transfersingle(tk.Frame):
           
           def __init__(self, master):
                 tk.Frame.__init__(self,master)
-                self.configure(background='powderblue')
-                self.l=ttk.Label(self,text="Enter the Details",font=("Times 30 italic"),background="powderblue")
+                self.configure(background='darkorchid')
+                self.l=ttk.Label(self,text="Enter the Details",font=("Times 30 italic"),background="darkorchid")
                 self.l.grid(row=0,padx=10,pady=70)
                 
-                self.l1=ttk.Label(self,text="Reg No",font=("Times 30 italic"),background="powderblue")
+                self.l1=ttk.Label(self,text="Reg No",font=("Times 30 italic"),background="darkorchid")
                 self.l1.grid(row=1,column=0,padx=10,pady=50,sticky='W')
                 self.entr1=ttk.Entry(self,font=("Times 18 italic"))
                 self.entr1.grid(row=1,column=2,padx=5,pady=5,ipady=5,sticky='W')
-                self.l2=ttk.Label(self,text="Leaving Date",font=("Times 30 italic"),background="powderblue")
+                self.l2=ttk.Label(self,text="Leaving Date",font=("Times 30 italic"),background="darkorchid")
                 self.l2.grid(row=2,column=0,padx=10,pady=50,sticky='W')
                 self.e2=ttk.Entry(self,font=("Times 18 italic"))
                 self.e2.grid(row=2,column=2,padx=5,pady=5,ipady=5,sticky='W')
@@ -225,81 +254,81 @@ class transferCertificate(tk.Frame):
             
    def __init__(self, master):
                 tk.Frame.__init__(self,master)
-                self.configure(background='powderblue')
+                self.configure(background='darkorchid')
                 db.execute("select *from studentdetails where reg_number=%s"%(setentvar))
                 f=db.fetchone()
                 if(f):
                     print("ok")
-                Labe=ttk.Label(self,text="TRANSFER CERTIFICATE",font=("Times 30 italic"),background="powderblue")
+                Labe=ttk.Label(self,text="TRANSFER CERTIFICATE",font=("Times 30 italic"),background="darkorchid")
                 Labe.grid(row=2,sticky='NSWE',pady=15)
-                lab=ttk.Label(self,text="SI.NO :",font=("Times 30 italic"),background="powderblue")
+                lab=ttk.Label(self,text="SI.NO :",font=("Times 30 italic"),background="darkorchid")
                 lab.grid(row=3,column=0,sticky='W',pady=15)
-                la=ttk.Label(self,text="ROLL NO",font=("Times 30 italic"),background="powderblue")
+                la=ttk.Label(self,text="ROLL NO",font=("Times 30 italic"),background="darkorchid")
                 la.grid(row=3,column=3,sticky='W',pady=15)
                 
                 
                 
-                l1=ttk.Label(self,text="1.  Name of the student",font=("Times 30 italic"),background="powderblue")
+                l1=ttk.Label(self,text="1.  Name of the student",font=("Times 30 italic"),background="darkorchid")
                 l1.grid(row=4,column=0,sticky='W',pady=7)
-                s1=ttk.Label(self,text=" : ",background="powderblue")
+                s1=ttk.Label(self,text=" : ",background="darkorchid")
                 s1.grid(row=4,column=1,sticky='W',pady=7)
-                a1=ttk.Label(self,text=f[0],font=("Times 30 italic"),background="powderblue")
+                a1=ttk.Label(self,text=f[0],font=("Times 30 italic"),background="darkorchid")
                 a1.grid(row=4,column=2,sticky='W',pady=7)
                 
-                l2=ttk.Label(self,text="2.  Name of the parent/Guardian",font=("Times 30 italic"),background="powderblue")
+                l2=ttk.Label(self,text="2.  Name of the parent/Guardian",font=("Times 30 italic"),background="darkorchid")
                 l2.grid(row=5,column=0,sticky='W',pady=7)
-                s2=ttk.Label(self,text=" : ",background="powderblue")
+                s2=ttk.Label(self,text=" : ",background="darkorchid")
                 s2.grid(row=5,column=1,sticky='W',pady=7)
-                a2=ttk.Label(self,text=f[3],font=("Times 30 italic"),background="powderblue")
+                a2=ttk.Label(self,text=f[3],font=("Times 30 italic"),background="darkorchid")
                 a2.grid(row=5,column=2,sticky='W',pady=7)
                 
-                l3=ttk.Label(self,text="3.  Nationality Religion and coommunity",font=("Times 30 italic"),background="powderblue")
+                l3=ttk.Label(self,text="3.  Nationality Religion and coommunity",font=("Times 30 italic"),background="darkorchid")
                 l3.grid(row=6,column=0,sticky='W',pady=7)
-                s3=ttk.Label(self,text=" : ",background="powderblue")
+                s3=ttk.Label(self,text=" : ",background="darkorchid")
                 s3.grid(row=6,column=1,sticky='W',pady=7)
-                a3=ttk.Label(self,text=f[4]+"  "+f[5]+"  "+f[7],font=("Times 30 italic"),background="powderblue")
+                a3=ttk.Label(self,text=f[4]+"  "+f[5]+"  "+f[7],font=("Times 30 italic"),background="darkorchid")
                 a3.grid(row=6,column=2,sticky='W',pady=7)
                 
-                l4=ttk.Label(self,text="4.  Sex",font=("Times 30 italic"),background="powderblue")
+                l4=ttk.Label(self,text="4.  Sex",font=("Times 30 italic"),background="darkorchid")
                 l4.grid(row=7,column=0,sticky='W',pady=7)
-                s4=ttk.Label(self,text=" : ",background="powderblue")
+                s4=ttk.Label(self,text=" : ",background="darkorchid")
                 s4.grid(row=7,column=1,sticky='W',pady=7)
-                a4=ttk.Label(self,text=f[8],font=("Times 30 italic"),background="powderblue")
+                a4=ttk.Label(self,text=f[8],font=("Times 30 italic"),background="darkorchid")
                 a4.grid(row=7,column=2,sticky='W',pady=7)
                 
                 l5=ttk.Label(self,text="5.  Date of Birth (in figure and words) as entered in the admission register",font=("Times 30 italic"),background="powderblue")
                 l5.grid(row=8,column=0,sticky='W',pady=7)
-                s5=ttk.Label(self,text=" : ",background="powderblue")
+                s5=ttk.Label(self,text=" : ",background="darkorchid")
                 s5.grid(row=8,column=1,sticky='W',pady=7)
-                a5=ttk.Label(self,text=f[9],font=("Times 30 italic"),background="powderblue")
+                a5=ttk.Label(self,text=f[9],font=("Times 30 italic"),background="darkorchid")
                 a5.grid(row=8,column=2,sticky='W',pady=7)
                 
-                l6=ttk.Label(self,text="6.  Course of Study",font=("Times 30 italic"),background="powderblue")
+                l6=ttk.Label(self,text="6.  Course of Study",font=("Times 30 italic"),background="darkorchid")
                 l6.grid(row=9,column=0,sticky='W',pady=7)
-                s6=ttk.Label(self,text=" : ",background="powderblue")
+                s6=ttk.Label(self,text=" : ",background="darkorchid")
                 s6.grid(row=9,column=1,sticky='W',pady=7)
-                a6=ttk.Label(self,text=f[10],font=("Times 30 italic"),background="powderblue")
+                a6=ttk.Label(self,text=f[10],font=("Times 30 italic"),background="darkorchid")
                 a6.grid(row=9,column=2,sticky='W',pady=7)
                 
-                l7=ttk.Label(self,text="7.  Date of Admission to this college",font=("Times 30 italic"),background="powderblue")
+                l7=ttk.Label(self,text="7.  Date of Admission to this college",font=("Times 30 italic"),background="darkorchid")
                 l7.grid(row=10,column=0,sticky='W',pady=7)
-                s7=ttk.Label(self,text=" : ",background="powderblue")
+                s7=ttk.Label(self,text=" : ",background="darkorchid")
                 s7.grid(row=10,column=1,sticky='W',pady=7)
-                a7=ttk.Label(self,text=f[12],font=("Times 30 italic"),background="powderblue")
+                a7=ttk.Label(self,text=f[12],font=("Times 30 italic"),background="darkorchid")
                 a7.grid(row=10,column=2,sticky='W',pady=7)
                 
                 l8=ttk.Label(self,text="8.  a) Whether the Student has paid all the Fees due to the college ?",font=("Times 30 italic"),background="powderblue")
                 l8.grid(row=11,column=0,sticky='W',pady=7)
-                s8=ttk.Label(self,text=" : ",background="powderblue")
+                s8=ttk.Label(self,text=" : ",background="darkorchid")
                 s8.grid(row=11,column=1,sticky='W',pady=7)
-                a8=ttk.Label(self,text="",font=("Times 30 italic"),background="powderblue")
+                a8=ttk.Label(self,text="",font=("Times 30 italic"),background="darkorchid")
                 a8.grid(row=11,column=2,sticky='W',pady=7)
                 
                 l9=ttk.Label(self,text="8.  b) Whether the Student was in receipt of any scholarship",font=("Times 30 italic"),background="powderblue")
                 l9.grid(row=12,column=0,sticky='W',pady=7)
-                s9=ttk.Label(self,text=" : ",background="powderblue")
+                s9=ttk.Label(self,text=" : ",background="darkorchid")
                 s9.grid(row=12,column=1,sticky='W',pady=7)
-                a9=ttk.Label(self,text="",font=("Times 30 italic"),background="powderblue")
+                a9=ttk.Label(self,text="",font=("Times 30 italic"),background="darkorchid")
                 a9.grid(row=12,column=2,sticky='W',pady=7)
                 
                 l10=ttk.Label(self,text="9.  Whether the Student has undergone Medical inspection during the year",font=("Times 30 italic"),background="powderblue")
@@ -439,10 +468,10 @@ class transferCertificate(tk.Frame):
 class editspecify(tk.Frame):
       def __init__(self, master):
              tk.Frame.__init__(self,master)
-             self.configure(background='powderblue')
-             lablle1=ttk.Label(self,text="Certificate",font=("Times 30 italic"),background="powderblue")
+             self.configure(background='darkorchid')
+             lablle1=ttk.Label(self,text="Certificate",font=("Times 30 italic"),background="darkorchid")
              lablle1.grid(row=0,column=0,sticky='NSWE',pady=50)
-             lp=ttk.Label(self,text="Enter the Register number",font=("Times 30 italic"),background="powderblue")
+             lp=ttk.Label(self,text="Enter the Register number",font=("Times 30 italic"),background="darkorchid")
              lp.grid(row=1,column=0,sticky='NSWE',pady=30)
              self.ent=ttk.Entry(self,font=("Times 18 italic"))
              self.ent.grid(row=2,column=0,sticky='NSWE',padx=5,pady=5,ipady=5)
@@ -460,36 +489,16 @@ class editspecify(tk.Frame):
 class edit(tk.Frame):
               def __init__(self, master):
                     tk.Frame.__init__(self, master)
-                    def Validate():
-                        date_format = '%Y-%m-%d'
-                        rule = re.compile(r'(^[+0-9]{1,3})*([0-9]{10,11}$)')
-                        if not rule.search(self.ea22.get()):
-                            messagebox.showinfo("INVALID MOBILE NUMBER", "PLEASE ENTER A VALID MOBILE NUMBER")
-                        try:
-                            date_obj = datetime.datetime.strptime(self.e10.get(), date_format)
-                        except ValueError:
-                          messagebox.showinfo("INVALID DATE FORMAT", "PLEASE ENTER A VALID DATE OF BIRTH('%Y-%m-%d')")   
-                        try:
-                            date_obj = datetime.datetime.strptime(self.e13.get(), date_format)
-                        except ValueError:
-                          messagebox.showinfo("INVALID DATE FORMAT", "PLEASE ENTER A VALID ADMISSION ('%Y-%m-%d')")   
-                        try:
-                            date_obj = datetime.datetime.strptime(self.e15.get(), date_format)
-                        except ValueError:
-                          messagebox.showinfo("INVALID DATE FORMAT", "PLEASE ENTER A VALID RECEIPT DATE('%Y-%m-%d')")   
-                        try:
-                            date_obj = datetime.datetime.strptime(self.ea25.get(), date_format)
-                        except ValueError:
-                          messagebox.showinfo("INVALID DATE FORMAT", "PLEASE ENTER A VALID ISSUED ON DATE('%Y-%m-%d')")   
-                        
+                    
+                    
                     #self._rootwindow.bind('<Configure>', self.onResize)
-                    self.configure(background='powderblue')
+                    self.configure(background='darkorchid')
                     db.execute("select *from studentdetails where reg_number='%s'"%(setvar))
                     e=db.fetchone()
-                    self.labe=ttk.Label(self,text="EDIT",font=("Times 10 italic"),background="powderblue")
+                    self.labe=ttk.Label(self,text="EDIT",font=("Times 10 italic"),background="darkorchid")
                     self.labe.grid(row=0,column=0,sticky='W')
                     
-                    self.l1=ttk.Label(self,text="Name Of The Candidate",font=("Times 10 italic"),background="powderblue")
+                    self.l1=ttk.Label(self,text="Name Of The Candidate",font=("Times 10 italic"),background="darkorchid")
                     self.l1.grid(row=1,column=0,sticky='W',pady=5)
                     self.ll1=ttk.Label(self,text="  :  ",background="powderblue")
                     self.ll1.grid(row=1,column=1,sticky='W',pady=5)
@@ -500,7 +509,7 @@ class edit(tk.Frame):
                     self.l2.grid(row=2,column=0,sticky='W',pady=5)
                     self.ll2=ttk.Label(self,text="  :  ",font=("Times 10 italic"),background="powderblue")
                     self.ll2.grid(row=2,column=1,sticky='W',pady=5)
-                    self.e2=ttk.Entry(self,font=("Times 10 italic"),text="crazy")
+                    self.e2=ttk.Entry(self,font=("Times 10 italic"))
                     self.e2.grid(row=2,column=2,sticky='W',padx=5,pady=5,ipady=5)
                     self.e2.insert(0,e[1])
                     
@@ -673,7 +682,7 @@ class edit(tk.Frame):
                     
                     #button19=tk.Button(self,text="<-",style = 'B.TButton',command=lambda: master.switch_frame(editspecify))
                     #button19.grid(row=23,column=0,sticky='W')
-                    self.llla24.configure(command=Validate)
+                    
     
                     print(self.e1.get())
 
@@ -686,33 +695,11 @@ class edit(tk.Frame):
                 
            
 class newreg(tk.Frame):
-          
-            def __init__(self, master):
+              def __init__(self, master):
                 tk.Frame.__init__(self,master)
                 self.configure(background='powderblue')
                 #db.execute("select *from studentdetails where reg_number='%s'"%(setvar))
                 #e=db.fetchone()
-                def Validate():
-                    date_format = '%Y-%m-%d'
-                    rule = re.compile(r'(^[+0-9]{1,3})*([0-9]{10,11}$)')
-                    if not rule.search(self.ea22.get()):
-                        messagebox.showinfo("INVALID MOBILE NUMBER", "PLEASE ENTER A VALID MOBILE NUMBER")
-                    try:
-                        date_obj = datetime.datetime.strptime(self.e10.get(), date_format)
-                    except ValueError:
-                      messagebox.showinfo("INVALID DATE FORMAT", "PLEASE ENTER A VALID DATE OF BIRTH('%Y-%m-%d')")   
-                    try:
-                        date_obj = datetime.datetime.strptime(self.e13.get(), date_format)
-                    except ValueError:
-                      messagebox.showinfo("INVALID DATE FORMAT", "PLEASE ENTER A VALID ADMISSION ('%Y-%m-%d')")   
-                    try:
-                        date_obj = datetime.datetime.strptime(self.e15.get(), date_format)
-                    except ValueError:
-                      messagebox.showinfo("INVALID DATE FORMAT", "PLEASE ENTER A VALID RECEIPT DATE('%Y-%m-%d')")   
-                    try:
-                        date_obj = datetime.datetime.strptime(self.ea25.get(), date_format)
-                    except ValueError:
-                      messagebox.showinfo("INVALID DATE FORMAT", "PLEASE ENTER A VALID ISSUED ON DATE('%Y-%m-%d')")   
                 labe=tk.Label(self,text="REGISTER",font=("Times 10 italic"),background="powderblue")
                 labe.grid(row=0,column=0,sticky='W')
                 global name,regno,rollno,taluk,father,nation,religion,caste,community,sex,dob,course,branch,admiton,receiptno,mothertongue,state,address,city,district,cellno,aadharno,tcno,issuedon
@@ -894,13 +881,13 @@ class newreg(tk.Frame):
                 self.b1=ttk.Button(self,text="Register",style = 'W.TButton',command=self.calle)
                 self.b1.grid(row=26,column=2,padx=10,pady=50)
                 
-                self.b1.configure(command=Validate)
+                
                 
                 self.but=ttk.Button(self,style = 'B.TButton',text="<-",command=lambda: master.switch_frame(pageOne))
                 self.but.grid(row=26,column=0,sticky='W')
           
-              
-            def calle(self):
+                
+              def calle(self):
                 
                 self.name=self.e1.get()
                 self.regno=self.e2.get()
@@ -938,46 +925,124 @@ class newreg(tk.Frame):
 class search(tk.Frame):
                   def __init__(self, master):
                         tk.Frame.__init__(self,master)
-                        self.la=tk.Label(self,text="search")
-                        self.la.grid(row=0,column=1,sticky='W')
-                        self.la1=tk.Label(self,text="Religion")
-                        self.la1.grid(row=1,column=0,sticky='W')
-                        self.eta1=tk.Entry(self)
-                        self.eta1.grid(row=1,column=1,sticky='W')
-                        self.la2=tk.Label(self,text="Caste")
-                        self.la2.grid(row=2,column=0,sticky='W')
-                        self.eta2=tk.Entry(self)
-                        self.eta2.grid(row=2,column=1,sticky='W')
-                        self.la3=tk.Label(self,text="Sex")
-                        self.la3.grid(row=3,column=0,sticky='W')
-                        self.eta3=tk.Entry(self)
-                        self.eta3.grid(row=3,column=1,sticky='W')
-                        self.la4=tk.Label(self,text="Branch Of Study")
-                        self.la4.grid(row=4,column=0,sticky='W')
-                        self.eta4=tk.Entry(self)
-                        self.eta4.grid(row=4,column=1,sticky='W')
-                        self.la5=tk.Label(self,text="Taluk")
-                        self.la5.grid(row=5,column=0,sticky='W')
-                        self.eta5=tk.Entry(self)
-                        self.eta5.grid(row=5,column=1,sticky='W')
-                        self.la6=tk.Label(self,text="District")
-                        self.la6.grid(row=6,column=0,sticky='W')
-                        self.eta6=tk.Entry(self)
-                        self.eta6.grid(row=6,column=1,sticky='W')
-                        self.buty=tk.Button(self,text="search",command=self.say_hello)
-                        self.buty.grid(row=7,column=1,sticky='W')
-                        
+                        self.va=tk.IntVar()
+                        self.v=tk.IntVar()
+                        self.vew=tk.IntVar()
+                        self.val=tk.IntVar()
+                        self.religion=""
+                        self.caste=""
+                        self.gen=""#self.eta3.get()
+                        self.bran=""#self.eta4.get()
+                        self.talu=""#self.eta5.get()
+                        self.dist=""
+                        self.configure(background='darkorchid')
+                        self.la=ttk.Label(self,text="search",font=("Times 30 italic"),background='darkorchid')
+                        self.la.grid(row=1,column=1,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                        self.la1=ttk.Label(self,text="Religion",font=("Times 25 italic"),background='darkorchid')
+                        self.la1.grid(row=2,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                       # self.eta1=ttk.Entry(self,font=("Times 10 italic"))
+                        self.rb=ttk.Radiobutton(self, text="Hindu",variable=self.va, value=1,style = 'Wild.TRadiobutton',command=self.setHindu)
+                        self.rb.grid(row=2,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                        self.rb2=ttk.Radiobutton(self, text="Muslim",variable=self.va, value=2,style = 'Wild.TRadiobutton', command=self.setMuslim)
+                        self.rb2.grid(row=2,column=2,sticky='W',padx=20,pady=10,ipadx=20,ipady=10 )
+                        self.rb3=ttk.Radiobutton(self, text="Christian",variable=self.va, value=3,style = 'Wild.TRadiobutton', command=self.setChristian)
+                        self.rb3.grid(row=2,column=3,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                                               
+                        self.la2=ttk.Label(self,text="Caste",font=("Times 25 italic"),background='darkorchid')
+                        self.la2.grid(row=3,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                        self.rb4=ttk.Radiobutton(self, text="OC",variable=self.v, value=1,style = 'Wild.TRadiobutton',command=self.Oc)
+                        self.rb4.grid(row=3,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                        self.rb5=ttk.Radiobutton(self, text="BC",variable=self.v, value=2,style = 'Wild.TRadiobutton',command=self.Bc)
+                        self.rb5.grid(row=3,column=2,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                        self.rb6=ttk.Radiobutton(self, text="MBC",variable=self.v, value=3,style = 'Wild.TRadiobutton', command=self.Mbc)
+                        self.rb6.grid(row=3,column=3,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                        self.rb7=ttk.Radiobutton(self, text="SC/ST",variable=self.v, value=4,style = 'Wild.TRadiobutton',command=self.Sct)
+                        self.rb7.grid(row=3,column=4,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                        self.la3=ttk.Label(self,text="Gender",font=("Times 25 italic"),background='darkorchid')
+                        self.la3.grid(row=4,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                        self.rb8=ttk.Radiobutton(self, text="Male",variable=self.val, value=1,style = 'Wild.TRadiobutton',command=self.Male)
+                        self.rb8.grid(row=4,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                        self.rb9=ttk.Radiobutton(self, text="Female",variable=self.val, value=2,style = 'Wild.TRadiobutton',command=self.Female)
+                        self.rb9.grid(row=4,column=2,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                        self.la4=ttk.Label(self,text="Branch Of Study",font=("Times 25 italic"),background='darkorchid')
+                        self.la4.grid(row=5,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                        self.rb10=ttk.Radiobutton(self, text="Civil",variable=self.vew, value=1,style = 'Wild.TRadiobutton',command=self.Civil)
+                        self.rb10.grid(row=5,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                        self.rb11=ttk.Radiobutton(self, text="Mechanical",variable=self.vew, value=2,style = 'Wild.TRadiobutton',command=self.Mech)
+                        self.rb11.grid(row=5,column=2,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                        self.rb12=ttk.Radiobutton(self, text="EEE",variable=self.vew, value=3,style = 'Wild.TRadiobutton',command=self.Eee)
+                        self.rb12.grid(row=5,column=3,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                        self.rb13=ttk.Radiobutton(self, text="ECE",variable=self.vew, value=4,style = 'Wild.TRadiobutton',command=self.Ece)
+                        self.rb13.grid(row=5,column=4,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                        self.rb14=ttk.Radiobutton(self, text="CSE",variable=self.vew, value=5,style = 'Wild.TRadiobutton',command=self.Cse)
+                        self.rb14.grid(row=5,column=5,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                        self.la5=ttk.Label(self,text="Taluk",font=("Times 25 italic"),background='darkorchid')
+                        self.la5.grid(row=6,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                        self.eta5=ttk.Entry(self,font=("Times 10 italic"))
+                        self.eta5.grid(row=6,column=1,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                        self.la6=ttk.Label(self,text="District",font=("Times 25 italic"),background='darkorchid')
+                        self.la6.grid(row=7,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                        self.tkvar = tk.StringVar(self)
+                        #self.tkvar.set('Ariyalur')
+                        self.choices={'Ariyalur','Chengalpet','Chennai','Coimbatore','Cuddalore','Dharmapuri','Dindigul','Erode','Kallakurichi','Kancheepuram','Karur','Krishnagiri','Madurai','Nagapattinam','Nilgiris','Kanyakumari','Namakkal','Perambalur','Pudukottai','Ramanathapuram','Ranipet','Salem','Sivagangai','Tenkasi','Thanjavur','Theni','Thiruvallur','Thiruvarur','Tuticorin','Trichirappalli','Thirunelveli','Tirupattur','Tiruppur','Thiruvannamalai','Vellore','Viluppuram','Virudhunagar'}
+                        self.popupMenu =ttk.OptionMenu(self, self.tkvar, *self.choices)
+                        self.popupMenu.grid(row=7,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                        #self.eta6=ttk.Entry(self,font=("Times 10 italic"))
+                        #self.eta6.grid(row=7,column=1,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                        self.buty=ttk.Button(self,text="search",style = 'W.TButton',command=self.say_hello)
+                        self.buty.grid(row=8,column=1,sticky='W',padx=30,pady=50)
+                        self.butxx=ttk.Button(self,style = 'B.TButton',text="<-",command=lambda: master.switch_frame(pageOne))
+                        self.butxx.grid(row=0,column=0,sticky='W')
                  
-                      
+                  #def _login_btn_clickked(self):
+                       # sex = self.religion #gets the value stored in gender and assigns it to sex
+                       # print(sex)
+                
+                  def setHindu(self):
+                        self.religion="Hindu" #sets gender to Male
+                  def Oc(self):
+                        self.caste="OC"
+                  def Bc(self):
+                        self.caste="BC"
+                  def Mbc(self):
+                        self.caste="MBC"
+                  def Sct(self):
+                        self.caste="SC/ST"
+                        
+                        
+                  def Male(self):  
+                      self.gen="Male"
+                  def Female(self):
+                      self.gen="Female"
+                  def Civil(self): 
+                      self.bran="Civil"
+                  def Mech(self): 
+                      self.bran="Mechanical"
+                  def Eee(self): 
+                      self.bran="EEE"
+                  def Ece(self): 
+                      self.bran="ECE"
+                  def Cse(self): 
+                      self.bran="CSE"
+                
+                  def setMuslim(self):
+                        self.religion="Musilim"
+                  def setChristian(self):
+                       self.religion="Christian"
                       
                   def say_hello(self):
                       # reli,cast,seex,bos,tal,dis
-                      self.reli=self.eta1.get()
-                      self.cast=self.eta2.get()
-                      self.seex=self.eta3.get()
-                      self.bos=self.eta4.get()
-                      self.tal=self.eta5.get()
-                      self.dis=self.eta6.get()
+                      self.reli=self.religion
+                      print(self.reli)
+                      self.cast=self.caste
+                      print(self.cast)#self.eta2.get()
+                      self.seex=self.gen
+                      print(self.seex)#self.eta3.get()
+                      self.bos=self.bran
+                      print(self.bos)#self.eta4.get()
+                      self.tal=""#self.eta5.get()
+                      self.dis=self.tkvar.get()#self.eta6.get()
+                      print(self.dis)
                       wb = Workbook()
                       #global ff
                       #print(self.reli)
@@ -996,7 +1061,8 @@ class search(tk.Frame):
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
 
-                      elif(self.reli==" " and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis==""):
+                      elif(self.reli=="" and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis==""):
+                          print("entered")
                           db.execute("select *from studentdetails where caste ='%s'" %(self.cast))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1009,7 +1075,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli==" " and self.cast =="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis==""):
+                      elif(self.reli=="" and self.cast =="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis==""):
                           db.execute("select *from studentdetails where sex ='%s'" %(self.seex))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1022,7 +1088,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli==" " and self.cast =="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis==""):
+                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis==""):
                           db.execute("select *from studentdetails where branch ='%s'" %(self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1035,7 +1101,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli==" " and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis==""):
+                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis==""):
                           db.execute("select *from studentdetails where taluk ='%s'" %(self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1048,7 +1114,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli==" " and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis!=""):
                           db.execute("select *from studentdetails where district ='%s'" %(self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1123,6 +1189,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
+                    
                       elif(self.reli=="" and self.cast !="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis==""):
                           db.execute("select *from studentdetails where caste='%s' and sex='%s'" %(self.cast,self.seex))
                           results = db.fetchall()
