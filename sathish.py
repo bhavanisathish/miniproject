@@ -13,7 +13,7 @@ pip install mysql-connector
 
 @author: Bhavani
 """
-
+from PIL import Image, ImageTk
 import webbrowser
 from openpyxl import Workbook
 import os
@@ -24,7 +24,6 @@ import tkinter as tk
 import tkinter.ttk as ttk 
 from ttkthemes import ThemedStyle
 import cv2
-import PIL.Image, PIL.ImageTk
 import mysql.connector
 db_cur=mysql.connector.connect(host='localhost',user='root',passwd='',database='studentform')
 db=db_cur.cursor()
@@ -55,8 +54,7 @@ class MyFirstGui(tk.Tk):
                 self._frame.pack()
                 self.state("zoomed")
                 self.configure(background='darkorchid')
-           
-       
+               
         
          
 class StartPage(tk.Frame): 
@@ -68,20 +66,7 @@ class StartPage(tk.Frame):
                     global username,passwords
                     self.l1=ttk.Label(self,text="Login here",font=("Times 40 italic"),background="darkorchid")
                     self.l1.grid(row=3,column=1,columnspan=2,sticky='W',padx=10,pady=50)
-                    #self.img = cv2.imread('login.png')
-                    #self.img = cv2.cvtColor(cv2.imread("login1.gif"), cv2.COLOR_BGR2RGB)
-                    #b,g,r = cv2.split(self.img)
-                    #self.img = cv2.merge((r,g,b))
-                    #b,g,r = cv2.split(self.img,1) 
-                    #self.img = cv2.merge((b,g,r))
-                    #self.im = Image.fromarray(self.img)
-                    #self.imgtk = ImageTk.PhotoImage(image=self.im) '''
-                   # self.photo = PIL.ImageTk.PhotoImage(image = PIL.Image.fromarray(self.img))
-                    #self.img =tk.PhotoImage(self,file=r'C:/Users/dell/Desktop/python/guipython/login1.gif')
-                    #self.ll11=tk.Label(self,self.img,w=100,h=100)
-                    #self.lbll22=tk.Label(self,image=self.photo)
-                    #self.ll11.grid(row=4,column=1,columnspan=2,sticky='W')
-                    #self.make_label(master,self.img)
+                    
                     self.l2=ttk.Label(self,text="Username",font=("Times 30 italic"),background="darkorchid")
                     self.l2.grid(row=5,column=0,padx=10,pady=50)
                     self.password=ttk.Label(self,text="Password",font=("Times 30 italic"),background="darkorchid")
@@ -200,25 +185,131 @@ class transfergroup(tk.Frame):
         def __init__(self, master):
                 tk.Frame.__init__(self,master)
                 self.configure(background='darkorchid')
-                l=ttk.Label(self,text="Enter the Details",font=("Times 30 italic"),background="darkorchid")
-                l.grid(row=0,padx=10,pady=70)
-                
-                l1=ttk.Label(self,text="Batch",bg="powderblue",font=("Times 30 italic"),background="darkorchid")
-                l1.grid(row=1,column=0,padx=10,pady=50,sticky='W')
-                e1=ttk.Entry(self,font=("Times 18 italic"))
-                e1.grid(row=1,column=2,sticky='W',padx=5,pady=5,ipady=5)
-                l2=ttk.Label(self,text="Leaving Date",bg="powderblue",font=("Times 30 italic"),background="darkorchid")
-                l2.grid(row=2,column=0,padx=10,pady=50,sticky='W')
-                e2=ttk.Entry(self,font=("Times 18 italic"))
-                e2.grid(row=2,column=2,padx=5,pady=5,ipady=5,sticky='W')
-                
-                but=ttk.Button(self,text="Submit",style = 'W.TButton')
-                but.grid(row=3,column=2,padx=10,pady=50,sticky='E')
-                
-                button15=ttk.Button(self,text="<-",style = 'B.TButton',command=lambda: master.switch_frame(transferspecify))
-                button15.grid(row=4,column=0,sticky='W')
+                self.view=tk.IntVar()
+                self.l=ttk.Label(self,text="Enter the Details",font=("Times 30 italic"),background="darkorchid")
+                self.l.grid(row=0,padx=10,pady=70)
+                self.la4=ttk.Label(self,text="Branch Of Study",font=("Times 25 italic"),background='darkorchid')
+                self.la4.grid(row=1,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                self.rb10=ttk.Radiobutton(self, text="Civil",variable=self.view, value=1,style = 'Wild.TRadiobutton',command=self.Civilg)
+                self.rb10.grid(row=1,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                self.rb11=ttk.Radiobutton(self, text="Mechanical",variable=self.view, value=2,style = 'Wild.TRadiobutton',command=self.Mechg)
+                self.rb11.grid(row=1,column=2,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                self.rb12=ttk.Radiobutton(self, text="EEE",variable=self.view, value=3,style = 'Wild.TRadiobutton',command=self.Eeeg)
+                self.rb12.grid(row=1,column=3,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                self.rb13=ttk.Radiobutton(self, text="ECE",variable=self.view, value=4,style = 'Wild.TRadiobutton',command=self.Eceg)
+                self.rb13.grid(row=1,column=4,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                self.rb14=ttk.Radiobutton(self, text="CSE",variable=self.view, value=5,style = 'Wild.TRadiobutton',command=self.Cseg)
+                self.rb14.grid(row=1,column=5,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                        
+                self.le2=ttk.Label(self,text="Leaving Date",font=("Times 30 italic"),background="darkorchid")
+                self.le2.grid(row=2,column=0,padx=10,pady=50,sticky='W')
+                self.ee2=ttk.Entry(self,font=("Times 18 italic"))
+                self.ee2.grid(row=2,column=2,padx=5,pady=5,ipady=5,sticky='W')
+                #print(entr1.get())
+                self.but=ttk.Button(self,text="Submit",style = 'W.TButton',command=self.tranzgrp)
+                self.but.grid(row=3,column=2,padx=10,pady=50,sticky='E')
+              
+                self.button16=ttk.Button(self,text="<-",style = 'B.TButton',command=lambda: master.switch_frame(transferspecify))
+                self.button16.grid(row=4,column=0,sticky='W')
+        def Civilg(self): 
+                self.bran="Civil"
+        def Mechg(self): 
+                self.bran="Mechanical"
+        def Eeeg(self): 
+                self.bran="EEE"
+        def Eceg(self): 
+                self.bran="ECE"
+        def Cseg(self): 
+                self.bran="CSE"
             
+        def tranzgrp(self):
+            global sentt,getit
+            sentt=self.bran
+            getit=self.ee2.get()
+            print(sentt)
+            print(getit)
+              
+            db.execute("select *from studentdetails where branch='%s'"%(sentt))
+            myresult=db.fetchall()
+            pdf=FPDF()
+
+            #reg=setentvar
             
+            for f in myresult:
+                pdf.add_page()
+                pdf.set_font("Arial",size=12)
+                pdf.set_font("Arial",size=12)
+                name="alagappa.jpg"
+                pdf.image(name,w=200,h=20)
+                
+                pdf.cell(100,10,txt="                                                              TRANSFER CERTIFICATE")
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     1.  Name of the student")
+                pdf.cell(100,10,txt="              "+str(f[0]))
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     2.  Name of the parent/Guardian")
+                pdf.cell(100,10,txt="              "+str(f[3]))
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     3.  Nationality Religion and coommunity")
+                pdf.cell(100,10,txt="              "+str(f[6]))
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     4.  Sex")
+                pdf.cell(100,10,txt="              "+str(f[8]))
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     5.  Date of Birth (in figure and words) ")
+                pdf.cell(100,10,txt="              "+str(f[9]))
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     as entered in the admission register")
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     6.  Course of Study")
+                pdf.cell(100,10,txt="              "+str(f[10]))
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     7.  Date of Admission to this college")
+                pdf.cell(100,10,txt="              "+str(f[12]))
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     8.  a) Whether the Student has paid all the  ")
+                pdf.cell(100,10,txt="")
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     Fees due to the college ?")
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     8.  b) Whether the Student was in receipt of ")
+                pdf.cell(100,10,txt="")
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     any scholarship")
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     9.  Whether the Student has undergone ")
+                
+                pdf.cell(100,10,txt="")
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     Medical inspection during the year")
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     10.  Reasons for leaving the College")
+                
+                pdf.cell(100,10,txt="")
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     11.  Date of Leaving")
+                pdf.cell(100,10,txt="              "+getit)
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     12.  Date on which application for Transfer  ")
+                pdf.cell(100,10,txt="")
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     Certificate was made by the Student or On ")
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     his/her behalf by Parent/Guardian")
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     13.  Date of the Transfer Certificate")
+                pdf.cell(100,10,txt="              "+str(f[23]))
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     14.  Medium")
+                pdf.cell(100,10,txt="              English")
+                pdf.ln(10)
+                pdf.cell(100,10,txt="     Seal")
+                pdf.cell(100,10,txt="")
+                pdf.ln(10)
+            r=sentt+".pdf"
+            pdf.output(r)
+            if os.path.exists(r):
+                     os.startfile(r)
             
 class transfersingle(tk.Frame):
           
@@ -246,7 +337,85 @@ class transfersingle(tk.Frame):
               global setentvar,sete2var
               setentvar=self.entr1.get()
               sete2var=self.e2.get()
-              MyFirstGui().switch_frame(transferCertificate)
+              #MyFirstGui().switch_frame(transferCertificate)
+              db.execute("select *from studentdetails where reg_number=%s"%(setentvar))
+              f=db.fetchone()
+              reg=setentvar
+               
+              pdf=FPDF()
+              pdf.add_page()
+              pdf.set_font("Arial",size=12)
+              name="alagappa.jpg"
+              pdf.image(name,w=200,h=20)
+                
+              pdf.cell(100,10,txt="                                                              TRANSFER CERTIFICATE")
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     1.  Name of the student")
+              pdf.cell(100,10,txt="              "+str(f[0]))
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     2.  Name of the parent/Guardian")
+              pdf.cell(100,10,txt="              "+str(f[3]))
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     3.  Nationality Religion and coommunity")
+              pdf.cell(100,10,txt="              "+str(f[6]))
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     4.  Sex")
+              pdf.cell(100,10,txt="              "+str(f[8]))
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     5.  Date of Birth (in figure and words) ")
+              pdf.cell(100,10,txt="              "+str(f[9]))
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     as entered in the admission register")
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     6.  Course of Study")
+              pdf.cell(100,10,txt="              "+str(f[10]))
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     7.  Date of Admission to this college")
+              pdf.cell(100,10,txt="              "+str(f[12]))
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     8.  a) Whether the Student has paid all the  ")
+              pdf.cell(100,10,txt="")
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     Fees due to the college ?")
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     8.  b) Whether the Student was in receipt of ")
+              pdf.cell(100,10,txt="")
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     any scholarship")
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     9.  Whether the Student has undergone ")
+                
+              pdf.cell(100,10,txt="")
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     Medical inspection during the year")
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     10.  Reasons for leaving the College")
+                
+              pdf.cell(100,10,txt="")
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     11.  Date of Leaving")
+              pdf.cell(100,10,txt="              "+sete2var)
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     12.  Date on which application for Transfer  ")
+              pdf.cell(100,10,txt="")
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     Certificate was made by the Student or On ")
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     his/her behalf by Parent/Guardian")
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     13.  Date of the Transfer Certificate")
+              pdf.cell(100,10,txt="              "+str(f[23]))
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     14.  Medium")
+              pdf.cell(100,10,txt="              English")
+              pdf.ln(10)
+              pdf.cell(100,10,txt="     Seal")
+              pdf.cell(100,10,txt="")
+              pdf.ln(10)
+              r=reg+".pdf"
+              pdf.output(r)
+              if os.path.exists(r):
+                           os.startfile(r)
                 
           
            
@@ -393,70 +562,71 @@ class transferCertificate(tk.Frame):
                 pdf=FPDF()
                 pdf.add_page()
                 pdf.set_font("Arial",size=12)
-                pdf.cell(100,10,txt="ALAGAPPA CHETTIAR GOVERNMENT COLLEGE OF ENGINEERING AND TECHNOLOGY")
+                name="alagappa.jpg"
+                pdf.image(name,w=200,h=20)
+                
+                pdf.cell(100,10,txt="                                                              TRANSFER CERTIFICATE")
                 pdf.ln(10)
-                pdf.cell(100,10,txt="                                      TRANSFER CERTIFICATE")
+                pdf.cell(100,10,txt="     1.  Name of the student")
+                pdf.cell(100,10,txt="              "+str(f[0]))
                 pdf.ln(10)
-                pdf.cell(100,10,txt="1.  Name of the student")
-                pdf.cell(100,10,txt=str(f[0]))
+                pdf.cell(100,10,txt="     2.  Name of the parent/Guardian")
+                pdf.cell(100,10,txt="              "+str(f[3]))
                 pdf.ln(10)
-                pdf.cell(100,10,txt="2.  Name of the parent/Guardian")
-                pdf.cell(100,10,txt=str(f[3]))
+                pdf.cell(100,10,txt="     3.  Nationality Religion and coommunity")
+                pdf.cell(100,10,txt="              "+str(f[6]))
                 pdf.ln(10)
-                pdf.cell(100,10,txt="3.  Nationality Religion and coommunity")
-                pdf.cell(100,10,txt=str(f[6]))
+                pdf.cell(100,10,txt="     4.  Sex")
+                pdf.cell(100,10,txt="              "+str(f[8]))
                 pdf.ln(10)
-                pdf.cell(100,10,txt="4.  Sex")
-                pdf.cell(100,10,txt=str(f[8]))
+                pdf.cell(100,10,txt="     5.  Date of Birth (in figure and words) ")
+                pdf.cell(100,10,txt="              "+str(f[9]))
                 pdf.ln(10)
-                pdf.cell(100,10,txt="5.  Date of Birth (in figure and words) ")
-                pdf.cell(100,10,txt=str(f[9]))
+                pdf.cell(100,10,txt="     as entered in the admission register")
                 pdf.ln(10)
-                pdf.cell(100,10,txt="as entered in the admission register")
+                pdf.cell(100,10,txt="     6.  Course of Study")
+                pdf.cell(100,10,txt="              "+str(f[10]))
                 pdf.ln(10)
-                pdf.cell(100,10,txt="6.  Course of Study")
-                pdf.cell(100,10,txt=str(f[10]))
+                pdf.cell(100,10,txt="     7.  Date of Admission to this college")
+                pdf.cell(100,10,txt="              "+str(f[12]))
                 pdf.ln(10)
-                pdf.cell(100,10,txt="7.  Date of Admission to this college")
-                pdf.cell(100,10,txt=str(f[12]))
-                pdf.ln(10)
-                pdf.cell(100,10,txt="8.  a) Whether the Student has paid all the  ")
+                pdf.cell(100,10,txt="     8.  a) Whether the Student has paid all the  ")
                 pdf.cell(100,10,txt="")
                 pdf.ln(10)
-                pdf.cell(100,10,txt="Fees due to the college ?")
+                pdf.cell(100,10,txt="     Fees due to the college ?")
                 pdf.ln(10)
-                pdf.cell(100,10,txt="8.  b) Whether the Student was in receipt of ")
+                pdf.cell(100,10,txt="     8.  b) Whether the Student was in receipt of ")
                 pdf.cell(100,10,txt="")
                 pdf.ln(10)
-                pdf.cell(100,10,txt="any scholarship")
+                pdf.cell(100,10,txt="     any scholarship")
                 pdf.ln(10)
-                pdf.cell(100,10,txt="9.  Whether the Student has undergone ")
+                pdf.cell(100,10,txt="     9.  Whether the Student has undergone ")
                 
                 pdf.cell(100,10,txt="")
                 pdf.ln(10)
-                pdf.cell(100,10,txt="Medical inspection during the year")
+                pdf.cell(100,10,txt="     Medical inspection during the year")
                 pdf.ln(10)
-                pdf.cell(100,10,txt="10.  Reasons for leaving the College")
+                pdf.cell(100,10,txt="     10.  Reasons for leaving the College")
                 
                 pdf.cell(100,10,txt="")
                 pdf.ln(10)
-                pdf.cell(100,10,txt="11.  Date of Leaving")
+                pdf.cell(100,10,txt="     11.  Date of Leaving")
                 pdf.cell(100,10,txt="")
                 pdf.ln(10)
-                pdf.cell(100,10,txt="12.  Date on which application for Transfer  ")
+                pdf.cell(100,10,txt="     12.  Date on which application for Transfer  ")
                 pdf.cell(100,10,txt="")
                 pdf.ln(10)
-                pdf.cell(100,10,txt="Certificate was made by the Student or On his/her")
+                pdf.cell(100,10,txt="     Certificate was made by the Student or On ")
                 pdf.ln(10)
-                pdf.cell(100,10,txt="behalf by Parent/Guardian")
+                pdf.cell(100,10,txt="     his/her behalf by Parent/Guardian")
                 pdf.ln(10)
-                pdf.cell(100,10,txt="13.  Date of the Transfer Certificate")
-                pdf.cell(100,10,txt=str(f[23]))
+                pdf.cell(100,10,txt="     13.  Date of the Transfer Certificate")
+                pdf.cell(100,10,txt="              "+str(f[23]))
                 pdf.ln(10)
-                pdf.cell(100,10,txt="14.  MEDIUM")
-                pdf.cell(100,10,txt="English")
+                pdf.cell(100,10,txt="     14.  Medium")
+                pdf.cell(100,10,txt="              English")
                 pdf.ln(10)
-                pdf.cell(100,10,txt="Seal")
+                pdf.cell(100,10,txt="     Seal")
                 pdf.cell(100,10,txt="")
                 pdf.ln(10)
                 r=reg+".pdf"
