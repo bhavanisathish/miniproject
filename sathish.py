@@ -352,10 +352,11 @@ class transfergroup(tk.Frame):
             myresult=db.fetchall()
             pdf=FPDF()
             #reg=
-            
+            i=1
            
             for f in myresult:
-                
+                print(i)
+                i=i+1
                 db.execute("SELECT * FROM `addtcinfo` WHERE `reg_no`= '%s' "%(f[1]))
                 mys=db.fetchone()
                 if(mys):
@@ -1326,7 +1327,7 @@ class newreg(tk.Frame):
 class search(tk.Frame):
                   def __init__(self, master):
                         tk.Frame.__init__(self,master)
-                      
+                        self.regis=""
                         self.religion=""
                         self.caste=""
                         self.gen=""#self.eta3.get()
@@ -1335,7 +1336,12 @@ class search(tk.Frame):
                         self.dist=""
                         self.configure(background='darkorchid')
                         self.la=ttk.Label(self,text="search",font=("Times 30 italic"),background='darkorchid')
-                        self.la.grid(row=1,column=1,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                        self.la.grid(row=0,column=1,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                        self.la1=ttk.Label(self,text="Register",font=("Times 25 italic"),background='darkorchid')
+                        self.la1.grid(row=1,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
+                        self.en =ttk.Entry(self)
+                        self.en.grid(row=1,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
+
                         self.la1=ttk.Label(self,text="Religion",font=("Times 25 italic"),background='darkorchid')
                         self.la1.grid(row=2,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
                         self.tkv1 = tk.StringVar(self)
@@ -1382,12 +1388,18 @@ class search(tk.Frame):
                         self.popupMenu['values']=('Ariyalur','Chengalpet','Chennai','Coimbatore','Cuddalore','Dharmapuri','Dindigul','Erode','Kallakurichi','Kancheepuram','Karur','Krishnagiri','Madurai','Nagapattinam','Nilgiris','Kanyakumari','Namakkal','Perambalur','Pudukottai','Ramanathapuram','Ranipet','Salem','Sivagangai','Tenkasi','Thanjavur','Theni','Thiruvallur','Thiruvarur','Tuticorin','Trichirappalli','Thirunelveli','Tirupattur','Tiruppur','Thiruvannamalai','Vellore','Viluppuram','Virudhunagar')
                         self.popupMenu.grid(row=8,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
                         self.popupMenu.current()
+                        
+                        self.la8=ttk.Label(self,text="Year Of Passout",font=("Times 25 italic"),background='darkorchid')
+                        self.la8.grid(row=9,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
+                        self.en1 =ttk.Entry(self)
+                        self.en1.grid(row=9,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
+                        
                         #self.eta6=ttk.Entry(self,font=("Times 10 italic"))
                         #self.eta6.grid(row=7,column=1,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
                         self.buty=ttk.Button(self,text="search",style = 'W.TButton',command=self.say_hello)
-                        self.buty.grid(row=9,column=1,sticky='W',padx=30,pady=50)
+                        self.buty.grid(row=10,column=1,sticky='W',padx=30,pady=30)
                         self.butxx=ttk.Button(self,style = 'W.TButton',text="Back",command=lambda: master.switch_frame(pageOne))
-                        self.butxx.grid(row=9,column=0,sticky='W',padx=30,pady=50)
+                        self.butxx.grid(row=10,column=0,sticky='W',padx=30,pady=30)
                  
                  
                   #def _login_btn_clickked(self):
@@ -1398,6 +1410,8 @@ class search(tk.Frame):
                       
                   def say_hello(self):
                       # reli,cast,seex,bos,tal,dis
+                      self.regis=self.en.get()
+                      self.yopo=self.en1.get()
                       self.reli=self.tkv1.get()
                       print(self.reli)
                       self.cast=self.tkv2.get()
@@ -1426,8 +1440,36 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
+                      elif(self.regis!=""):
+                          db.execute("select *from studentdetails where reg_number='%s' " %(self.regis))
+                          #ff=db.fetchone()
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "register"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.yopo!=""):
+                          db.execute("select *from studentdetails where Year_Of_Passout='%s' " %(self.yopo))
+                          #ff=db.fetchone()
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "YearOfPassOut"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
 
-                      elif(self.reli=="" and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis==""):
+                      elif(self.reli=="" and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis=="" and self.yopo==""):
                           print("entered")
                           db.execute("select *from studentdetails where caste ='%s'" %(self.cast))
                           results = db.fetchall()
@@ -1441,7 +1483,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast =="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis==""):
+                      elif(self.reli=="" and self.cast =="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where sex ='%s'" %(self.seex))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1454,7 +1496,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis==""):
+                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where branch ='%s'" %(self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1467,7 +1509,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis==""):
+                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where taluk ='%s'" %(self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1480,7 +1522,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where district ='%s'" %(self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1493,7 +1535,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!=" " and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis==""):
+                      elif(self.reli!=" " and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion ='%s' and caste ='%s'" %(self.reli,self.cast))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1503,7 +1545,7 @@ class search(tk.Frame):
                             ws.append(row)
                           workbook_name = "religioncaste"
                           wb.save(workbook_name + ".xlsx")
-                      elif(self.reli!="" and self.cast =="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis==""):
+                      elif(self.reli!="" and self.cast =="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion ='%s' and sex='%s'" %(self.reli,self.seex))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1516,7 +1558,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast =="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis==""):
+                      elif(self.reli!="" and self.cast =="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion ='%s' and branch='%s'" %(self.reli,self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1529,7 +1571,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis==""):
+                      elif(self.reli!="" and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion ='%s' and taluk='%s'" %(self.reli,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1542,7 +1584,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion ='%s' and branch='%s'" %(self.reli,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1555,8 +1597,21 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
+                      elif(self.reli!="" and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where religion ='%s' and Year_Of_Passout='%s'" %(self.reli,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "religionyearofpassout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
                     
-                      elif(self.reli=="" and self.cast !="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis==""):
+                      elif(self.reli=="" and self.cast !="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where caste='%s' and sex='%s'" %(self.cast,self.seex))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1569,7 +1624,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast !="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis==""):
+                      elif(self.reli=="" and self.cast !="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where caste='%s' and branch='%s'" %(self.cast,self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1582,7 +1637,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis==""):
+                      elif(self.reli=="" and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where caste='%s' and taluk='%s'" %(self.cast,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1595,7 +1650,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli=="" and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where caste='%s' and district='%s'" %(self.cast,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1608,7 +1663,20 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast =="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis==""):
+                      elif(self.reli=="" and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where caste='%s' and Year_Of_Passout='%s'" %(self.cast,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "casteyearofpassout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli=="" and self.cast =="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where sex='%s' and branch='%s'" %(self.seex,self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1621,7 +1689,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast =="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis==""):
+                      elif(self.reli=="" and self.cast =="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where sex='%s' and taluk='%s'" %(self.seex,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1634,7 +1702,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast =="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli=="" and self.cast =="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where sex='%s' and district='%s'" %(self.seex,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1647,7 +1715,20 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis==""):
+                      elif(self.reli=="" and self.cast =="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where sex='%s' and Year_Of_Passout='%s'" %(self.seex,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "sexdistrict"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where branch='%s' and taluk='%s'" %(self.bos,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1660,7 +1741,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where branch='%s' and district='%s'" %(self.bos,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1673,7 +1754,20 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast =="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where branch='%s' and Year_Of_Passout='%s'" %(self.bos,self.dis))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "branchyearofpassout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)    
+                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where taluk='%s' and district='%s'" %(self.tal,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1686,8 +1780,34 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
+                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where taluk='%s' and Year_Of_Passout='%s'" %(self.tal,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "talukyearofpassout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli=="" and self.cast =="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis!="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where Year_Of_Passout='%s' and district='%s'" %(self.yopo,self.dis))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "districtyearofpassout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
                       #3 combo  
-                      elif(self.reli!="" and self.cast !="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis==""):
+                      elif(self.reli!="" and self.cast !="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and caste='%s' and sex='%s'" %(self.reli,self.cast,self.seex))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1700,7 +1820,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast !="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis==""):
+                      elif(self.reli!="" and self.cast !="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and caste='%s' and branch='%s'" %(self.reli,self.cast,self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1713,7 +1833,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis==""):
+                      elif(self.reli!="" and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and caste='%s' and taluk='%s'" %(self.reli,self.cast,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1726,7 +1846,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and caste='%s' and district='%s'" %(self.reli,self.cast,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1739,7 +1859,25 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis==""):
+                      elif(self.reli!="" and self.cast !="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where religion='%s' and caste='%s' and Year_Of_Passout='%s'" %(self.reli,self.cast,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "religioncasteyearofpassout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                          
+                          
+                          
+                          
+                          
+                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and sex='%s' and branch='%s'" %(self.reli,self.seex,self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1752,7 +1890,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis==""):
+                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and sex='%s' and taluk='%s'" %(self.reli,self.seex,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1765,7 +1903,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and sex='%s' and branch='%s' and district='%s'" %(self.reli,self.seex,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1773,12 +1911,26 @@ class search(tk.Frame):
                           ws.append(db.column_names)
                           for row in results:
                             ws.append(row)
-                          workbook_name = "religionsexbranch"
+                          workbook_name = "religionsexdistrict"
                           wb.save(workbook_name + ".xlsx")
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast=="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis==""):
+                          
+                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where religion='%s' and sex='%s' and branch='%s' and Year_Of_Passout='%s'" %(self.reli,self.seex,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "religionsexyearofpassout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli!="" and self.cast=="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and taluk='%s' and branch='%s'" %(self.reli,self.tal,self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1791,7 +1943,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast=="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast=="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and district='%s' and branch='%s'" %(self.reli,self.dis,self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1804,7 +1956,21 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast=="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast=="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where religion='%s' and Year_Of_Passout='%s' and branch='%s'" %(self.reli,self.yopo,self.bos))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "religionyearfpassouttbranch"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)    
+                          
+                      elif(self.reli!="" and self.cast=="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and taluk='%s' and district='%s'" %(self.reli,self.tal,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1817,7 +1983,33 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis==""):
+                      elif(self.reli!="" and self.cast=="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where religion='%s' and taluk='%s' and Year_Of_Passout='%s'" %(self.reli,self.tal,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "religiontalukyearofpassout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli!="" and self.cast=="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis!="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where religion='%s' and district='%s' and Year_Of_Passout='%s'" %(self.reli,self.tal,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "religiondistrictyearofpassout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where caste='%s' and sex='%s' and branch='%s'" %(self.cast,self.seex,self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1830,7 +2022,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis==""):
+                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where caste='%s' and sex='%s' and taluk='%s'" %(self.cast,self.seex,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1843,7 +2035,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where caste='%s' and sex='%s' and district='%s'" %(self.cast,self.seex,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1856,7 +2048,20 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis==""):
+                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where caste='%s' and sex='%s' and Year_Of_Passout='%s'" %(self.cast,self.seex,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "castesexyearofpassout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli=="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where caste='%s' and taluk='%s' and branch='%s'" %(self.cast,self.tal,self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1869,7 +2074,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli=="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where caste='%s' and district='%s' and branch='%s'" %(self.cast,self.dis,self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1882,7 +2087,26 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast!="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis!=""):
+                     
+                        
+                      elif(self.reli=="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where caste='%s' and Year_Of_Passout='%s' and branch='%s'" %(self.cast,self.dis,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "casteyopobranch"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      
+                    
+                      
+                      
+                      elif(self.reli=="" and self.cast!="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where caste='%s' and taluk='%s' and district='%s'" %(self.cast,self.tal,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1890,12 +2114,38 @@ class search(tk.Frame):
                           ws.append(db.column_names)
                           for row in results:
                             ws.append(row)
-                          workbook_name = "castetaukdistrict"
+                          workbook_name = "castetalukdistrict"
                           wb.save(workbook_name + ".xlsx")
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis==""):
+                      elif(self.reli=="" and self.cast!="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where caste='%s' and taluk='%s' and Year_Of_Passout='%s'" %(self.cast,self.tal,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "castetalukyearofpassout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli=="" and self.cast!="" and self.seex ==""  and self.bos==""  and self.tal =="" and self.dis!="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where caste='%s' and Year_Of_Passout='%s' and district='%s'" %(self.cast,self.yopo,self.dis))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "casteyearofpassoutdistrict"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli=="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where taluk='%s' and sex='%s' and branch='%s'" %(self.tal,self.seex,self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1908,7 +2158,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli=="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where district='%s' and sex='%s' and branch='%s'" %(self.dis,self.seex,self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1921,7 +2171,20 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast=="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis!=""):
+                      elif(self.reli=="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where Year_Of_Passout='%s' and sex='%s' and branch='%s'" %(self.yopo,self.seex,self.bos))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "yearofpassoutsexbranch"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)    
+                      elif(self.reli=="" and self.cast=="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where district='%s' and sex='%s' and taluk='%s'" %(self.dist,self.seex,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1935,7 +2198,21 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast=="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis!=""):
+                      elif(self.reli=="" and self.cast=="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where Year_Of_Passout='%s' and sex='%s' and taluk='%s'" %(self.yopo,self.seex,self.tal))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                         
+                          workbook_name = "YearOfPassoutsextaluk"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli=="" and self.cast=="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where district='%s' and taluk='%s' and branch='%s'" %(self.dis,self.tal,self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1948,7 +2225,21 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis==""):
+                      elif(self.reli=="" and self.cast=="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where Year_Of_Passout='%s' and taluk='%s' and branch='%s'" %(self.yopo,self.tal,self.bos))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "YearOfPassouttalukbranch"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                     #4 combo
+                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and caste='%s' and sex='%s' and branch='%s'" %(self.reli,self.cast,self.seex,self.bos))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1961,7 +2252,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis==""):
+                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and caste='%s' and sex='%s' and taluk='%s'" %(self.reli,self.cast,self.seex,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1974,7 +2265,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and caste='%s' and sex='%s' and district='%s'" %(self.reli,self.cast,self.seex,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -1987,7 +2278,20 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis==""):
+                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where religion='%s' and caste='%s' and sex='%s' and Year_Of_Passout='%s'" %(self.reli,self.cast,self.seex,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "religioncastesexyearofpassout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli!="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and caste='%s' and branch='%s' and taluk='%s'" %(self.reli,self.cast,self.bos,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2000,7 +2304,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and caste='%s' and branch='%s' and district='%s'" %(self.reli,self.cast,self.bos,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2013,7 +2317,20 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast!="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where religion='%s' and caste='%s' and branch='%s' and Year_Of_Passout='%s'" %(self.reli,self.cast,self.bos,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "religioncastebranchYearOfPassout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli!="" and self.cast!="" and self.seex ==""  and self.bos==""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and caste='%s' and district='%s' and taluk='%s'" %(self.reli,self.cast,self.dis,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2026,7 +2343,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis==""):
+                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where sex='%s' and caste='%s' and branch='%s' and taluk='%s'" %(self.seex,self.cast,self.bos,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2036,7 +2353,7 @@ class search(tk.Frame):
                             ws.append(row)
                           workbook_name = "sexcastebranchtaluk"
                           wb.save(workbook_name + ".xlsx")
-                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where sex='%s' and caste='%s' and branch='%s' and district='%s'" %(self.seex,self.cast,self.bos,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2049,7 +2366,20 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis!=""):
+                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where sex='%s' and caste='%s' and branch='%s' and Year_Of_Passout='%s'" %(self.seex,self.cast,self.bos,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "sexcastebranchyearofpassout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where sex='%s' and caste='%s' and district='%s' and taluk='%s'" %(self.seex,self.cast,self.dis,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2062,7 +2392,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis==""):
+                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and sex='%s' and branch='%s' and taluk='%s'" %(self.reli,self.seex,self.bos,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2075,7 +2405,8 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis!=""):
+                      
+                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and sex='%s' and branch='%s' and district='%s'" %(self.reli,self.seex,self.bos,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2088,7 +2419,20 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where religion='%s' and sex='%s' and branch='%s' and Year_Of_Passout='%s'" %(self.reli,self.seex,self.bos,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "religionsexbranchYearOfPassout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and sex='%s' and district='%s' and taluk='%s'" %(self.reli,self.seex,self.dis,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2098,7 +2442,7 @@ class search(tk.Frame):
                             ws.append(row)
                           workbook_name = "religionsexdistricttaluk"
                           wb.save(workbook_name + ".xlsx")
-                      elif(self.reli!="" and self.cast=="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast=="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and district='%s' and branch='%s' and taluk='%s'" %(self.reli,self.dis,self.bos,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2111,7 +2455,33 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast=="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where religion='%s' and Year_Of_Passout='%s' and branch='%s' and taluk='%s'" %(self.reli,self.yopo,self.bos,self.tal))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "religionyopobranchtaluk"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli!="" and self.cast=="" and self.seex ==""  and self.bos!=""  and self.tal =="" and self.dis!="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where religion='%s' and district='%s' and branch='%s' and Year_Of_Passout='%s'" %(self.reli,self.dis,self.bos,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "religiondistrictbranchyopo"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli=="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where district='%s' and caste='%s' and branch='%s' and taluk='%s'" %(self.dis,self.cast,self.bos,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2124,7 +2494,33 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis!=""):
+                      elif(self.reli=="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where Year_Of_Passout='%s' and caste='%s' and branch='%s' and taluk='%s'" %(self.yopo,self.cast,self.bos,self.tal))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "districtcastebranchtaluk"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli=="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal=="" and self.dis!="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where district='%s' and caste='%s' and branch='%s' and Year_Of_Passout='%s'" %(self.dis,self.cast,self.bos,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "districtcastebranchtaluk"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli=="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where sex='%s' and district='%s' and branch='%s' and taluk='%s'" %(self.seex,self.dis,self.bos,self.tal))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2137,7 +2533,36 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis==""):
+                      elif(self.reli=="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where sex='%s' and Year_Of_Passout='%s' and branch='%s' and taluk='%s'" %(self.seex,self.yopo,self.bos,self.tal))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "sexYear_Of_Passoutbranchtaluk"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli=="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis!="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where sex='%s' and district='%s' and branch='%s' and Year_Of_Passout='%s'" %(self.seex,self.dis,self.bos,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "sexdistrictbranchYear_Of_Passout"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                          
+                          
+                          
+                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis=="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and caste='%s' and branch='%s' and taluk='%s' and sex='%s'" %(self.reli,self.cast,self.bos,self.tal,self.seex))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2151,7 +2576,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and caste='%s' and branch='%s' and district='%s' and sex='%s'" %(self.reli,self.cast,self.bos,self.dis,self.seex))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2164,7 +2589,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and caste='%s' and district='%s' and taluk='%s' and sex='%s'" %(self.reli,self.cast,self.dis,self.tal,self.seex))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2177,7 +2602,36 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal !="" and self.dis=="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where religion='%s' and caste='%s' and Year_Of_Passout='%s' and taluk='%s' and sex='%s'" %(self.reli,self.cast,self.yopo,self.tal,self.seex))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "religioncasteYearOfPassouttaluksex"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos==""  and self.tal =="" and self.dis!="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where religion='%s' and caste='%s' and district='%s' and Year_Of_Passout='%s' and sex='%s'" %(self.reli,self.cast,self.dis,self.yopo,self.seex))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "religioncastedistrictYearOfPassoutsex"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                          
+                          
+                          
+                      elif(self.reli!="" and self.cast!="" and self.seex ==""  and self.bos!=""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and caste='%s' and branch='%s' and taluk='%s' and district='%s'" %(self.reli,self.cast,self.bos,self.tal,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2187,7 +2641,7 @@ class search(tk.Frame):
                             ws.append(row)
                           workbook_name = "religioncastebranchtalukdistrict"
                           wb.save(workbook_name + ".xlsx")
-                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast=="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and district='%s' and branch='%s' and taluk='%s' and sex='%s'" %(self.reli,self.dis,self.bos,self.tal,self.seex))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2200,7 +2654,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis!=""):
+                      elif(self.reli=="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where district='%s' and caste='%s' and branch='%s' and taluk='%s' and sex='%s'" %(self.dis,self.cast,self.bos,self.tal,self.seex))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2213,7 +2667,7 @@ class search(tk.Frame):
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
                           webbrowser.open(dir)
-                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis!=""):
+                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis!="" and self.yopo==""):
                           db.execute("select *from studentdetails where religion='%s' and caste='%s' and branch='%s' and taluk='%s' and sex='%s' and district='%s'" %(self.reli,self.cast,self.bos,self.tal,self.sex,self.dis))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
@@ -2222,6 +2676,19 @@ class search(tk.Frame):
                           for row in results:
                             ws.append(row)
                           workbook_name = "religioncastebranchtaluksexdistrict"
+                          wb.save(workbook_name + ".xlsx")
+                          v=os.path.abspath(workbook_name + ".xlsx")
+                          dir = v.replace('\\','/')
+                          webbrowser.open(dir)
+                      elif(self.reli!="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal !="" and self.dis!="" and self.yopo!=""):
+                          db.execute("select *from studentdetails where religion='%s' and caste='%s' and branch='%s' and taluk='%s' and sex='%s' and district='%s' and Year_Of_Passout='%s'" %(self.reli,self.cast,self.bos,self.tal,self.sex,self.dis,self.yopo))
+                          results = db.fetchall()
+                          ws = wb.create_sheet(0)
+                          #ws.title = studentdetails
+                          ws.append(db.column_names)
+                          for row in results:
+                            ws.append(row)
+                          workbook_name = "religioncastebranchtaluksexdistrictyopo"
                           wb.save(workbook_name + ".xlsx")
                           v=os.path.abspath(workbook_name + ".xlsx")
                           dir = v.replace('\\','/')
