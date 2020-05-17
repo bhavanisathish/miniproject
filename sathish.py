@@ -85,14 +85,17 @@ class StartPage(tk.Frame):
                     self.b1.grid(row=9,column=0,padx=30,pady=50)
                     self.b12=ttk.Button(self,text="Register",style = 'W.TButton',command=lambda: master.switch_frame(registration))
                     self.b12.grid(row=9,column=1,padx=30,pady=50)
-                    self.b2=ttk.Button(self,text="RESET",style = 'W.TButton')
+                    self.b2=ttk.Button(self,text="RESET",style = 'W.TButton',command=self.reset)
                     self.b2.grid(row=9,column=2,padx=30,pady=50)
                     
                     #self.button=tk.Button(self,text="->",width=10,command=lambda: master.switch_frame(pageOne))
                     #self.button.grid(row=4,column=0,sticky='W')
                     
             #self.ll1=tk.Button(self, text = 'Click Me !', image = photo1)
-            #self.ll1.grid(row=4,column=0,sticky='W')
+      def reset(self):
+          self.e1.delete(first=0,last=300)
+          self.e2.delete(first=0,last=300)
+          
       def passd(self):
             self.username = self.e1.get()
             self.passwords = self.e2.get()
@@ -191,90 +194,6 @@ class pageOne(tk.Frame):
              self.button11=ttk.Button(self,text="BACK",style = 'W.TButton',command=lambda: master.switch_frame(StartPage))
              self.button11.grid(row=6,column=1,sticky='W')
              
-class remaintc(tk.Frame):
-        def __init__(self, master):
-                tk.Frame.__init__(self,master)
-                self.configure(background='darkorchid')
-                self.vieww=tk.IntVar()
-                self.viewe=tk.IntVar()
-                self.viiew=tk.IntVar()
-                self.rem=ttk.Label(self,text="Select the options for the given details",font=("Times 30 italic"),background="darkorchid")
-                self.rem.grid(row=0,padx=10,pady=40)
-                self.l12=ttk.Label(self,text="Enter the register number",font=("Times 20 italic"),background="darkorchid")
-                self.l12.grid(row=1,column=0,padx=10,pady=30,sticky='W')
-                self.e412=ttk.Entry(self,font=("Times 15 italic"))
-                self.e412.grid(row=1,column=1,padx=5,pady=5,ipady=5,sticky='W')
-                self.l1=ttk.Label(self,text="Whether the student has paid all the fees due to the college?",font=("Times 20 italic"),background='darkorchid')
-                self.l1.grid(row=2,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
-                self.r10=ttk.Radiobutton(self, text="Yes",variable=self.vieww, value=1,style = 'Wild.TRadiobutton',command=self.feey)
-                self.r10.grid(row=2,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
-                self.r11=ttk.Radiobutton(self, text="No",variable=self.vieww, value=2,style = 'Wild.TRadiobutton',command=self.feex)
-                self.r11.grid(row=2,column=2,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
-                
-                self.l2=ttk.Label(self,text="Whether the student was in the receipt of any scholarship",font=("Times 20 italic"),background='darkorchid')
-                self.l2.grid(row=3,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
-                self.r20=ttk.Radiobutton(self, text="Yes",variable=self.viewe, value=1,style = 'Wild.TRadiobutton',command=self.schy)
-                self.r20.grid(row=3,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
-                self.r21=ttk.Radiobutton(self, text="No",variable=self.viewe, value=2,style = 'Wild.TRadiobutton',command=self.schx)
-                self.r21.grid(row=3,column=2,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
-                
-                self.l3=ttk.Label(self,text="Whether the student has undergone Medical inspection during the year",font=("Times 20 italic"),background='darkorchid')
-                self.l3.grid(row=4,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
-                self.r30=ttk.Radiobutton(self, text="Yes",variable=self.viiew, value=1,style = 'Wild.TRadiobutton',command=self.medy)
-                self.r30.grid(row=4,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
-                self.r31=ttk.Radiobutton(self, text="No",variable=self.viiew, value=2,style = 'Wild.TRadiobutton',command=self.medx)
-                self.r31.grid(row=4,column=2,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
-                                                        
-                self.l4=ttk.Label(self,text="Reason for leaving the college",font=("Times 20 italic"),background="darkorchid")
-                self.l4.grid(row=5,column=0,padx=10,pady=30,sticky='W')
-                self.e40=ttk.Entry(self,font=("Times 15 italic"))
-                self.e40.grid(row=5,column=1,padx=5,pady=5,ipady=5,sticky='W')
-                
-                self.l4=ttk.Label(self,text="Date on which application for Transfer Certificate was ",font=("Times 20 italic"),background="darkorchid")
-                self.l4.grid(row=6,column=0,padx=10,pady=10,sticky='W')
-                
-                self.l5=ttk.Label(self,text="made by the student or on his/her behalf by parent/guardian",font=("Times 20 italic"),background="darkorchid")
-                self.l5.grid(row=6,column=0,padx=10,pady=1,sticky='W')
-                self.e41=ttk.Entry(self,font=("Times 15 italic"))
-                self.e41.grid(row=6,column=1,padx=5,pady=1,ipady=5,sticky='W')
-                
-                self.but=ttk.Button(self,text="Submit",style = 'W.TButton',command=self.valiii)
-                self.but.grid(row=7,column=1,padx=10,pady=50,sticky='E')
-              
-                self.button16=ttk.Button(self,text="BACK",style = 'W.TButton',command=lambda: master.switch_frame(pageOne))
-                self.button16.grid(row=7,column=0,sticky='W')
-        def feey(self):
-            self.feeey="yes"
-        def feex(self):
-            self.feeey="no"
-        def schy(self):
-            self.schhy="yes"
-        def schx(self):
-            self.schhy="no"
-        def medy(self):
-            self.meedy="yes"
-        def medx(self):
-            self.meedy="no"
-        def valiii(self):
-            self.reasn=self.e40.get()
-            self.donw=self.e41.get()
-            self.regnoo=self.e412.get()
-            #self.mbso=self.e42.get()
-            print(self.feeey)
-            print(self.schhy)
-            print(self.meedy)
-            print(self.reasn)
-            print(self.donw)
-            #print(self.mbso)
-            
-            if(datetime.datetime.strptime(self.donw, '%Y-%m-%d') and self.feeey!="" and self.regnoo!="" and self.schhy!="" and self.meedy!="" and self.schhy!="" ):
-                     sql0="INSERT INTO `addtcinfo`(`reg_no`, `student_bill`, `scholarship`, `medicalinspection`, `reasonforleaving`, `addofaplication`) VALUES(%s,%s,%s,%s,%s,%s)"
-                     val0=(self.regnoo,self.feeey,self.schhy,self.meedy,self.reasn,self.donw)
-                     db.execute(sql0,val0)
-                     db_cur.commit()             
-                     self.master.switch_frame(pageOne) 
-            else:
-                    messagebox.showinfo("Transfer Error", "Fill all the fields and Check above details are True") 
 
         
 class transferspecify(tk.Frame):
@@ -290,9 +209,7 @@ class transferspecify(tk.Frame):
              ll.grid(row=2,column=1,padx=10,pady=80)
              Button1=ttk.Button(self,text="     Batch Transfer Certificate    ",style = 'W.TButton',command=lambda: master.switch_frame(transfergroup))
              Button1.grid(row=2,column=1,sticky='W',padx=30,pady=20)
-              
-             bb5=ttk.Button(self,text="Extra Information",style = 'L.TButton',command=lambda: master.switch_frame(remaintc))
-             bb5.grid(row=3,column=1,sticky='W',pady=30)
+             
              
              self.button13=ttk.Button(self,text="BACK",style = 'W.TButton',command=lambda: master.switch_frame(pageOne))
              self.button13.grid(row=4,column=1,sticky='W',padx=30,pady=20)
@@ -302,53 +219,114 @@ class transfergroup(tk.Frame):
                 tk.Frame.__init__(self,master)
                 self.configure(background='darkorchid')
                 self.view=tk.IntVar()
-                self.l=ttk.Label(self,text="Enter the Details",font=("Times 30 italic"),background="darkorchid")
-                self.l.grid(row=0,padx=10,pady=70)
-                self.la4=ttk.Label(self,text="Branch Of Study",font=("Times 25 italic"),background='darkorchid')
-                self.la4.grid(row=1,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
-                self.rb10=ttk.Radiobutton(self, text="Civil",variable=self.view, value=1,style = 'Wild.TRadiobutton',command=self.Civilg)
-                self.rb10.grid(row=1,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
-                self.rb11=ttk.Radiobutton(self, text="Mechanical",variable=self.view, value=2,style = 'Wild.TRadiobutton',command=self.Mechg)
-                self.rb11.grid(row=1,column=2,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
-                self.rb12=ttk.Radiobutton(self, text="EEE",variable=self.view, value=3,style = 'Wild.TRadiobutton',command=self.Eeeg)
-                self.rb12.grid(row=1,column=3,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
-                self.rb13=ttk.Radiobutton(self, text="ECE",variable=self.view, value=4,style = 'Wild.TRadiobutton',command=self.Eceg)
-                self.rb13.grid(row=1,column=4,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
-                self.rb14=ttk.Radiobutton(self, text="CSE",variable=self.view, value=5,style = 'Wild.TRadiobutton',command=self.Cseg)
-                self.rb14.grid(row=1,column=5,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
-                        
-                self.le2=ttk.Label(self,text="Leaving Date",font=("Times 30 italic"),background="darkorchid")
-                self.le2.grid(row=2,column=0,padx=10,pady=50,sticky='W')
+                self.l=ttk.Label(self,text="Enter the Details",font=("Times 22 italic"),background="darkorchid")
+                self.l.grid(row=0,padx=10,pady=20)
+                
+                
+                self.l12=ttk.Label(self,text="Branch Of Study",font=("Times 18 italic"),background="darkorchid")
+                self.l12.grid(row=1,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                self.ll12=ttk.Label(self,text="  :  ",font=("Times 15 italic"),background="darkorchid")
+                self.ll12.grid(row=1,column=2,sticky='W',pady=3,padx=40)
+                self.t6 = tk.StringVar(self)
+                self.p6 =ttk.Combobox(self, width=25, textvariable=self.t6)
+                self.p6['values']=('Civil Engineering','Mechanical Engineering','Electrical and Electronics Engineering','Electronics and Communication Engineering','Computer science and Engineering')  
+                self.p6.grid(row=1,column=1,padx=5,pady=5,ipady=5,sticky='W')
+                self.p6.current()
+                
+                
+                              
+                self.le2=ttk.Label(self,text="Leaving Date",font=("Times 18 italic"),background="darkorchid")
+                self.le2.grid(row=2,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
                 self.ee2=ttk.Entry(self,font=("Times 18 italic"))
                 self.ee2.grid(row=2,column=1,padx=5,pady=5,ipady=5,sticky='W')
-                self.le3=ttk.Label(self,text="Year Of PassOut",font=("Times 30 italic"),background="darkorchid")
-                self.le3.grid(row=3,column=0,padx=10,pady=50,sticky='W')
+                self.le3=ttk.Label(self,text="Year Of PassOut",font=("Times 18 italic"),background="darkorchid")
+                self.le3.grid(row=3,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
                 self.ee3=ttk.Entry(self,font=("Times 18 italic"))
                 self.ee3.grid(row=3,column=1,padx=5,pady=5,ipady=5,sticky='W')
                 #print(entr1.get())
+                
+                self.vieww=tk.IntVar()
+                self.viewe=tk.IntVar()
+                self.viiew=tk.IntVar()
+                
+                
+                self.l1=ttk.Label(self,text="Whether the student has paid all the fees due to the college?",font=("Times 20 italic"),background='darkorchid')
+                self.l1.grid(row=5,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=10)
+                self.r10=ttk.Radiobutton(self, text="Yes",variable=self.vieww, value=1,style = 'Wild.TRadiobutton',command=self.feey)
+                self.r10.grid(row=5,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=10)
+                self.r11=ttk.Radiobutton(self, text="No",variable=self.vieww, value=2,style = 'Wild.TRadiobutton',command=self.feex)
+                self.r11.grid(row=5,column=2,sticky='W',padx=20,pady=5,ipadx=20,ipady=10)
+                
+                self.l2=ttk.Label(self,text="Whether the student was in the receipt of any scholarship",font=("Times 20 italic"),background='darkorchid')
+                self.l2.grid(row=6,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=10)
+                self.r20=ttk.Radiobutton(self, text="Yes",variable=self.viewe, value=1,style = 'Wild.TRadiobutton',command=self.schy)
+                self.r20.grid(row=6,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=10)
+                self.r21=ttk.Radiobutton(self, text="No",variable=self.viewe, value=2,style = 'Wild.TRadiobutton',command=self.schx)
+                self.r21.grid(row=6,column=2,sticky='W',padx=20,pady=5,ipadx=20,ipady=10)
+                
+                self.l3=ttk.Label(self,text="Whether the student has undergone Medical inspection during the year",font=("Times 20 italic"),background='darkorchid')
+                self.l3.grid(row=7,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=10)
+                self.r30=ttk.Radiobutton(self, text="Yes",variable=self.viiew, value=1,style = 'Wild.TRadiobutton',command=self.medy)
+                self.r30.grid(row=7,column=1,sticky='W',padx=10,pady=5,ipadx=20,ipady=10)
+                self.r31=ttk.Radiobutton(self, text="No",variable=self.viiew, value=2,style = 'Wild.TRadiobutton',command=self.medx)
+                self.r31.grid(row=7,column=2,sticky='W',padx=10,pady=5,ipadx=20,ipady=10)
+                                                        
+                self.l4=ttk.Label(self,text="Reason for leaving the college",font=("Times 20 italic"),background="darkorchid")
+                self.l4.grid(row=8,column=0,padx=5,pady=5,sticky='W')
+                self.e40=ttk.Entry(self,font=("Times 15 italic"))
+                self.e40.grid(row=8,column=1,padx=5,pady=5,ipady=5,sticky='W')
+                
+                self.l4=ttk.Label(self,text="Date on which application for Transfer Certificate was ",font=("Times 20 italic"),background="darkorchid")
+                self.l4.grid(row=9,column=0,padx=5,pady=5,sticky='W')                
+                self.l5=ttk.Label(self,text="made by the student or on his/her behalf by parent/guardian",font=("Times 20 italic"),background="darkorchid")
+                self.l5.grid(row=10,column=0,padx=5,pady=5,sticky='W')
+                self.e41=ttk.Entry(self,font=("Times 15 italic"))
+                self.e41.grid(row=10,column=1,padx=5,pady=5,ipady=5,sticky='W')
+                #print(entr1.get())
+                
                 self.but=ttk.Button(self,text="SUBMIT",style = 'W.TButton',command=self.tranzgrp)
-                self.but.grid(row=4,column=2,padx=10,pady=50,sticky='E')
+                self.but.grid(row=11,column=1,padx=5,pady=5,sticky='E')
               
                 self.button16=ttk.Button(self,text="BACK",style = 'W.TButton',command=lambda: master.switch_frame(transferspecify))
-                self.button16.grid(row=4,column=1,sticky='W')
-        def Civilg(self): 
-                self.bran="Civil Engineering"
-        def Mechg(self): 
-                self.bran="Mechanical Engineering"
-        def Eeeg(self): 
-                self.bran="Electrical and Electronics Engineering"
-        def Eceg(self): 
-                self.bran="Electronics and Communication Engineering"
-        def Cseg(self): 
-                self.bran="Computer science and Engineering"
+                self.button16.grid(row=11,column=0,sticky='W')
+        
+        def feey(self):
+            self.feeey="yes"
+        def feex(self):
+            self.feeey="no"
+        def schy(self):
+            self.schhy="yes"
+        def schx(self):
+            self.schhy="no"
+        def medy(self):
+            self.meedy="yes"
+        def medx(self):
+            self.meedy="no"
+        
             
         def tranzgrp(self):
             global sentt,getit,yopo,ppname
-            sentt=self.bran
+            sentt=self.p6.get()
             yopo = self.ee3.get()
             getit=self.ee2.get()
+            self.reasn=self.e40.get()
+            self.donw=self.e41.get()
             #print(sentt)
             #print(getit)
+            db.execute("select *from studentdetails where branch='%s' and Year_Of_Passout ='%s'"%(sentt,yopo))
+            my=db.fetchall()
+            #j=1
+            for o in my:
+                reg_no = o[1]
+                if(datetime.datetime.strptime(self.donw, '%Y-%m-%d') and self.feeey!="" and reg_no !="" and self.schhy!="" and self.meedy!="" and self.schhy!="" ):
+                     sql0="INSERT INTO `addtcinfo`(`reg_no`, `student_bill`, `scholarship`, `medicalinspection`, `reasonforleaving`, `addofaplication`) VALUES(%s,%s,%s,%s,%s,%s)"
+                     val0=(reg_no,self.feeey,self.schhy,self.meedy,self.reasn,self.donw)
+                     db.execute(sql0,val0)
+                     db_cur.commit()             
+                     self.master.switch_frame(pageOne) 
+                else:
+                    messagebox.showinfo("Transfer Error", "Fill all the fields and Check above details are True") 
+
               
             db.execute("select *from studentdetails where branch='%s' and Year_Of_Passout ='%s'"%(sentt,yopo))
             myresult=db.fetchall()
@@ -443,114 +421,186 @@ class transfersingle(tk.Frame):
                 tk.Frame.__init__(self,master)
                 self.configure(background='darkorchid')
                 self.l=ttk.Label(self,text="Enter the Details",font=("Times 30 italic"),background="darkorchid")
-                self.l.grid(row=0,padx=10,pady=70)
+                self.l.grid(row=0,padx=10,pady=10,ipadx=20,ipady=10)
                 
-                self.l1=ttk.Label(self,text="Reg No",font=("Times 30 italic"),background="darkorchid")
-                self.l1.grid(row=1,column=0,padx=5,pady=50,sticky='W')
-                self.ll1=ttk.Label(self,text="  :  ",background="darkorchid")
-                self.ll1.grid(row=1,column=1,sticky='W',pady=5,padx=5)
-                self.entr1=ttk.Entry(self,font=("Times 18 italic"))
-                self.entr1.grid(row=1,column=2,padx=35,pady=5,ipady=5,sticky='W')
-                self.l2=ttk.Label(self,text="Leaving Date",font=("Times 30 italic"),background="darkorchid")
-                self.l2.grid(row=2,column=0,padx=5,pady=50,sticky='W')
-                self.ll1=ttk.Label(self,text="  :  ",background="darkorchid")
-                self.ll1.grid(row=2,column=1,sticky='W',pady=5,padx=5)
-                self.e2=ttk.Entry(self,font=("Times 18 italic"))
-                self.e2.grid(row=2,column=2,padx=35,pady=5,ipady=5,sticky='W')
+                self.l1=ttk.Label(self,text="Register Number",font=("Times 18 italic"),background="darkorchid")
+                self.l1.grid(row=1,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                self.entr1=ttk.Entry(self,font=("Times 15 italic"))
+                self.entr1.grid(row=1,column=1,padx=5,pady=1,ipady=5,sticky='W')
+                self.l2=ttk.Label(self,text="Leaving Date",font=("Times 18 italic"),background="darkorchid")
+                self.l2.grid(row=2,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                
+                
+                
+                self.e2=ttk.Entry(self,font=("Times 15 italic"))
+                self.e2.grid(row=2,column=1,padx=5,pady=1,ipady=5,sticky='W')
+                self.vieww=tk.IntVar()
+                self.viewe=tk.IntVar()
+                self.viiew=tk.IntVar()
+                
+                
+                self.l1=ttk.Label(self,text="Whether the student has paid all the fees due to the college?",font=("Times 20 italic"),background='darkorchid')
+                self.l1.grid(row=5,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                self.r10=ttk.Radiobutton(self, text="Yes",variable=self.vieww, value=1,style = 'Wild.TRadiobutton',command=self.feey)
+                self.r10.grid(row=5,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                self.r11=ttk.Radiobutton(self, text="No",variable=self.vieww, value=2,style = 'Wild.TRadiobutton',command=self.feex)
+                self.r11.grid(row=5,column=2,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                
+                self.l2=ttk.Label(self,text="Whether the student was in the receipt of any scholarship",font=("Times 20 italic"),background='darkorchid')
+                self.l2.grid(row=6,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                self.r20=ttk.Radiobutton(self, text="Yes",variable=self.viewe, value=1,style = 'Wild.TRadiobutton',command=self.schy)
+                self.r20.grid(row=6,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                self.r21=ttk.Radiobutton(self, text="No",variable=self.viewe, value=2,style = 'Wild.TRadiobutton',command=self.schx)
+                self.r21.grid(row=6,column=2,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                
+                self.l3=ttk.Label(self,text="Whether the student has undergone Medical inspection during the year",font=("Times 20 italic"),background='darkorchid')
+                self.l3.grid(row=7,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                self.r30=ttk.Radiobutton(self, text="Yes",variable=self.viiew, value=1,style = 'Wild.TRadiobutton',command=self.medy)
+                self.r30.grid(row=7,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                self.r31=ttk.Radiobutton(self, text="No",variable=self.viiew, value=2,style = 'Wild.TRadiobutton',command=self.medx)
+                self.r31.grid(row=7,column=2,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                                                        
+                self.l4=ttk.Label(self,text="Reason for leaving the college",font=("Times 20 italic"),background="darkorchid")
+                self.l4.grid(row=8,column=0,padx=10,pady=30,sticky='W')
+                self.e40=ttk.Entry(self,font=("Times 15 italic"))
+                self.e40.grid(row=8,column=1,padx=5,pady=5,ipady=5,sticky='W')
+                
+                self.l4=ttk.Label(self,text="Date on which application for Transfer Certificate was ",font=("Times 20 italic"),background="darkorchid")
+                self.l4.grid(row=9,column=0,padx=10,pady=10,sticky='W')                
+                self.l5=ttk.Label(self,text="made by the student or on his/her behalf by parent/guardian",font=("Times 20 italic"),background="darkorchid")
+                self.l5.grid(row=10,column=0,padx=10,pady=1,sticky='W')
+                self.e41=ttk.Entry(self,font=("Times 15 italic"))
+                self.e41.grid(row=10,column=1,padx=5,pady=1,ipady=5,sticky='W')
                 #print(entr1.get())
                 self.but=ttk.Button(self,text="Submit",style = 'W.TButton',command=self.tranz)
-                self.but.grid(row=3,column=2,padx=35,pady=5,ipady=5,sticky='W')
+                self.but.grid(row=11,column=1,padx=35,pady=5,ipady=5,sticky='W')
               
                 self.button16=ttk.Button(self,text="BACK",style = 'W.TButton',command=lambda: master.switch_frame(transferspecify))
-                self.button16.grid(row=3,column=0,sticky='W')
+                self.button16.grid(row=11,column=0,sticky='W')
+          def feey(self):
+            self.feeey="yes"
+          def feex(self):
+                self.feeey="no"
+          def schy(self):
+                self.schhy="yes"
+          def schx(self):
+                self.schhy="no"
+          def medy(self):
+                self.meedy="yes"
+          def medx(self):
+                self.meedy="no"
+          
+                
+        
           def tranz(self):
-              global setentvar,sete2var
-              setentvar=self.entr1.get()
-              sete2var=self.e2.get()
-              #MyFirstGui().switch_frame(transferCertificate)
-              db.execute("select *from studentdetails where reg_number='%s'"%(setentvar))
-              f=db.fetchone()
-              db.execute("SELECT * FROM `addtcinfo` WHERE `reg_no`= '%s' "%(setentvar))
-              mys=db.fetchone()
-              if(f and mys):
-                  reg=setentvar
-                   
-                  pdf=FPDF()
-                  pdf.add_page()
-                  pdf.set_font("Arial",size=12)
-                  name="alagappa.jpg"
-                  pdf.image(name,w=200,h=20)
-                    
-                  pdf.cell(100,10,txt="                                                              TRANSFER CERTIFICATE")
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     1.  Name of the student")
-                  pdf.cell(100,10,txt="              "+str(f[0]))
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     2.  Name of the parent/Guardian")
-                  pdf.cell(100,10,txt="              "+str(f[3]))
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     3.  Nationality Religion and coommunity")
-                  pdf.cell(100,10,txt="              "+str(f[6]))
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     4.  Sex")
-                  pdf.cell(100,10,txt="              "+str(f[8]))
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     5.  Date of Birth (in figure and words) ")
-                  pdf.cell(100,10,txt="              "+str(f[9]))
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     as entered in the admission register")
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     6.  Course of Study")
-                  pdf.cell(100,10,txt="              "+str(f[10]))
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     7.  Date of Admission to this college")
-                  pdf.cell(100,10,txt="              "+str(f[12]))
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     8.  a) Whether the Student has paid all the  ")
-                  pdf.cell(100,10,txt="              "+str(mys[1]))
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     Fees due to the college ?")
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     8.  b) Whether the Student was in receipt of ")
-                  pdf.cell(100,10,txt="              "+str(mys[2]))
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     any scholarship")
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     9.  Whether the Student has undergone ")
-                    
-                  pdf.cell(100,10,txt="              "+str(mys[3]))
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     Medical inspection during the year")
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     10.  Reasons for leaving the College")
-                    
-                  pdf.cell(100,10,txt="              "+str(mys[4]))
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     11.  Date of Leaving")
-                  pdf.cell(100,10,txt="              "+ sete2var)
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     12.  Date on which application for Transfer  ")
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     Certificate was made by the Student or On ")
-                  pdf.cell(100,10,txt="              "+str(mys[5]))
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     his/her behalf by Parent/Guardian")
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     13.  Date of the Transfer Certificate")
-                  pdf.cell(100,10,txt="              "+str(f[23]))
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     14.  Medium")
-                  pdf.cell(100,10,txt="              English")
-                  pdf.ln(10)
-                  pdf.cell(100,10,txt="     Seal")
-                  pdf.cell(100,10,txt="              PRINCIPAL/VICE-PRINCIPAL")
-                  pdf.ln(10)
-                  r=reg+".pdf"
-                  pdf.output(r)
-                  if os.path.exists(r):
-                               os.startfile(r)
-              else:
-                   messagebox.showinfo("TC Error", "Enter A Valid Register Number")
+                self.reasn=self.e40.get()
+                self.donw=self.e41.get()
+                global setentvar,sete2var
+                setentvar=self.entr1.get()
+                self.regnoo=self.e412.get()
+                #self.mbso=self.e42.get()
+                print(self.feeey)
+                print(self.schhy)
+                print(self.meedy)
+                print(self.reasn)
+                print(self.donw)
+                #print(self.mbso)
+                
+                if(datetime.datetime.strptime(self.donw, '%Y-%m-%d') and self.feeey!="" and self.regnoo!="" and self.schhy!="" and self.meedy!="" and self.schhy!="" ):
+                         sql0="INSERT INTO `addtcinfo`(`reg_no`, `student_bill`, `scholarship`, `medicalinspection`, `reasonforleaving`, `addofaplication`) VALUES(%s,%s,%s,%s,%s,%s)"
+                         val0=(setentvar,self.feeey,self.schhy,self.meedy,self.reasn,self.donw)
+                         db.execute(sql0,val0)
+                         db_cur.commit()             
+                         #self.master.switch_frame(pageOne) 
+                         
+                         sete2var=self.e2.get()
+                         #MyFirstGui().switch_frame(transferCertificate)
+                         db.execute("select *from studentdetails where reg_number='%s'"%(setentvar))
+                         f=db.fetchone()
+                         db.execute("SELECT * FROM `addtcinfo` WHERE `reg_no`= '%s' "%(setentvar))
+                         mys=db.fetchone()
+                         if(f and mys):
+                              reg=setentvar
+                               
+                              pdf=FPDF()
+                              pdf.add_page()
+                              pdf.set_font("Arial",size=12)
+                              name="alagappa.jpg"
+                              pdf.image(name,w=200,h=20)
+                                
+                              pdf.cell(100,10,txt="                                                              TRANSFER CERTIFICATE")
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     1.  Name of the student")
+                              pdf.cell(100,10,txt="              "+str(f[0]))
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     2.  Name of the parent/Guardian")
+                              pdf.cell(100,10,txt="              "+str(f[3]))
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     3.  Nationality Religion and coommunity")
+                              pdf.cell(100,10,txt="              "+str(f[6]))
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     4.  Sex")
+                              pdf.cell(100,10,txt="              "+str(f[8]))
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     5.  Date of Birth (in figure and words) ")
+                              pdf.cell(100,10,txt="              "+str(f[9]))
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     as entered in the admission register")
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     6.  Course of Study")
+                              pdf.cell(100,10,txt="              "+str(f[10]))
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     7.  Date of Admission to this college")
+                              pdf.cell(100,10,txt="              "+str(f[12]))
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     8.  a) Whether the Student has paid all the  ")
+                              pdf.cell(100,10,txt="              "+str(mys[1]))
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     Fees due to the college ?")
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     8.  b) Whether the Student was in receipt of ")
+                              pdf.cell(100,10,txt="              "+str(mys[2]))
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     any scholarship")
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     9.  Whether the Student has undergone ")
+                                
+                              pdf.cell(100,10,txt="              "+str(mys[3]))
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     Medical inspection during the year")
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     10.  Reasons for leaving the College")
+                                
+                              pdf.cell(100,10,txt="              "+str(mys[4]))
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     11.  Date of Leaving")
+                              pdf.cell(100,10,txt="              "+ sete2var)
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     12.  Date on which application for Transfer  ")
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     Certificate was made by the Student or On ")
+                              pdf.cell(100,10,txt="              "+str(mys[5]))
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     his/her behalf by Parent/Guardian")
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     13.  Date of the Transfer Certificate")
+                              pdf.cell(100,10,txt="              "+str(f[23]))
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     14.  Medium")
+                              pdf.cell(100,10,txt="              English")
+                              pdf.ln(10)
+                              pdf.cell(100,10,txt="     Seal")
+                              pdf.cell(100,10,txt="              PRINCIPAL/VICE-PRINCIPAL")
+                              pdf.ln(10)
+                              r=reg+".pdf"
+                              pdf.output(r)
+                              if os.path.exists(r):
+                                           os.startfile(r)
+                              else:
+                                  messagebox.showinfo("TC Error", "Enter A Valid Register Number")
+                         else:
+                             messagebox.showinfo("Transfer Error", "Fill all the fields and Check above details are True") 
+
 
                 
           
@@ -1439,64 +1489,64 @@ class search(tk.Frame):
                         self.la.grid(row=0,column=1,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
                         self.la1=ttk.Label(self,text="Register",font=("Times 20 italic"),background='darkorchid')
                         self.la1.grid(row=1,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
-                        self.en =ttk.Entry(self)
+                        self.en =ttk.Entry(self,font=("Times 15 italic"))
                         self.en.grid(row=1,column=1,sticky='W',padx=20,pady=5,ipadx=40,ipady=5)
 
                         self.la1=ttk.Label(self,text="Religion",font=("Times 20 italic"),background='darkorchid')
                         self.la1.grid(row=2,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
                         self.tkv1 = tk.StringVar(self)
-                        self.popupMenu1 =ttk.Combobox(self, width=25, textvariable=self.tkv1)
+                        self.popupMenu1 =ttk.Combobox(self, width=25, textvariable=self.tkv1,font=("Times 15 italic"))
                         self.popupMenu1['values']=('Hindu','Muslim','Christian','Others')
                         self.popupMenu1.grid(row=2,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
                         self.popupMenu1.current()
                         self.la2=ttk.Label(self,text="Caste",font=("Times 20 italic"),background='darkorchid')
                         self.la2.grid(row=3,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
                         self.tkv2 = tk.StringVar(self)
-                        self.popupMenu2 =ttk.Combobox(self, width=25, textvariable=self.tkv2)
+                        self.popupMenu2 =ttk.Combobox(self, width=25, textvariable=self.tkv2,font=("Times 15 italic"))
                         self.popupMenu2['values']=('OC','BC','BCM','MBC','SC','ST','Others')  
                         self.popupMenu2.grid(row=3,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
                         self.popupMenu2.current()
                         self.la3=ttk.Label(self,text="Gender",font=("Times 20 italic"),background='darkorchid')
                         self.la3.grid(row=4,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
                         self.tkv3 = tk.StringVar(self)
-                        self.popupMenu3 =ttk.Combobox(self, width=25, textvariable=self.tkv3)
+                        self.popupMenu3 =ttk.Combobox(self, width=25, textvariable=self.tkv3,font=("Times 15 italic"))
                         self.popupMenu3['values']=('Male','Female','Transgender')
                         self.popupMenu3.grid(row=4,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
                         self.popupMenu3.current()
                         self.la5=ttk.Label(self,text="Programme",font=("Times 20 italic"),background='darkorchid')
                         self.la5.grid(row=5,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
                         self.tkv4 = tk.StringVar(self)
-                        self.popupMenu4=ttk.Combobox(self, width=25, textvariable=self.tkv4)
+                        self.popupMenu4=ttk.Combobox(self, width=25, textvariable=self.tkv4,font=("Times 15 italic"))
                         self.popupMenu4['values']=('BE','ME','BE-Parttime')
                         self.popupMenu4.grid(row=5,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
                         self.popupMenu4.current()
                         self.la4=ttk.Label(self,text="Branch Of Study",font=("Times 20 italic"),background='darkorchid')
                         self.la4.grid(row=6,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
                         self.tkv5 = tk.StringVar(self)
-                        self.popupMenu5=ttk.Combobox(self, width=25, textvariable=self.tkv5)
+                        self.popupMenu5=ttk.Combobox(self, width=25, textvariable=self.tkv5,font=("Times 15 italic"))
                         self.popupMenu5['values']=('Civil Engineering','Mechanical Engineering','Electrical and Electronics Engineering','Electronics and Communication Engineering','Computer Science and Engineering')
                         self.popupMenu5.grid(row=6,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
                         self.popupMenu5.current()
                         self.la6=ttk.Label(self,text="Taluk",font=("Times 25 italic"),background='darkorchid')
                         self.la6.grid(row=7,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
-                        self.eta5=ttk.Entry(self,font=("Times 10 italic"))
+                        self.eta5=ttk.Entry(self,font=("Times 15 italic"))
                         self.eta5.grid(row=7,column=1,sticky='W',padx=20,pady=5,ipadx=37,ipady=5)
                         self.la7=ttk.Label(self,text="District",font=("Times 25 italic"),background='darkorchid')
                         self.la7.grid(row=8,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
                         self.tkvar = tk.StringVar(self)
-                        self.popupMenu =ttk.Combobox(self, width=27, textvariable=self.tkvar)
+                        self.popupMenu =ttk.Combobox(self, width=27, textvariable=self.tkvar,font=("Times 15 italic"))
                         self.popupMenu['values']=('Ariyalur','Chengalpet','Chennai','Coimbatore','Cuddalore','Dharmapuri','Dindigul','Erode','Kallakurichi','Kancheepuram','Karur','Krishnagiri','Madurai','Nagapattinam','Nilgiris','Kanyakumari','Namakkal','Perambalur','Pudukottai','Ramanathapuram','Ranipet','Salem','Sivagangai','Tenkasi','Thanjavur','Theni','Thiruvallur','Thiruvarur','Tuticorin','Trichirappalli','Thirunelveli','Tirupattur','Tiruppur','Thiruvannamalai','Vellore','Viluppuram','Virudhunagar')
                         self.popupMenu.grid(row=8,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
                         self.popupMenu.current()
                         
                         self.la8=ttk.Label(self,text="Year Of Passout",font=("Times 25 italic"),background='darkorchid')
                         self.la8.grid(row=9,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
-                        self.en1 =ttk.Entry(self)
+                        self.en1 =ttk.Entry(self,font=("Times 15 italic"))
                         self.en1.grid(row=9,column=1,sticky='W',padx=20,pady=5,ipadx=45,ipady=5)
                         self.l11=ttk.Label(self,text="Course Of Study",font=("Times 25 italic"),background="darkorchid")
                         self.l11.grid(row=10,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
                         self.t5 = tk.StringVar(self)
-                        self.p5 =ttk.Combobox(self, width=27, textvariable=self.t5)
+                        self.p5 =ttk.Combobox(self, width=27, textvariable=self.t5,font=("Times 15 italic"))
                         self.p5['values']=('BE','ME','BE Parttime')  
                         self.p5.grid(row=10,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
                         self.p5.current()
