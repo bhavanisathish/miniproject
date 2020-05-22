@@ -15,6 +15,7 @@ pip install mysql-connector
 """
 #from PIL import Image, ImageTk
 import re 
+from itertools import cycle
 import datetime
 import webbrowser
 from openpyxl import Workbook
@@ -59,7 +60,7 @@ class MyFirstGui(tk.Tk):
                 self._frame = new_frame
                 self._frame.pack()
                 self.state("zoomed")
-                self.configure(background='darkorchid')
+                self.configure(background='cadetBlue1')
                
         
          
@@ -67,26 +68,69 @@ class StartPage(tk.Frame):
            
       def __init__(self, master):
                     tk.Frame.__init__(self,master)
-                    self.configure(background='darkorchid')
+                    self.configure(background='cadetBlue1')
+                    self.Frame1 = tk.Frame(self.master)
+                    self.Frame1.pack(side="top",  pady=10,padx=10,expand=True )
+                    self.Frame1.configure(background='cadetBlue1')
+                    photo=tk.PhotoImage(file="ss.png")  
+                    label1221=tk.Label(self.Frame1,text="Alagappa chettiar Government College of Engineering and Technology,Karaikudi",font =
+                   ('calibri', 30, 'bold'))
+                    label1221.grid(row=0,rowspan=1,columnspan=40)
+                    label12221=tk.Label(self.Frame1,text="(An autonomous government institution permanently affilitated to anna university)",font =
+                   ('calibri', 20, 'bold'))
+                    label12221.grid(row=1,rowspan=1,columnspan=40)
+                    
+                    #photo = photo.zoom(1)
+                    label =tk.Label(self,image = photo)#,width=1680,height=1080)
+                    label.image = photo # keep a reference!
+                    label.grid(row=2,column=0,columnspan=5,rowspan=20)
+                    self.Frame2 = tk.Frame(self.master)
+                    
+                    self.Frame2.pack(side="right",  pady=80,padx=10, expand=True )
+                    self.Frame2.configure(background='cadetBlue1')
+                    wer=tk.Label(self.Frame2,text='VISION',font = ('calibri', 22, 'bold'))
+                    wer.grid(row=2,column=0,sticky='W')
+                    le2=tk.Label(self.Frame2,text='Our  Commitment  as  a  Centre   of  ',font = ('calibri', 18, 'bold'))
+                    le2.grid(row=3,column=0,sticky='W')#olumnspan=40,rowspan=4)
+                    let2=tk.Label(self.Frame2,text='Engineering  Educations   to  impart ',font = ('calibri', 18, 'bold'))
+                    let2.grid(row=4,column=0,sticky='W')
+                    le12=tk.Label(self.Frame2,text='Technical   Knowledge  par excellence, ',font = ('calibri', 18, 'bold'))
+                    le12.grid(row=5,column=0,sticky='W')#olumnspan=40,rowspan=4)
+                    lere=tk.Label(self.Frame2,text='motivate the learners   in  Research,    ',font = ('calibri', 18, 'bold'))
+                    lere.grid(row=6,column=0,sticky='W')
+                    lee=tk.Label(self.Frame2,text='evolve  result  –  oriented,  innovative   ',font = ('calibri',18, 'bold'))
+                    lee.grid(row=7,column=0,sticky='W')
+                    lee1r=tk.Label(self.Frame2,text='techniques in   Engineering, provide ',font = ('calibri', 18, 'bold'))
+                    lee1r.grid(row=8,column=0,sticky='W')
+                    lee1=tk.Label(self.Frame2,text='necessary career guidance,and  train  ',font = ('calibri', 18, 'bold'))
+                    lee1.grid(row=9,column=0,sticky='W')
+                    lee2=tk.Label(self.Frame2,text='our learners in leadership',font = ('calibri',18, 'bold'))
+                    lee2.grid(row=10,column=0,sticky='W')
+                    lee2=tk.Label(self.Frame2,text='qualities so as to achieve better',font = ('calibri', 18, 'bold'))
+                    lee2.grid(row=11,column=0,sticky='W')
+                    lee3=tk.Label(self.Frame2,text='productivity and prosperity',font = ('calibri',18, 'bold'))
+                    lee3.grid(row=12,column=0,sticky='W')
+                    lee3=tk.Label(self.Frame2,text='for our country.',font = ('calibri',18, 'bold'))
+                    lee3.grid(row=13,column=0,sticky='W')
                     #self.state("zoomed")
                     global username,passwords
-                    self.l1=ttk.Label(self,text="Login here",font=("Times 40 italic"),background="darkorchid")
+                    self.l1=ttk.Label(self,text="Login here",font=("Times 40 italic"),background="gray69")
                     self.l1.grid(row=3,column=1,columnspan=2,sticky='W',padx=10,pady=50)
                     
-                    self.l2=ttk.Label(self,text="Username",font=("Times 30 italic"),background="darkorchid")
+                    self.l2=ttk.Label(self,text="Username",font=("Times 30 italic"),background="gray64")
                     self.l2.grid(row=5,column=0,padx=10,pady=50)
-                    self.password=ttk.Label(self,text="Password",font=("Times 30 italic"),background="darkorchid")
+                    self.password=ttk.Label(self,text="Password",font=("Times 30 italic"),background="gray43")
                     self.password.grid(row=7,column=0,padx=10,pady=50)
                     self.e1=ttk.Entry(self,font=("Times 18 italic"))
                     self.e1.grid(row=5,column=2,padx=5,pady=5,ipady=5)
                     self.e2=ttk.Entry(self,font=("Times 18 italic"))
                     self.e2.grid(row=7,column=2,padx=5,pady=5,ipady=5)
                     self.b1=ttk.Button(self,text="SUBMIT",style = 'W.TButton',command=self.passd)
-                    self.b1.grid(row=9,column=0,padx=30,pady=50)
-                    self.b12=ttk.Button(self,text="Register",style = 'W.TButton',command=lambda: master.switch_frame(registration))
+                    self.b1.grid(row=9,column=2,padx=30,pady=50)
+                    self.b12=ttk.Button(self,text="Register",style = 'W.TButton',command=self.reg)
                     self.b12.grid(row=9,column=1,padx=30,pady=50)
                     self.b2=ttk.Button(self,text="RESET",style = 'W.TButton',command=self.reset)
-                    self.b2.grid(row=9,column=2,padx=30,pady=50)
+                    self.b2.grid(row=9,column=0,padx=30,pady=50)
                     
                     #self.button=tk.Button(self,text="->",width=10,command=lambda: master.switch_frame(pageOne))
                     #self.button.grid(row=4,column=0,sticky='W')
@@ -95,13 +139,18 @@ class StartPage(tk.Frame):
       def reset(self):
           self.e1.delete(first=0,last=300)
           self.e2.delete(first=0,last=300)
-          
+      def reg(self):
+          self.Frame2.destroy()
+          self.master.switch_frame(registration)
       def passd(self):
+            
             self.username = self.e1.get()
             self.passwords = self.e2.get()
             db.execute("select *from adminlogin where name='%s' and password='%s'"%(self.username,self.passwords))
             l=db.fetchone()
             if(l):
+                self.Frame2.destroy()
+                self.Frame1.destroy()
                 print("check")
                 #self.switch_frame(pageOne)
                 self.master.switch_frame(pageOne)
@@ -118,39 +167,79 @@ class StartPage(tk.Frame):
 class registration(tk.Frame):
     def __init__(self,master):
         tk.Frame.__init__(self,master)
+        
         #self.configure(background='powderblue')
         self.configure(background='darkorchid')
-        self.lb1=ttk.Label(self,text="Register here",font=("Times 40 italic"),background="darkorchid")
+        photo=tk.PhotoImage(file="ss.png") 
+                    
+                    #photo = photo.zoom(1)
+        label =tk.Label(self,image = photo)#,width=1680,height=1080)
+        label.image = photo # keep a reference!
+        label.grid(row=0,column=0,columnspan=5,rowspan=20)
+        self.Frame3 = tk.Frame(self.master)
+                    
+        self.Frame3.pack(side="right",  pady=50,padx=10, expand=True )
+        self.Frame3.configure(background='cadetBlue1')
+        la=tk.Label(self.Frame3,text='MISSION',font = ('calibri',30, 'bold'))
+        la.grid(row=0,column=0,sticky='W')
+        la1=tk.Label(self.Frame3,text='Constantly updating the departmental resources,',font = ('calibri',18, 'bold'))
+        la1.grid(row=1,column=0,sticky='W')
+        la2=tk.Label(self.Frame3,text=' facility and other infrastructure ',font = ('calibri',18, 'bold'))
+        la2.grid(row=2,column=0,sticky='W')
+        la3=tk.Label(self.Frame3,text=' by acquiring state of art equipment.',font = ('calibri',18, 'bold'))
+        la3.grid(row=3,column=0,sticky='W')
+        la4=tk.Label(self.Frame3,text='')
+        la4.grid(row=4,column=0,sticky='W')
+        la5=tk.Label(self.Frame3,text='Imparting constant in–service training',font = ('calibri',18, 'bold'))
+        la5.grid(row=5,column=0,sticky='W')
+        la6=tk.Label(self.Frame3,text='to the faculty and supporting staff.',font = ('calibri',18, 'bold'))
+        la6.grid(row=6,column=0,sticky='W')
+        la6=tk.Label(self.Frame3,text='',font = ('calibri',18, 'bold'))
+        la6.grid(row=7,column=0,sticky='W')
+        la6=tk.Label(self.Frame3,text='Inculcating the feeling of oneness responsibility ',font = ('calibri',18, 'bold'))
+        la6.grid(row=8,column=0,sticky='W')
+        la6=tk.Label(self.Frame3,text='and service to community in the minds',font = ('calibri',18, 'bold'))
+        la6.grid(row=9,column=0,sticky='W')
+        la6=tk.Label(self.Frame3,text='of students to serve the society better.',font = ('calibri',18, 'bold'))
+        la6.grid(row=10,column=0,sticky='W')
+        self.lb1=ttk.Label(self,text="Register here",font=("Times 40 italic"),background="gray60")
         self.lb1.grid(row=0,column=0,padx=10,pady=30)
-        self.lb2=ttk.Label(self,text="Name",font=("Times 18 italic"),background="darkorchid")
+        self.lb2=ttk.Label(self,text="Name",font=("Times 18 italic"),background="gray60")
         self.lb2.grid(row=1,column=0,padx=10,pady=15)
         self.ent1=ttk.Entry(self,font=("Times 18 italic"))
         self.ent1.grid(row=1,column=1,padx=5,pady=5,ipady=5)
-        self.lb3=ttk.Label(self,text="Password",font=("Times 18 italic"),background="darkorchid")
+        self.lb3=ttk.Label(self,text="Password",font=("Times 18 italic"),background="gray60")
         self.lb3.grid(row=2,column=0,padx=10,pady=15)
         self.ent2=ttk.Entry(self,font=("Times 18 italic"))
         self.ent2.grid(row=2,column=1,padx=5,pady=5,ipady=5)
-        self.lb4=ttk.Label(self,text="Department",font=("Times 18 italic"),background="darkorchid")
+        self.lb4=ttk.Label(self,text="Department",font=("Times 18 italic"),background="gray60")
         self.lb4.grid(row=3,column=0,padx=10,pady=15)
         self.ent3=ttk.Entry(self,font=("Times 18 italic"))
         self.ent3.grid(row=3,column=1,padx=5,pady=5,ipady=5)
-        self.lb5=ttk.Label(self,text="Posting",font=("Times 18 italic"),background="darkorchid")
+        self.lb5=ttk.Label(self,text="Posting",font=("Times 18 italic"),background="gray60")
         self.lb5.grid(row=4,column=0,padx=10,pady=15)
         self.ent4=ttk.Entry(self,font=("Times 18 italic"))
         self.ent4.grid(row=4,column=1,padx=5,pady=5,ipady=5)
-        self.lb6=ttk.Label(self,text="Admin Name",font=("Times 18 italic"),background="darkorchid")
+        self.lb6=ttk.Label(self,text="Admin Name",font=("Times 18 italic"),background="gray60")
         self.lb6.grid(row=5,column=0,padx=10,pady=15)
         self.ent5=ttk.Entry(self,font=("Times 18 italic"))
         self.ent5.grid(row=5,column=1,padx=5,pady=5,ipady=5)
-        self.lb7=ttk.Label(self,text="Admin Password",font=("Times 18 italic"),background="darkorchid")
+        self.lb7=ttk.Label(self,text="Admin Password",font=("Times 18 italic"),background="gray60")
         self.lb7.grid(row=6,column=0,padx=10,pady=15)
         self.ent6=ttk.Entry(self,font=("Times 18 italic"))
         self.ent6.grid(row=6,column=1,padx=5,pady=5,ipady=5)
         self.bt1=ttk.Button(self,text="Register",command=self.regg,style = 'W.TButton')
-        self.bt1.grid(row=7,column=0,sticky='S',padx=10,pady=15)
+        self.bt1.grid(row=7,column=1,sticky='S',padx=10,pady=15)
        
-        self.bt2=ttk.Button(self,text="RESET",style = 'W.TButton')
-        self.bt2.grid(row=7,column=1,padx=30,pady=15)
+        self.bt2=ttk.Button(self,text="RESET",style = 'W.TButton',command=self.rese)
+        self.bt2.grid(row=7,column=0,padx=30,pady=15)
+    def rese(self):  
+        self.ent1.delete(first=0,last=300)
+        self.ent2.delete(first=0,last=300)
+        self.ent3.delete(first=0,last=300)
+        self.ent4.delete(first=0,last=300)
+        self.ent5.delete(first=0,last=300)
+        self.ent6.delete(first=0,last=300)
     def regg(self):
         self.namee=self.ent1.get()
         self.passsword=self.ent2.get()
@@ -165,6 +254,7 @@ class registration(tk.Frame):
             val1=(self.namee,self.passsword,self.depart,self.post)
             db.execute(sql1, val1)
             db_cur.commit()
+            self.Frame3.destroy()
             self.master.switch_frame(StartPage)
         else:
             messagebox.showinfo("Registration Error", "You Are Not a Valid Admin.. Please Get Verification From The Admin")
@@ -175,24 +265,82 @@ class registration(tk.Frame):
 class pageOne(tk.Frame):
       def __init__(self,master):
              tk.Frame.__init__(self,master)
+             #self.Frame1 = tk.Frame(self.master)
+             #self.Frame1.pack(side="top",  pady=10,padx=10,expand=True )
+             #self.Frame1.configure(background='cadetBlue1')
+             #photo=tk.PhotoImage(file="ss.png")  
+             label1221=tk.Label(self,text="Alagappa chettiar Government College of Engineering and Technology,Karaikudi",font =
+                   ('calibri', 30, 'bold'))
+             label1221.grid(row=0)
+             label12221=tk.Label(self,text="(An autonomous government institution permanently affilitated to anna university)",font =
+                   ('calibri', 20, 'bold'))
+             label12221.grid(row=1)
              self.configure(background='darkorchid')
+             self.menubar = tk.Menu(master,bg="lightgrey", fg="black")
+             self.filemenu = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
+             self.filemenu.add_command(label="New Game")
+             self.menubar.add_cascade(label="Transfer Certificate Generation", menu=self.filemenu)
+             self.edit = tk.Menu(self.menubar, tearoff=0,relief=tk.SUNKEN, bd=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
+             self.edit.add_command(label="Edit",command=lambda: master.switch_frame(editspecify),font=("Times 18 italic"))
+             
+             self.menubar.add_cascade(label='Edit Details',menu=self.edit)
+             self.insert = tk.Menu(self.menubar, tearoff=0,relief=tk.SUNKEN, bd=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
+             self.insert.add_command(label="Insert",command=lambda: master.switch_frame(newreg),font=("Times 18 italic"))
+         
+             self.menubar.add_cascade(label='Insert Details',menu=self.insert)
+             #self.menubar.config("Verdana", 14)
+             self.master.config(menu=self.menubar,background="Red")
+             
+             #self.top =Toplevel(menu=self.menubar, width=500, relief=tk.RAISED,borderwidth=2)
+             self.delay = 3000
+             image_files = [
+            'ss.png',
+            '190.png',
+            'ss.png',
+            'ss.png',
+            'ss.png'
+            ]
+            # allows repeat cycling through the pictures
+            # store as (img_object, img_name) tuple
+             self.pictures = cycle((tk.PhotoImage(file=image), image)
+                                  for image in image_files)
+             self.picture_display = tk.Label(self,width=600,height=400)
+             self.picture_display.grid(row=3,column=0,sticky='W')
+             self.p_d=tk.Label(self,width=600,height=400)             
+             self.p_d.grid(row=3,column=0,sticky='E')
+             self.label=tk.Label(self,text='')
+             self.label.grid(row=2,column=1)
+             self.lee=tk.Label(self)
+             self.lee.grid(row=4)
+             self.lee2=tk.Label(self)
+             self.lee2.grid(row=5)
+             self.lw=tk.Label(self,text='Alagappa Chettiar Government College of Engineering & Technology')
+             self.lw.grid(row=6,column=0)
+             img_object, img_name = next(self.pictures)
+             self.picture_display.config(image=img_object)
+             self.p_d.config(image=img_object)
+             # shows the image filename, but could be expanded
+             # to show an associated description of the image
+             #self.title(img_name)
+             self.after(self.delay, self.show_slides)
+           
+        
+      def show_slides(self):
+        '''cycle through the images and show them'''
+        # next works with Python26 or higher
+        img_object, img_name = next(self.pictures)
+        self.picture_display.config(image=img_object)
+        # shows the image filename, but could be expanded
+        # to show an associated description of the image
+        #self.title(img_name)
+        self.after(self.delay, self.show_slides)
+
+
+
+             #self.configure(menu=menubar)
+
              #self.configure(background='powderblue')
-             lable1=ttk.Label(self,text="Start page",font=("Times 40 italic"),background="darkorchid")
-             lable1.grid(row=0,column=1,padx=10,pady=30)
-             bb1=ttk.Button(self,text="TC generation",style = 'L.TButton',command=lambda: master.switch_frame(transferspecify))
-             bb1.grid(row=1,column=1,sticky='W',pady=30)
-            
-             bb2=ttk.Button(self,text="Edit",style = 'L.TButton',command=lambda: master.switch_frame(editspecify))
-             bb2.grid(row=3,column=1,sticky='W',pady=30)
-             bb4=ttk.Button(self,text="Insert Record",style = 'L.TButton',command=lambda: master.switch_frame(newreg))
-             bb4.grid(row=4,column=1,sticky='W',pady=30)
-            
              
-             bb3=ttk.Button(self,text="Search",style = 'L.TButton',command=lambda: master.switch_frame(search))
-             bb3.grid(row=5,column=1,sticky='W',pady=30)
-             
-             self.button11=ttk.Button(self,text="BACK",style = 'W.TButton',command=lambda: master.switch_frame(StartPage))
-             self.button11.grid(row=6,column=1,sticky='W')
              
 
         
@@ -313,7 +461,7 @@ class transfergroup(tk.Frame):
             self.donw=self.e41.get()
             #print(sentt)
             #print(getit)
-            db.execute("select *from studentdetails where branch='%s' and Year_Of_Passout ='%s'"%(sentt,yopo))
+            db.execute("select *from studentdetails where branch='%s' and Year_Of_Passout ='%s' and flag='0'"%(sentt,yopo))
             my=db.fetchall()
             #j=1
             for o in my:
@@ -322,6 +470,9 @@ class transfergroup(tk.Frame):
                      sql0="INSERT INTO `addtcinfo`(`reg_no`, `student_bill`, `scholarship`, `medicalinspection`, `reasonforleaving`, `addofaplication`) VALUES(%s,%s,%s,%s,%s,%s)"
                      val0=(reg_no,self.feeey,self.schhy,self.meedy,self.reasn,self.donw)
                      db.execute(sql0,val0)
+                     db_cur.commit() 
+                     db.execute("update studentdetails set flag='1' where reg_number='%s'"%(reg_no))
+                         
                      db_cur.commit()             
                      self.master.switch_frame(pageOne) 
                 else:
@@ -497,7 +648,7 @@ class transfersingle(tk.Frame):
                 self.donw=self.e41.get()
                 global setentvar,sete2var
                 setentvar=self.entr1.get()
-                self.regnoo=self.e412.get()
+                #self.regnoo=self.e412.get()
                 #self.mbso=self.e42.get()
                 print(self.feeey)
                 print(self.schhy)
@@ -506,10 +657,12 @@ class transfersingle(tk.Frame):
                 print(self.donw)
                 #print(self.mbso)
                 
-                if(datetime.datetime.strptime(self.donw, '%Y-%m-%d') and self.feeey!="" and self.regnoo!="" and self.schhy!="" and self.meedy!="" and self.schhy!="" ):
+                if(datetime.datetime.strptime(self.donw, '%Y-%m-%d') and self.feeey!="" and setentvar!="" and self.schhy!="" and self.meedy!="" and self.schhy!="" ):
                          sql0="INSERT INTO `addtcinfo`(`reg_no`, `student_bill`, `scholarship`, `medicalinspection`, `reasonforleaving`, `addofaplication`) VALUES(%s,%s,%s,%s,%s,%s)"
                          val0=(setentvar,self.feeey,self.schhy,self.meedy,self.reasn,self.donw)
                          db.execute(sql0,val0)
+                         db_cur.commit() 
+                         db.execute("update studentdetails set flag='1' where reg_number='%s'"%(setentvar))
                          db_cur.commit()             
                          #self.master.switch_frame(pageOne) 
                          
@@ -1513,13 +1666,13 @@ class search(tk.Frame):
                         self.popupMenu3['values']=('Male','Female','Transgender')
                         self.popupMenu3.grid(row=4,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
                         self.popupMenu3.current()
-                        self.la5=ttk.Label(self,text="Programme",font=("Times 20 italic"),background='darkorchid')
-                        self.la5.grid(row=5,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
-                        self.tkv4 = tk.StringVar(self)
-                        self.popupMenu4=ttk.Combobox(self, width=25, textvariable=self.tkv4,font=("Times 15 italic"))
-                        self.popupMenu4['values']=('BE','ME','BE-Parttime')
-                        self.popupMenu4.grid(row=5,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
-                        self.popupMenu4.current()
+                        #self.la5=ttk.Label(self,text="Programme",font=("Times 20 italic"),background='darkorchid')
+                       # self.la5.grid(row=5,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
+                       # self.tkv4 = tk.StringVar(self)
+                        #self.popupMenu4=ttk.Combobox(self, width=25, textvariable=self.tkv4,font=("Times 15 italic"))
+                        #self.popupMenu4['values']=('BE','ME','BE-Parttime')
+                        #self.popupMenu4.grid(row=5,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
+                        #self.popupMenu4.current()
                         self.la4=ttk.Label(self,text="Branch Of Study",font=("Times 20 italic"),background='darkorchid')
                         self.la4.grid(row=6,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
                         self.tkv5 = tk.StringVar(self)
@@ -1532,30 +1685,30 @@ class search(tk.Frame):
                         self.eta5=ttk.Entry(self,font=("Times 15 italic"))
                         self.eta5.grid(row=7,column=1,sticky='W',padx=20,pady=5,ipadx=37,ipady=5)
                         self.la7=ttk.Label(self,text="District",font=("Times 25 italic"),background='darkorchid')
-                        self.la7.grid(row=8,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
+                        self.la7.grid(row=5,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
                         self.tkvar = tk.StringVar(self)
                         self.popupMenu =ttk.Combobox(self, width=27, textvariable=self.tkvar,font=("Times 15 italic"))
                         self.popupMenu['values']=('Ariyalur','Chengalpet','Chennai','Coimbatore','Cuddalore','Dharmapuri','Dindigul','Erode','Kallakurichi','Kancheepuram','Karur','Krishnagiri','Madurai','Nagapattinam','Nilgiris','Kanyakumari','Namakkal','Perambalur','Pudukottai','Ramanathapuram','Ranipet','Salem','Sivagangai','Tenkasi','Thanjavur','Theni','Thiruvallur','Thiruvarur','Tuticorin','Trichirappalli','Thirunelveli','Tirupattur','Tiruppur','Thiruvannamalai','Vellore','Viluppuram','Virudhunagar')
-                        self.popupMenu.grid(row=8,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
+                        self.popupMenu.grid(row=5,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
                         self.popupMenu.current()
                         
                         self.la8=ttk.Label(self,text="Year Of Passout",font=("Times 25 italic"),background='darkorchid')
-                        self.la8.grid(row=9,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
+                        self.la8.grid(row=8,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
                         self.en1 =ttk.Entry(self,font=("Times 15 italic"))
-                        self.en1.grid(row=9,column=1,sticky='W',padx=20,pady=5,ipadx=45,ipady=5)
+                        self.en1.grid(row=8,column=1,sticky='W',padx=20,pady=5,ipadx=45,ipady=5)
                         self.l11=ttk.Label(self,text="Course Of Study",font=("Times 25 italic"),background="darkorchid")
-                        self.l11.grid(row=10,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
+                        self.l11.grid(row=9,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
                         self.t5 = tk.StringVar(self)
                         self.p5 =ttk.Combobox(self, width=27, textvariable=self.t5,font=("Times 15 italic"))
                         self.p5['values']=('BE','ME','BE Parttime')  
-                        self.p5.grid(row=10,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
+                        self.p5.grid(row=9,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
                         self.p5.current()
                         #self.eta6=ttk.Entry(self,font=("Times 10 italic"))
                         #self.eta6.grid(row=7,column=1,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
                         self.buty=ttk.Button(self,text="search",style = 'W.TButton',command=self.say_hello)
-                        self.buty.grid(row=11,column=1,sticky='W',padx=30,pady=10)
+                        self.buty.grid(row=10,column=1,sticky='W',padx=30,pady=10)
                         self.butxx=ttk.Button(self,style = 'W.TButton',text="Back",command=lambda: master.switch_frame(pageOne))
-                        self.butxx.grid(row=11,column=0,sticky='W',padx=30,pady=10)
+                        self.butxx.grid(row=10,column=0,sticky='W',padx=30,pady=10)
                  
                  
                   #def _login_btn_clickked(self):
@@ -1576,10 +1729,11 @@ class search(tk.Frame):
                       print(self.seex)#self.eta3.get()
                       self.bos=self.tkv5.get()
                       print(self.bos)#self.eta4.get()
-                      self.tal=""#self.eta5.get()
+                      self.tal=self.eta5.get()
                       self.dis=self.tkvar.get()#self.eta6.get()
                       print(self.dis)
                       self.course=self.t5.get()
+                      print(self.course)
                       wb = Workbook()
                       #global ff
                       #print(self.reli)
