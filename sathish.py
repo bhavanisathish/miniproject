@@ -278,7 +278,8 @@ class pageOne(tk.Frame):
              self.configure(background='darkorchid')
              self.menubar = tk.Menu(master,bg="lightgrey", fg="black")
              self.filemenu = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
-             self.filemenu.add_command(label="New Game")
+             self.filemenu.add_command(label="Individual Transfer Certificate",command=lambda: master.switch_frame(transfersingle),font=("Times 18 italic"))
+             self.filemenu.add_command(label="Batch Transfer Certificate",command=lambda: master.switch_frame(transfergroup),font=("Times 18 italic"))
              self.menubar.add_cascade(label="Transfer Certificate Generation", menu=self.filemenu)
              self.edit = tk.Menu(self.menubar, tearoff=0,relief=tk.SUNKEN, bd=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
              self.edit.add_command(label="Edit",command=lambda: master.switch_frame(editspecify),font=("Times 18 italic"))
@@ -288,6 +289,10 @@ class pageOne(tk.Frame):
              self.insert.add_command(label="Insert",command=lambda: master.switch_frame(newreg),font=("Times 18 italic"))
          
              self.menubar.add_cascade(label='Insert Details',menu=self.insert)
+             self.search = tk.Menu(self.menubar, tearoff=0,relief=tk.SUNKEN, bd=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
+             self.search.add_command(label="Search",command=lambda: master.switch_frame(search),font=("Times 18 italic"))
+         
+             self.menubar.add_cascade(label='search Details',menu=self.search)
              #self.menubar.config("Verdana", 14)
              self.master.config(menu=self.menubar,background="Red")
              
@@ -306,16 +311,25 @@ class pageOne(tk.Frame):
                                   for image in image_files)
              self.picture_display = tk.Label(self,width=600,height=400)
              self.picture_display.grid(row=3,column=0,sticky='W')
+             #self.p = cycle((tk.PhotoImage(file=image), image)for image in image_files)
              self.p_d=tk.Label(self,width=600,height=400)             
              self.p_d.grid(row=3,column=0,sticky='E')
              self.label=tk.Label(self,text='')
              self.label.grid(row=2,column=1)
              self.lee=tk.Label(self)
              self.lee.grid(row=4)
-             self.lee2=tk.Label(self)
-             self.lee2.grid(row=5)
-             self.lw=tk.Label(self,text='Alagappa Chettiar Government College of Engineering & Technology')
-             self.lw.grid(row=6,column=0)
+             self.lee2=tk.Label(self,text='HISTORY OF ACGCET',font=("Times 15 italic"))
+             self.lee2.grid(row=5,sticky='W')
+             self.lw=tk.Label(self,font=("Times 11 "),text='Dr.RM.Alagappa Chettiar, a man of rare wisdom, and forethought, founded  Alagappa Chettiar Educational Trust  with the sole aim of developing the backward area of Karaikudi into a centre for higher education and provided ')
+             self.lw.grid(row=6,column=0,sticky='W')
+             self.lw1=tk.Label(self,text='necessary funds for the establishment of education and provided necessary funds for the establishment of educational institutions. On the Occasion of laying of the foundation stone of the central Electro Chemical Research Institue',font=("Times 11 "))
+             self.lw1.grid(row=7,column=0,sticky='W')
+             self.lw2=tk.Label(self,text='by pandit jawaharlal Nehru on 25th july 1948. Dr.Alagappa Chettiar, in his Welcome address, said “It is my hope to start here an Engineering College immediately. A College with Dr.Alagappa Chettiar and the University of Madras ',font=("Times 11 "))
+             self.lw2.grid(row=8,column=0,sticky='W')
+             self.lw3=tk.Label(self,text='willing start functioning with Civil Engineering by academic year 1949.” In 1952, Dr. Alagappa Chettiar’s dream came true. Alagappa Chettiar College of Engg & Tech., Started functioning from 21st July 1952 with three ',font=("Times 11 "))
+             self.lw3.grid(row=9,column=0,sticky='W')
+             self.lw4=tk.Label(self,text='faculties-Civil,Mechanical, Electrical & Electronics Engineering.The Foundation tablet for the main building of the college was laid by Dr.Rajendra Prasad, the then President of India on 19 th February 1953.',font=("Times 11 "))
+             self.lw4.grid(row=10,column=0,sticky='W')
              img_object, img_name = next(self.pictures)
              self.picture_display.config(image=img_object)
              self.p_d.config(image=img_object)
@@ -330,6 +344,7 @@ class pageOne(tk.Frame):
         # next works with Python26 or higher
         img_object, img_name = next(self.pictures)
         self.picture_display.config(image=img_object)
+        self.p_d.config(image=img_object)
         # shows the image filename, but could be expanded
         # to show an associated description of the image
         #self.title(img_name)
@@ -1560,10 +1575,7 @@ class newreg(tk.Frame):
                             datetime.datetime.strptime(self.dob, '%Y-%m-%d')
                             datetime.datetime.strptime(self.receiptdate, '%Y-%m-%d')
                             datetime.datetime.strptime(self.issuedon, '%Y-%m-%d')
-                            if(self.name!="" and self.regno !="" and self.rollno !="" and self.father!="" and self.nation !="" and self.religion!="" and self.caste!="" and self.community!="" and self.sex!="" and self.dob!="" and self.course!="" and                self.branch !="" and
-                self.admiton!="" and self.receiptno!="" and self.receiptdate!="" and self.mothertongue!="" and
-                self.state!="" and self.address!="" and self.taluk!="" and self.city!="" and self.district!="" and
-                self.cellno!="" and self.aadharno!="" and self.tcno!="" and self.issuedon!="" and self.yopo!=""):
+                            if(self.name!="" and self.regno !="" and self.rollno !="" and self.father!="" and self.nation !="" and self.religion!="" and self.caste!="" and self.community!="" and self.sex!="" and self.dob!="" and self.course!="" and  self.branch !="" and self.admiton!="" and self.receiptno!="" and self.receiptdate!="" and self.mothertongue!="" and self.state!="" and self.address!="" and self.taluk!="" and self.city!="" and self.district!="" and self.cellno!="" and self.aadharno!="" and self.tcno!="" and self.issuedon!="" and self.yopo!=""):
                                 self.calle()
                             else:
                              messagebox.showinfo("Insert Error", "Fill all the fields")
