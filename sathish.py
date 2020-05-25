@@ -113,7 +113,6 @@ class StartPage(tk.Frame):
                     lee3=tk.Label(self.Frame2,text='for our country.',font = ('calibri',18, 'bold'))
                     lee3.grid(row=13,column=0,sticky='W')
                     #self.state("zoomed")
-                    global username,passwords
                     self.l1=ttk.Label(self,text="Login here",font=("Times 40 italic"),background="gray69")
                     self.l1.grid(row=3,column=1,columnspan=2,sticky='W',padx=10,pady=50)
                     
@@ -143,7 +142,8 @@ class StartPage(tk.Frame):
           self.Frame2.destroy()
           self.master.switch_frame(registration)
       def passd(self):
-            
+            global username,passwords
+            username = self.e1.get()
             self.username = self.e1.get()
             self.passwords = self.e2.get()
             db.execute("select *from adminlogin where name='%s' and password='%s'"%(self.username,self.passwords))
@@ -268,7 +268,8 @@ class pageOne(tk.Frame):
              #self.Frame1 = tk.Frame(self.master)
              #self.Frame1.pack(side="top",  pady=10,padx=10,expand=True )
              #self.Frame1.configure(background='cadetBlue1')
-             #photo=tk.PhotoImage(file="ss.png")  
+             #photo=tk.PhotoImage(file="ss.png") 
+             adminname='logged in as '+username
              label1221=tk.Label(self,text="Alagappa chettiar Government College of Engineering and Technology,Karaikudi",font =
                    ('calibri', 30, 'bold'))
              label1221.grid(row=0)
@@ -276,23 +277,29 @@ class pageOne(tk.Frame):
                    ('calibri', 20, 'bold'))
              label12221.grid(row=1)
              self.configure(background='darkorchid')
-             self.menubar = tk.Menu(master,bg="lightgrey", fg="black")
+             self.Frame4 = tk.Frame(self.master,bg="yellow")
+                    
+             self.Frame4.pack(side="top", expand=True )
+             self.menubar = tk.Menu(self.Frame4 )
              self.filemenu = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
              self.filemenu.add_command(label="Individual Transfer Certificate",command=lambda: master.switch_frame(transfersingle),font=("Times 18 italic"))
              self.filemenu.add_command(label="Batch Transfer Certificate",command=lambda: master.switch_frame(transfergroup),font=("Times 18 italic"))
              self.menubar.add_cascade(label="Transfer Certificate Generation", menu=self.filemenu)
-             self.edit = tk.Menu(self.menubar, tearoff=0,relief=tk.SUNKEN, bd=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
+             self.edit = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red',font=("Times 18 italic"))
              self.edit.add_command(label="Edit",command=lambda: master.switch_frame(editspecify),font=("Times 18 italic"))
              
              self.menubar.add_cascade(label='Edit Details',menu=self.edit)
-             self.insert = tk.Menu(self.menubar, tearoff=0,relief=tk.SUNKEN, bd=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
+             self.insert = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red',font=("Times 18 italic"))
              self.insert.add_command(label="Insert",command=lambda: master.switch_frame(newreg),font=("Times 18 italic"))
          
              self.menubar.add_cascade(label='Insert Details',menu=self.insert)
-             self.search = tk.Menu(self.menubar, tearoff=0,relief=tk.SUNKEN, bd=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
+             self.search = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red',font=("Times 18 italic"))
              self.search.add_command(label="Search",command=lambda: master.switch_frame(search),font=("Times 18 italic"))
          
              self.menubar.add_cascade(label='search Details',menu=self.search)
+             self.menubar.add_command(label="logout",command=self.logg,font=("Times 18 italic"))
+             self.menubar.add_command(label=adminname,font=("Times 18 italic"))
+         
              #self.menubar.config("Verdana", 14)
              self.master.config(menu=self.menubar,background="Red")
              
@@ -338,7 +345,9 @@ class pageOne(tk.Frame):
              #self.title(img_name)
              self.after(self.delay, self.show_slides)
            
-        
+      def logg(self):
+          self.Frame4.destroy()
+          self.master.switch_frame(StartPage)
       def show_slides(self):
         '''cycle through the images and show them'''
         # next works with Python26 or higher
@@ -450,8 +459,8 @@ class transfergroup(tk.Frame):
                 self.but=ttk.Button(self,text="SUBMIT",style = 'W.TButton',command=self.tranzgrp)
                 self.but.grid(row=11,column=1,padx=5,pady=5,sticky='E')
               
-                self.button16=ttk.Button(self,text="BACK",style = 'W.TButton',command=lambda: master.switch_frame(transferspecify))
-                self.button16.grid(row=11,column=0,sticky='W')
+                #self.button16=ttk.Button(self,text="BACK",style = 'W.TButton',command=lambda: master.switch_frame(transferspecify))
+                #self.button16.grid(row=11,column=0,sticky='W')
         
         def feey(self):
             self.feeey="yes"
@@ -641,8 +650,8 @@ class transfersingle(tk.Frame):
                 self.but=ttk.Button(self,text="Submit",style = 'W.TButton',command=self.tranz)
                 self.but.grid(row=11,column=1,padx=35,pady=5,ipady=5,sticky='W')
               
-                self.button16=ttk.Button(self,text="BACK",style = 'W.TButton',command=lambda: master.switch_frame(transferspecify))
-                self.button16.grid(row=11,column=0,sticky='W')
+                #self.button16=ttk.Button(self,text="BACK",style = 'W.TButton',command=lambda: master.switch_frame(transferspecify))
+                #self.button16.grid(row=11,column=0,sticky='W')
           def feey(self):
             self.feeey="yes"
           def feex(self):
@@ -994,16 +1003,16 @@ class editspecify(tk.Frame):
              tk.Frame.__init__(self,master)
              self.configure(background='darkorchid')
              lablle1=ttk.Label(self,text="EDIT SPECIFICATION",font=("Times 30 italic"),background="darkorchid")
-             lablle1.grid(row=0,column=0,sticky='NSWE',pady=50)
+             lablle1.grid(row=0,column=0,pady=5)
              lp=ttk.Label(self,text="Register number",font=("Times 30 italic"),background="darkorchid")
-             lp.grid(row=1,column=0,sticky='W',padx=35,pady=30,ipady=3)
+             lp.grid(row=1,column=0,sticky='W',padx=35,pady=10,ipady=3)
              self.ent=ttk.Entry(self,font=("Times 18 italic"))
-             self.ent.grid(row=1,column=1,sticky='W',padx=5,pady=30,ipady=5)
+             self.ent.grid(row=1,column=1,sticky='W',padx=5,pady=10,ipady=5)
              buton1=ttk.Button(self,text="submit",style = 'W.TButton',command=self.editz)
              buton1.grid(row=3,column=1,sticky='W',pady=50)
              
-             button18=ttk.Button(self,text="BACK",style = 'W.TButton',command=lambda: master.switch_frame(pageOne))
-             button18.grid(row=3,column=0,sticky='W',pady=50,padx=35)
+             #button18=ttk.Button(self,text="BACK",style = 'W.TButton',command=lambda: master.switch_frame(pageOne))
+             #button18.grid(row=3,column=0,sticky='W',pady=50,padx=35)
       def editz(self):
           global setvar
           setvar=self.ent.get()
@@ -1529,8 +1538,8 @@ class newreg(tk.Frame):
                 
                 
                 
-                self.but=ttk.Button(self,style = 'W.TButton',text="BACK",command=lambda: master.switch_frame(pageOne))
-                self.but.grid(row=14,column=4,sticky='W',pady=3,padx=40)
+                #self.but=ttk.Button(self,style = 'W.TButton',text="BACK",command=lambda: master.switch_frame(pageOne))
+                #self.but.grid(row=14,column=4,sticky='W',pady=3,padx=40)
           
           
               def validatered(self):
