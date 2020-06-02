@@ -644,18 +644,19 @@ class transfergroup(tk.Frame):
                 self.Frame11.pack(side="top",  pady=1,padx=1,expand=True )
                 self.Frame11.configure(background='papayawhip')
                 label1221=tk.Label(self.Frame11,text="Alagappa chettiar Government College of Engineering and Technology,Karaikudi",font =
-                                         ('Times', 20, 'bold'))
-                label1221.grid(row=0,rowspan=1,column=1,columnspan=40)
+                                         ('Times', 26, 'bold'))
+                label1221.grid(row=0,rowspan=1,column=1)
                 label12221=tk.Label(self.Frame11,text="(An autonomous government institution permanently affilitated to anna university)",font =
-                                          ('Times', 12, 'bold'))
-                label12221.grid(row=1,rowspan=1,column=1,columnspan=40)
-                self.l=ttk.Label(self,text="Batch Transfer Certificate Details",font=("Times 20 italic"),background="darkorchid")
-                self.l.grid(row=0,column=1)
+                                          ('Times', 20, 'bold'))
+                label12221.grid(row=1,rowspan=1,column=1)
+                self.l=ttk.Label(self.Frame11,text="Batch Transfer Certificate Details",font=("Times 20 italic"),background="darkorchid")
+                self.l.grid(row=2,column=1)
+                
                 self.left_frame = tk.Frame(self, width=200, height=400, bg='grey')
                 self.left_frame.grid(row=0, column=0, padx=10, pady=5)
                 self.right_frame = tk.Frame(self, width=650, height=400, bg='grey')
                 self.right_frame.grid(row=0, column=1, padx=10, pady=5)
- 
+                
 # Create frames and labels in left_frame
                 #tk.Label(self.left_frame, text="Original Image").grid(row=0, column=0, padx=5, pady=5)
                 image = tk.PhotoImage(file="tc.png")
