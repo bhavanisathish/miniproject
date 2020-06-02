@@ -18,3 +18,5 @@ create table addtcinfo(student_bill varchar(50),scholarship varchar(50),medicali
 INSERT INTO `addtcinfo`(`student_bill`, `scholarship`, `medicalinspection`, `reasonforleaving`, `addofaplication`) VALUES ([value-1],[value-2],[value-3],[value-4],[value-5]);
 
 ALTER TABLE `addtcinfo` ADD `reg_no` BIGINT(100) NOT NULL AFTER `addofaplication`;
+
+ALTER TABLE `studentdetails` ADD `flag` INT NOT NULL AFTER `Year_Of_Passout`;

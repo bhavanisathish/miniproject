@@ -292,6 +292,7 @@ class pageOne(tk.Frame):
              self.filemenu = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
              self.filemenu.add_command(label="Individual Transfer Certificate",command=self.transsing,font=("Times 18 italic"))
              self.filemenu.add_command(label="Batch Transfer Certificate",command=self.transgrpo,font=("Times 18 italic"))
+             self.filemenu.add_command(label="Update TC",command=self.extratc,font=("Times 18 italic"))
              self.menubar.add_cascade(label="Transfer Certificate Generation", menu=self.filemenu,font = "Times 38")
              self.edit = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red',font=("Times 18 italic"))
              self.edit.add_command(label="Edit",command=self.edt ,font=("Times 18 italic"))
@@ -315,7 +316,7 @@ class pageOne(tk.Frame):
              self.delay = 3000
              image_files = [
             'ss.png',
-            '190.png',
+            'ss.png',
             'ss.png',
             'ss.png',
             'ss.png'
@@ -368,6 +369,9 @@ class pageOne(tk.Frame):
       def ser(self):
           self.Frame4.destroy()
           self.master.switch_frame(search)
+      def extratc(self):
+              self.Frame4.destroy()
+              self.master.switch_frame(updatetc)
       def logg(self):
           self.Frame4.destroy()
           self.master.switch_frame(StartPage)
@@ -391,40 +395,274 @@ class pageOne(tk.Frame):
              
 
         
-class transferspecify(tk.Frame):
-      def __init__(self, master):
-             tk.Frame.__init__(self,master)
-             self.configure(background='darkorchid')
-             lablle1=ttk.Label(self,text="Transfer Certificate",font=("Times 30 italic"),background="darkorchid")
-             lablle1.grid(row=0,column=1,sticky='NSWE',padx=10,pady=90)
-             
-             button=ttk.Button(self,text="Individual Transfer Certificate",style = 'W.TButton',command=lambda: master.switch_frame(transfersingle))
-             button.grid(row=1,column=1,sticky='W',padx=30,pady=20)
-             ll=ttk.Label(self)
-             ll.grid(row=2,column=1,padx=10,pady=80)
-             Button1=ttk.Button(self,text="     Batch Transfer Certificate    ",style = 'W.TButton',command=lambda: master.switch_frame(transfergroup))
-             Button1.grid(row=2,column=1,sticky='W',padx=30,pady=20)
-             
-             
-             self.button13=ttk.Button(self,text="BACK",style = 'W.TButton',command=lambda: master.switch_frame(pageOne))
-             self.button13.grid(row=4,column=1,sticky='W',padx=30,pady=20)
-         
+class updatetc(tk.Frame):
+
+            def __init__(self, master):
+                tk.Frame.__init__(self,master)
+                self.configure(background='RosyBrown1')
+                self.Frame14 = tk.Frame(self.master,bg="yellow",bd=3,relief=tk.RAISED)
+                    
+                self.Frame14.pack()
+                adminname='logged in as '+username
+                self.menubar = tk.Menu(self.Frame14,tearoff=0,bd=2)
+                self.filemenu = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
+                self.filemenu.add_command(label="Individual Transfer Certificate",command=self.transsing,font=("Times 18 italic"))
+                self.filemenu.add_command(label="Batch Transfer Certificate",command=self.transgrpo,font=("Times 18 italic"))
+                self.filemenu.add_command(label="Update TC",command=self.extratc,font=("Times 18 italic"))
+                self.menubar.add_cascade(label="Transfer Certificate Generation", menu=self.filemenu,font = "Times 38")
+                self.edit = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red',font=("Times 18 italic"))
+                self.edit.add_command(label="Edit",command=self.edt ,font=("Times 18 italic"))
+                 
+                self.menubar.add_cascade(label='Edit Details',menu=self.edit,font = "Times 38")
+                self.insert = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red',font=("Times 18 italic"))
+                self.insert.add_command(label="Insert",command=self.ins,font=("Times 18 italic"))
+                    
+                self.menubar.add_cascade(label='Insert Details',menu=self.insert,font = "Times 38")
+                self.search = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red',font=("Times 18 italic"))
+                self.search.add_command(label="Search",command=self.ser,font=("Times 18 italic"))
+                
+                self.menubar.add_cascade(label='search Details',menu=self.search,font = "Times 38")
+                self.menubar.add_command(label="logout",command=self.logg,font=("Times 18 italic"))
+                self.menubar.add_command(label=adminname,font=("Times 18 italic"))
+                     
+                         #self.menubar.config("Verdana", 14)
+                self.master.config(menu=self.menubar)
+                self.Frame11 = tk.Frame(self.master)
+                self.Frame11.pack(side="top",  pady=1,padx=1,expand=True )
+                self.Frame11.configure(background='papayawhip')
+                label1221=tk.Label(self.Frame11,text="Alagappa chettiar Government College of Engineering and Technology,Karaikudi",font =
+                                         ('Times', 20, 'bold'))
+                label1221.grid(row=0,rowspan=1,column=1,columnspan=40)
+                label12221=tk.Label(self.Frame11,text="(An autonomous government institution permanently affilitated to anna university)",font =
+                                          ('Times', 12, 'bold'))
+                label12221.grid(row=1,rowspan=1,column=1,columnspan=40)
+                self.left_frame = tk.Frame(self, width=200, height=800, bg='grey')
+                self.left_frame.grid(row=1, column=0, padx=10, pady=5)
+                self.right_frame = tk.Frame(self, width=650, height=400, bg='grey')
+                self.right_frame.grid(row=1, column=1, padx=10, pady=5)
+ 
+# Create frames and labels in left_frame
+                #tk.Label(self.left_frame, text="Original Image").grid(row=0, column=0, padx=5, pady=5)
+                image = tk.PhotoImage(file="tc.png")
+                original_image = image.subsample(1) # resize image using subsample
+                label =tk.Label(self.left_frame,image = original_image)#,width=1680,height=1080)
+                label.image = original_image # keep a reference!
+                label.grid(row=1, column=0, padx=5, pady=5)
+                
+                
+                self.l=ttk.Label(self,text="Update Transfer Certificate Details",font=("Times 20 italic"),background="darkorchid")
+                self.l.grid(row=0,column=1)
+                
+                self.l1=ttk.Label(self.right_frame,text="Register Number",font=("Times 15 italic"),background="darkorchid")
+                self.l1.grid(row=1,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                self.ent1=ttk.Entry(self.right_frame,font=("Times 15 italic"))
+                self.ent1.grid(row=1,column=1,padx=5,pady=1,ipady=5,sticky='W')
+                self.l2=ttk.Label(self.right_frame,text="Community",font=("Times 15 italic"),background="darkorchid")
+                
+                self.l2.grid(row=2,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                self.t3 = tk.StringVar(self)
+                
+                self.e2 =ttk.Combobox(self.right_frame, width=18, textvariable=self.t3,font=("Times 15 italic"))
+                self.e2['values']=('OC','BC','BCM','MBC','SC','ST','Others')  
+                self.e2.grid(row=2,column=1,padx=5,pady=1,ipady=5,sticky='W')
+                
+                
+                self.vieww=tk.IntVar()
+                self.viewe=tk.IntVar()
+                self.viiew=tk.IntVar()
+                
+                
+                self.l1=ttk.Label(self.right_frame,text="Whether the student has paid all the fees due to the college?",font=("Times 15 italic"),background='darkorchid')
+                self.l1.grid(row=5,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                self.r10=ttk.Radiobutton(self.right_frame, text="Yes",variable=self.vieww, value=1,style = 'Wild.TRadiobutton',command=self.feey)
+                self.r10.grid(row=5,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                self.r11=ttk.Radiobutton(self.right_frame, text="No",variable=self.vieww, value=2,style = 'Wild.TRadiobutton',command=self.feex)
+                self.r11.grid(row=5,column=2,sticky='W',padx=1,pady=10,ipadx=1,ipady=10)
+                
+                self.l2=ttk.Label(self.right_frame,text="Whether the student was in the receipt of any scholarship",font=("Times 15 italic"),background='darkorchid')
+                self.l2.grid(row=6,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                self.r20=ttk.Radiobutton(self.right_frame, text="Yes",variable=self.viewe, value=1,style = 'Wild.TRadiobutton',command=self.schy)
+                self.r20.grid(row=6,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                self.r21=ttk.Radiobutton(self.right_frame, text="No",variable=self.viewe, value=2,style = 'Wild.TRadiobutton',command=self.schx)
+                self.r21.grid(row=6,column=2,sticky='W',padx=1,pady=10,ipadx=1,ipady=10)
+                
+                self.l3=ttk.Label(self.right_frame,text="Whether the student has undergone Medical inspection during the year",font=("Times 15 italic"),background='darkorchid')
+                self.l3.grid(row=7,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                self.r30=ttk.Radiobutton(self.right_frame, text="Yes",variable=self.viiew, value=1,style = 'Wild.TRadiobutton',command=self.medy)
+                self.r30.grid(row=7,column=1,sticky='W',padx=20,pady=10,ipadx=20,ipady=10)
+                self.r31=ttk.Radiobutton(self.right_frame, text="No",variable=self.viiew, value=2,style = 'Wild.TRadiobutton',command=self.medx)
+                self.r31.grid(row=7,column=2,sticky='W',padx=1,pady=10,ipadx=1,ipady=10)
+                                                        
+                self.l4=ttk.Label(self.right_frame,text="Reason for leaving the college",font=("Times 15 italic"),background="darkorchid")
+                self.l4.grid(row=8,column=0,padx=10,pady=30,sticky='W')
+                self.e40=ttk.Entry(self.right_frame,font=("Times 15 italic"))
+                self.e40.grid(row=8,column=1,padx=5,pady=5,ipady=5,sticky='W')
+                
+                self.l4=ttk.Label(self.right_frame,text="Date on which application for Transfer Certificate was ",font=("Times 15 italic"),background="darkorchid")
+                self.l4.grid(row=9,column=0,padx=10,pady=10,sticky='W')                
+                self.l5=ttk.Label(self.right_frame,text="made by the student or on his/her behalf by parent/guardian",font=("Times 15 italic"),background="darkorchid")
+                self.l5.grid(row=10,column=0,padx=10,pady=1,sticky='W')
+                self.e41=ttk.Entry(self.right_frame,font=("Times 15 italic"))
+                self.e41.grid(row=10,column=1,padx=5,pady=1,ipady=5,sticky='W')
+                
+                self.but=ttk.Button(self.right_frame,text="Submit",style = 'W.TButton',command=self.updatz)
+                self.but.grid(row=11,column=1,padx=15,pady=5,ipady=5,sticky='W')
+                
+            def feey(self):
+                self.feeey="yes"
+            def feex(self):
+                self.feeey="no"
+            def schy(self):
+                self.schhy="yes"
+            def schx(self):
+                self.schhy="no"
+            def medy(self):
+                self.meedy="yes"
+            def medx(self):
+                self.meedy="no"
+            def transsing(self):
+              self.Frame14.destroy()
+              self.Frame11.destroy()
+              self.right_frame.destroy()
+              self.left_frame.destroy()
+              self.master.switch_frame(transfersingle)
+            def transgrpo(self):
+                  self.Frame14.destroy()
+                  self.Frame11.destroy()
+                  self.right_frame.destroy()
+                  self.left_frame.destroy()
+                  self.master.switch_frame(transfergroup)
+            def extratc(self):
+                  self.Frame14.destroy()
+                  self.Frame11.destroy()
+                  self.right_frame.destroy()
+                  self.left_frame.destroy()
+                  self.master.switch_frame(updatetc)    
+            def ins(self):
+                  self.Frame14.destroy()
+                  self.Frame11.destroy()
+                  self.right_frame.destroy()
+                  self.left_frame.destroy()
+                  self.master.switch_frame(newreg)
+            def edt(self):
+                  self.Frame14.destroy()
+                  self.Frame11.destroy()
+                  self.right_frame.destroy()
+                  self.left_frame.destroy()
+                  self.master.switch_frame(editspecify)
+            def ser(self):
+                  self.Frame14.destroy()
+                  self.Frame11.destroy()
+                  self.right_frame.destroy()
+                  self.left_frame.destroy()
+                  self.master.switch_frame(search)
+            def logg(self):
+                  self.Frame14.destroy()
+                  self.Frame11.destroy()
+                  self.right_frame.destroy()
+                  self.left_frame.destroy()
+                  self.master.switch_frame(StartPage)      
+        
+            def updatz(self):
+                self.comm=self.t3.get()
+                #print()
+                self.reg=self.ent1.get()
+                print(self.reg)
+                
+                self.reasn=self.e40 .get()
+                self.donw=self.e41.get()
+                if(self.comm !=' ' and self.reg == '' and self.feeey !='' and self.schhy!='' and  self.meedy!='' and self.reasn!='' and self.donw!=''):
+                    db.execute("select *from studentdetails where caste='%s'  and flag='0'"%(self.comm))
+                    my=db.fetchall()
+                    #j=1
+                    for o in my:
+                        reg_no = o[1]
+                        if(datetime.datetime.strptime(self.donw, '%Y-%m-%d') and self.feeey!="" and reg_no !="" and self.schhy!="" and self.meedy!="" and self.schhy!="" ):
+                             sql0="INSERT INTO `addtcinfo`(`reg_no`, `student_bill`, `scholarship`, `medicalinspection`, `reasonforleaving`, `addofaplication`) VALUES(%s,%s,%s,%s,%s,%s)"
+                             val0=(reg_no,self.feeey,self.schhy,self.meedy,self.reasn,self.donw)
+                             db.execute(sql0,val0)
+                             db_cur.commit() 
+                             self.Frame14.destroy()
+                             self.Frame11.destroy()
+                             self.right_frame.destroy()
+                             self.left_frame.destroy()           
+                             self.master.switch_frame(pageOne) 
+                        else:
+                            messagebox.showinfo("Transfer Error", "Fill all the fields and Check above details are True") 
+                elif(self.comm !=' ' and self.reg != '' and self.feeey !='' and self.schhy!='' and  self.meedy!='' and self.reasn!='' and self.donw!=''):
+                    print(self.reg)
+                    db.execute("select *from studentdetails where reg_number='%s'  and flag='0'"%(self.reg))
+                    my=db.fetchone()
+                    regg_no=my[1]
+                    if(datetime.datetime.strptime(self.donw, '%Y-%m-%d') and self.feeey!="" and regg_no !="" and self.schhy!="" and self.meedy!="" and self.schhy!="" ):
+                             sql0="INSERT INTO `addtcinfo`(`reg_no`, `student_bill`, `scholarship`, `medicalinspection`, `reasonforleaving`, `addofaplication`) VALUES(%s,%s,%s,%s,%s,%s)"
+                             val0=(regg_no,self.feeey,self.schhy,self.meedy,self.reasn,self.donw)
+                             db.execute(sql0,val0)
+                             db_cur.commit() 
+                             self.Frame14.destroy()
+                             self.Frame11.destroy()
+                             self.right_frame.destroy()
+                             self.left_frame.destroy()           
+                             self.master.switch_frame(pageOne) 
+                    else:
+                            messagebox.showinfo("Transfer Error", "Fill all the fields and Check above details are True") 
+          
+              
 class transfergroup(tk.Frame):
         def __init__(self, master):
                 tk.Frame.__init__(self,master)
                 self.configure(background='darkorchid')
                 self.view=tk.IntVar()
+                self.Frame14 = tk.Frame(self.master,bg="yellow",bd=3,relief=tk.RAISED)
+                    
+                self.Frame14.pack()
+                adminname='logged in as '+username
+                self.menubar = tk.Menu(self.Frame14,tearoff=0,bd=2)
+                self.filemenu = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
+                self.filemenu.add_command(label="Individual Transfer Certificate",command=self.transsing,font=("Times 18 italic"))
+                self.filemenu.add_command(label="Batch Transfer Certificate",command=self.transgrpo,font=("Times 18 italic"))
+                self.filemenu.add_command(label="Update TC",command=self.extratc,font=("Times 18 italic"))
+                self.menubar.add_cascade(label="Transfer Certificate Generation", menu=self.filemenu,font = "Times 38")
+                self.edit = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red',font=("Times 18 italic"))
+                self.edit.add_command(label="Edit",command=self.edt ,font=("Times 18 italic"))
+                 
+                self.menubar.add_cascade(label='Edit Details',menu=self.edit,font = "Times 38")
+                self.insert = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red',font=("Times 18 italic"))
+                self.insert.add_command(label="Insert",command=self.ins,font=("Times 18 italic"))
+                    
+                self.menubar.add_cascade(label='Insert Details',menu=self.insert,font = "Times 38")
+                self.search = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red',font=("Times 18 italic"))
+                self.search.add_command(label="Search",command=self.ser,font=("Times 18 italic"))
+                
+                self.menubar.add_cascade(label='search Details',menu=self.search,font = "Times 38")
+                self.menubar.add_command(label="logout",command=self.logg,font=("Times 18 italic"))
+                self.menubar.add_command(label=adminname,font=("Times 18 italic"))
+                     
+                         #self.menubar.config("Verdana", 14)
+                self.master.config(menu=self.menubar)
+                self.Frame11 = tk.Frame(self.master)
+                self.Frame11.pack(side="top",  pady=1,padx=1,expand=True )
+                self.Frame11.configure(background='papayawhip')
+                label1221=tk.Label(self.Frame11,text="Alagappa chettiar Government College of Engineering and Technology,Karaikudi",font =
+                                         ('Times', 20, 'bold'))
+                label1221.grid(row=0,rowspan=1,column=1,columnspan=40)
+                label12221=tk.Label(self.Frame11,text="(An autonomous government institution permanently affilitated to anna university)",font =
+                                          ('Times', 12, 'bold'))
+                label12221.grid(row=1,rowspan=1,column=1,columnspan=40)
+                self.l=ttk.Label(self,text="Batch Transfer Certificate Details",font=("Times 20 italic"),background="darkorchid")
+                self.l.grid(row=0,column=1)
                 self.left_frame = tk.Frame(self, width=200, height=400, bg='grey')
                 self.left_frame.grid(row=0, column=0, padx=10, pady=5)
                 self.right_frame = tk.Frame(self, width=650, height=400, bg='grey')
                 self.right_frame.grid(row=0, column=1, padx=10, pady=5)
  
 # Create frames and labels in left_frame
-                tk.Label(self.left_frame, text="Original Image").grid(row=0, column=0, padx=5, pady=5)
-                image = tk.PhotoImage(file="ss.png")
-                original_image = image.subsample(3,3) # resize image using subsample
-                tk.Label(self.left_frame, image=original_image).grid(row=1, column=0, padx=5, pady=5)
- 
+                #tk.Label(self.left_frame, text="Original Image").grid(row=0, column=0, padx=5, pady=5)
+                image = tk.PhotoImage(file="tc.png")
+                original_image = image.subsample(1) # resize image using subsample
+                label =tk.Label(self.left_frame,image = original_image)#,width=1680,height=1080)
+                label.image = original_image # keep a reference!
+                label.grid(row=1, column=0, padx=5, pady=5)
                 
                 self.l=ttk.Label(self.right_frame,text="Enter the Details",font=("Times 22 italic"),background="darkorchid")
                 self.l.grid(row=0,padx=10,pady=20)
@@ -432,10 +670,10 @@ class transfergroup(tk.Frame):
                 
                 self.l12=ttk.Label(self.right_frame,text="Branch Of Study",font=("Times 18 italic"),background="darkorchid")
                 self.l12.grid(row=1,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
-                self.ll12=ttk.Label(self.right_frame,text="  :  ",font=("Times 15 italic"),background="darkorchid")
-                self.ll12.grid(row=1,column=2,sticky='W',pady=3,padx=40)
+                #self.ll12=ttk.Label(self.right_frame,text="  :  ",font=("Times 15 italic"),background="darkorchid")
+                #self.ll12.grid(row=1,column=1,sticky='W',pady=3,padx=40)
                 self.t6 = tk.StringVar(self)
-                self.p6 =ttk.Combobox(self.right_frame, width=25, textvariable=self.t6)
+                self.p6 =ttk.Combobox(self.right_frame, width=25, textvariable=self.t6,font=("Times 18 italic"))
                 self.p6['values']=('Civil Engineering','Mechanical Engineering','Electrical and Electronics Engineering','Electronics and Communication Engineering','Computer science and Engineering')  
                 self.p6.grid(row=1,column=1,padx=5,pady=5,ipady=5,sticky='W')
                 self.p6.current()
@@ -452,99 +690,76 @@ class transfergroup(tk.Frame):
                 self.ee3.grid(row=3,column=1,padx=5,pady=5,ipady=5,sticky='W')
                 #print(entr1.get())
                 
-                self.vieww=tk.IntVar()
-                self.viewe=tk.IntVar()
-                self.viiew=tk.IntVar()
-                
-                
-                self.l1=ttk.Label(self.right_framelf,text="Whether the student has paid all the fees due to the college?",font=("Times 20 italic"),background='darkorchid')
-                self.l1.grid(row=5,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=10)
-                self.r10=ttk.Radiobutton(self.right_frame, text="Yes",variable=self.vieww, value=1,style = 'Wild.TRadiobutton',command=self.feey)
-                self.r10.grid(row=5,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=10)
-                self.r11=ttk.Radiobutton(self.right_frame, text="No",variable=self.vieww, value=2,style = 'Wild.TRadiobutton',command=self.feex)
-                self.r11.grid(row=5,column=2,sticky='W',padx=20,pady=5,ipadx=20,ipady=10)
-                
-                self.l2=ttk.Label(self.right_frame,text="Whether the student was in the receipt of any scholarship",font=("Times 20 italic"),background='darkorchid')
-                self.l2.grid(row=6,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=10)
-                self.r20=ttk.Radiobutton(self.right_frame, text="Yes",variable=self.viewe, value=1,style = 'Wild.TRadiobutton',command=self.schy)
-                self.r20.grid(row=6,column=1,sticky='W',padx=20,pady=5,ipadx=20,ipady=10)
-                self.r21=ttk.Radiobutton(self.right_frame, text="No",variable=self.viewe, value=2,style = 'Wild.TRadiobutton',command=self.schx)
-                self.r21.grid(row=6,column=2,sticky='W',padx=20,pady=5,ipadx=20,ipady=10)
-                
-                self.l3=ttk.Label(self.right_frame,text="Whether the student has undergone Medical inspection during the year",font=("Times 20 italic"),background='darkorchid')
-                self.l3.grid(row=7,column=0,sticky='W',padx=10,pady=5,ipadx=20,ipady=10)
-                self.r30=ttk.Radiobutton(self.right_frame, text="Yes",variable=self.viiew, value=1,style = 'Wild.TRadiobutton',command=self.medy)
-                self.r30.grid(row=7,column=1,sticky='W',padx=10,pady=5,ipadx=20,ipady=10)
-                self.r31=ttk.Radiobutton(self.right_frame, text="No",variable=self.viiew, value=2,style = 'Wild.TRadiobutton',command=self.medx)
-                self.r31.grid(row=7,column=2,sticky='W',padx=10,pady=5,ipadx=20,ipady=10)
-                                                        
-                self.l4=ttk.Label(self.right_frame,text="Reason for leaving the college",font=("Times 20 italic"),background="darkorchid")
-                self.l4.grid(row=8,column=0,padx=5,pady=5,sticky='W')
-                self.e40=ttk.Entry(self.right_frame,font=("Times 15 italic"))
-                self.e40.grid(row=8,column=1,padx=5,pady=5,ipady=5,sticky='W')
-                
-                self.l4=ttk.Label(self.right_frame,text="Date on which application for Transfer Certificate was ",font=("Times 20 italic"),background="darkorchid")
-                self.l4.grid(row=9,column=0,padx=5,pady=5,sticky='W')                
-                self.l5=ttk.Label(self.right_frame,text="made by the student or on his/her behalf by parent/guardian",font=("Times 20 italic"),background="darkorchid")
-                self.l5.grid(row=10,column=0,padx=5,pady=5,sticky='W')
-                self.e41=ttk.Entry(self.right_frame,font=("Times 15 italic"))
-                self.e41.grid(row=10,column=1,padx=5,pady=5,ipady=5,sticky='W')
                 #print(entr1.get())
                 
-                #self.but=ttk.Button(self,text="SUBMIT",style = 'W.TButton',command=self.tranzgrp)
-                #self.but.grid(row=11,column=1,padx=5,pady=5,sticky='E')
+                self.but=ttk.Button(self.right_frame,text="SUBMIT",style = 'W.TButton',command=self.tranzgrp)
+                self.but.grid(row=4,column=1,padx=5,pady=5,sticky='E')
               
                 #self.button16=ttk.Button(self,text="BACK",style = 'W.TButton',command=lambda: master.switch_frame(transferspecify))
                 #self.button16.grid(row=11,column=0,sticky='W')
         
-        def feey(self):
-            self.feeey="yes"
-        def feex(self):
-            self.feeey="no"
-        def schy(self):
-            self.schhy="yes"
-        def schx(self):
-            self.schhy="no"
-        def medy(self):
-            self.meedy="yes"
-        def medx(self):
-            self.meedy="no"
+        def transsing(self):
+              self.Frame14.destroy()
+              self.Frame11.destroy()
+              self.right_frame.destroy()
+              self.left_frame.destroy()
+              self.master.switch_frame(transfersingle)
+        def transgrpo(self):
+              self.Frame14.destroy()
+              self.Frame11.destroy()
+              self.right_frame.destroy()
+              self.left_frame.destroy()
+              self.master.switch_frame(transfergroup)
+        def ins(self):
+              self.Frame14.destroy()
+              self.Frame11.destroy()
+              self.right_frame.destroy()
+              self.left_frame.destroy()
+              self.master.switch_frame(newreg)
+        def edt(self):
+              self.Frame14.destroy()
+              self.Frame11.destroy()
+              self.right_frame.destroy()
+              self.left_frame.destroy()
+              self.master.switch_frame(editspecify)
+        def ser(self):
+              self.Frame14.destroy()
+              self.Frame11.destroy()
+              self.right_frame.destroy()
+              self.left_frame.destroy()
+              self.master.switch_frame(search)
+        def logg(self):
+              self.Frame14.destroy()
+              self.Frame11.destroy()
+              self.right_frame.destroy()
+              self.left_frame.destroy()
+              self.master.switch_frame(StartPage)      
         
+        
+        def extratc(self):
+              self.Frame14.destroy()
+              self.Frame11.destroy()
+              self.right_frame.destroy()
+              self.left_frame.destroy()
+              self.master.switch_frame(updatetc)
             
         def tranzgrp(self):
             global sentt,getit,yopo,ppname
             sentt=self.p6.get()
             yopo = self.ee3.get()
             getit=self.ee2.get()
-            self.reasn=self.e40.get()
-            self.donw=self.e41.get()
-            #print(sentt)
-            #print(getit)
-            db.execute("select *from studentdetails where branch='%s' and Year_Of_Passout ='%s' and flag='0'"%(sentt,yopo))
-            my=db.fetchall()
-            #j=1
-            for o in my:
-                reg_no = o[1]
-                if(datetime.datetime.strptime(self.donw, '%Y-%m-%d') and self.feeey!="" and reg_no !="" and self.schhy!="" and self.meedy!="" and self.schhy!="" ):
-                     sql0="INSERT INTO `addtcinfo`(`reg_no`, `student_bill`, `scholarship`, `medicalinspection`, `reasonforleaving`, `addofaplication`) VALUES(%s,%s,%s,%s,%s,%s)"
-                     val0=(reg_no,self.feeey,self.schhy,self.meedy,self.reasn,self.donw)
-                     db.execute(sql0,val0)
-                     db_cur.commit() 
-                     db.execute("update studentdetails set flag='1' where reg_number='%s'"%(reg_no))
-                         
-                     db_cur.commit()             
-                     self.master.switch_frame(pageOne) 
-                else:
-                    messagebox.showinfo("Transfer Error", "Fill all the fields and Check above details are True") 
-
-              
-            db.execute("select *from studentdetails where branch='%s' and Year_Of_Passout ='%s'"%(sentt,yopo))
+           
+            db.execute("select *from studentdetails where branch='%s' and Year_Of_Passout ='%s' and flag='0' "%(sentt,yopo))
             myresult=db.fetchall()
             pdf=FPDF()
             #reg=
             i=1
            
             for f in myresult:
+                reg_no=f[1]
+                db.execute("update studentdetails set flag='1' where reg_number='%s'"%(reg_no))
+                                 
+                db_cur.commit() 
                 print(i)
                 i=i+1
                 db.execute("SELECT * FROM `addtcinfo` WHERE `reg_no`= '%s' "%(f[1]))
@@ -564,8 +779,8 @@ class transfergroup(tk.Frame):
                   pdf.cell(100,10,txt="     2.  Name of the parent/Guardian                               ")
                   pdf.cell(100,10,txt=":              "+str(f[3]))
                   pdf.ln(10)
-                  pdf.cell(100,10,txt="     3.  Nationality Religion and coommunity                      ")
-                  pdf.cell(100,10,txt=":              "+str(f[6]))
+                  pdf.cell(100,10,txt="     3.  Nationality Religion and community                      ")
+                  pdf.cell(100,10,txt=":              "+str(f[4])+' '+str(f[5])+' '+str(f[6]))
                   pdf.ln(10)
                   pdf.cell(100,10,txt="     4.  Sex                                                            ")
                   pdf.cell(100,10,txt=":              "+str(f[8]))
@@ -584,24 +799,24 @@ class transfergroup(tk.Frame):
                   pdf.cell(100,10,txt=":              "+l3)
                   pdf.ln(10)
                   pdf.cell(100,10,txt="     8.  a) Whether the Student has paid all the                   ")
-                  pdf.cell(100,10,txt=":              "+str(mys[0]))
+                  pdf.cell(100,10,txt=":              "+str(mys[1]))
                   pdf.ln(10)
                   pdf.cell(100,10,txt="            Fees due to the college ?")
                   pdf.ln(10)
                   pdf.cell(100,10,txt="     8.  b) Whether the Student was in receipt of                  ")
-                  pdf.cell(100,10,txt=":              "+str(mys[1]))
+                  pdf.cell(100,10,txt=":              "+str(mys[2]))
                   pdf.ln(10)
                   pdf.cell(100,10,txt="            any scholarship")
                   pdf.ln(10)
                   pdf.cell(100,10,txt="     9.  Whether the Student has undergone                          ")
                     
-                  pdf.cell(100,10,txt=":              "+str(mys[2]))
+                  pdf.cell(100,10,txt=":              "+str(mys[3]))
                   pdf.ln(10)
                   pdf.cell(100,10,txt="          Medical inspection during the year")
                   pdf.ln(10)
                   pdf.cell(100,10,txt="     10.  Reasons for leaving the College                       ")
                     
-                  pdf.cell(100,10,txt=":              "+str(mys[3]))
+                  pdf.cell(100,10,txt=":              "+str(mys[4]))
                   pdf.ln(10)
                   pdf.cell(100,10,txt="     11.  Date of Leaving                                      ")
                   l6=datetime.datetime.strptime(str(getit), "%d-%m-%Y").strftime("%d-%m-%Y")
@@ -644,6 +859,7 @@ class transfersingle(tk.Frame):
                 self.filemenu = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
                 self.filemenu.add_command(label="Individual Transfer Certificate",command=self.transsing,font=("Times 18 italic"))
                 self.filemenu.add_command(label="Batch Transfer Certificate",command=self.transgrpo,font=("Times 18 italic"))
+                self.filemenu.add_command(label="Update TC",command=self.extratc,font=("Times 18 italic"))
                 self.menubar.add_cascade(label="Transfer Certificate Generation", menu=self.filemenu,font = "Times 38")
                 self.edit = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red',font=("Times 18 italic"))
                 self.edit.add_command(label="Edit",command=self.edt ,font=("Times 18 italic"))
@@ -683,12 +899,7 @@ class transfersingle(tk.Frame):
                 label =tk.Label(self.left_frame,image = original_image)#,width=1680,height=1080)
                 label.image = original_image # keep a reference!
                 label.grid(row=1, column=0, padx=5, pady=5)
-                #tk.Label(self.left_frame, image=original_image).grid(row=1, column=0, padx=5, pady=5)
-                #image1 = tk.PhotoImage(file="tc1.png")
-                #original_image1 = image1.subsample(2) # resize image using subsample
-                #labelw2 =tk.Label(self.left_frame,image = original_image1)#,width=1680,height=1080)
-                #labelw2.image = original_image1 # keep a reference!
-                #labelw2.grid(row=2, column=0, padx=5, pady=5)
+                
                 
                 self.l=ttk.Label(self,text="Individual Transfer Certificate Details",font=("Times 20 italic"),background="darkorchid")
                 self.l.grid(row=0,column=1)
@@ -697,7 +908,7 @@ class transfersingle(tk.Frame):
                 self.l1.grid(row=1,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
                 self.entr1=ttk.Entry(self.right_frame,font=("Times 15 italic"))
                 self.entr1.grid(row=1,column=1,padx=5,pady=1,ipady=5,sticky='W')
-                self.l2=ttk.Label(self.right_frame,text="Leaving Date",font=("Times 15 italic"),background="darkorchid")
+                self.l2=ttk.Label(self.right_frame,text="Community",font=("Times 15 italic"),background="darkorchid")
                 self.l2.grid(row=2,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
                 
                 
@@ -772,6 +983,12 @@ class transfersingle(tk.Frame):
               self.right_frame.destroy()
               self.left_frame.destroy()
               self.master.switch_frame(transfergroup)
+          def extratc(self):
+              self.Frame14.destroy()
+              self.Frame11.destroy()
+              self.right_frame.destroy()
+              self.left_frame.destroy()
+              self.master.switch_frame(updatetc)    
           def ins(self):
               self.Frame14.destroy()
               self.Frame11.destroy()
@@ -843,8 +1060,8 @@ class transfersingle(tk.Frame):
                               pdf.cell(100,10,txt="     2.  Name of the parent/Guardian                               ")
                               pdf.cell(100,10,txt=":              "+str(f[3]))
                               pdf.ln(10)
-                              pdf.cell(100,10,txt="     3.  Nationality Religion and coommunity                      ")
-                              pdf.cell(100,10,txt=":              "+str(f[6]))
+                              pdf.cell(100,10,txt="     3.  Nationality Religion and community                      ")
+                              pdf.cell(100,10,txt=":              "+str(f[4])+' '+str(f[5])+' '+str(f[6]))
                               pdf.ln(10)
                               pdf.cell(100,10,txt="     4.  Sex                                                            ")
                               pdf.cell(100,10,txt=":              "+str(f[8]))
@@ -930,6 +1147,7 @@ class editspecify(tk.Frame):
              self.filemenu = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
              self.filemenu.add_command(label="Individual Transfer Certificate",command=self.transsing,font=("Times 18 italic"))
              self.filemenu.add_command(label="Batch Transfer Certificate",command=self.transgrpo,font=("Times 18 italic"))
+             self.filemenu.add_command(label="Update TC",command=self.extratc,font=("Times 18 italic"))
              self.menubar.add_cascade(label="Transfer Certificate Generation", menu=self.filemenu,font = "Times 38")
              self.edit = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red',font=("Times 18 italic"))
              self.edit.add_command(label="Edit",command=self.edt ,font=("Times 18 italic"))
@@ -965,6 +1183,9 @@ class editspecify(tk.Frame):
         def transgrpo(self):
               self.Frame4.destroy()
               self.master.switch_frame(transfergroup)
+        def extratc(self):
+          self.Frame4.destroy()
+          self.master.switch_frame(updatetc) 
         def ins(self):
               self.Frame4.destroy()
               self.master.switch_frame(newreg)
@@ -1000,6 +1221,7 @@ class edit(tk.Frame):
                     self.filemenu = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
                     self.filemenu.add_command(label="Individual Transfer Certificate",command=self.transsing,font=("Times 18 italic"))
                     self.filemenu.add_command(label="Batch Transfer Certificate",command=self.transgrpo,font=("Times 18 italic"))
+                    self.filemenu.add_command(label="Update TC",command=self.extratc,font=("Times 18 italic"))
                     self.menubar.add_cascade(label="Transfer Certificate Generation", menu=self.filemenu,font = "Times 38")
                     self.edit = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red',font=("Times 18 italic"))
                     self.edit.add_command(label="Edit",command=self.edt ,font=("Times 18 italic"))
@@ -1346,6 +1568,18 @@ class edit(tk.Frame):
                   self.Frame7.destroy()
                   self.Frame8.destroy()
                   self.master.switch_frame(editspecify)
+              def extratc(self):
+                  self.Frame14.destroy()
+                  self.Frame11.destroy()
+                  self.Frame1.destroy()
+                  self.Frame2.destroy()
+                  self.Frame3.destroy()
+                  self.Frame4.destroy()
+                  self.Frame5.destroy()
+                  self.Frame6.destroy()
+                  self.Frame7.destroy()
+                  self.Frame8.destroy()
+                  self.master.switch_frame(updatetc)    
               def ser(self):
                   self.Frame14.destroy()
                   self.Frame11.destroy()
@@ -1438,6 +1672,7 @@ class newreg(tk.Frame):
                 self.filemenu = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
                 self.filemenu.add_command(label="Individual Transfer Certificate",command=self.transsing,font=("Times 18 italic"))
                 self.filemenu.add_command(label="Batch Transfer Certificate",command=self.transgrpo,font=("Times 18 italic"))
+                self.filemenu.add_command(label="Update TC",command=self.extratc,font=("Times 18 italic"))
                 self.menubar.add_cascade(label="Transfer Certificate Generation", menu=self.filemenu,font = "Times 38")
                 self.edit = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red',font=("Times 18 italic"))
                 self.edit.add_command(label="Edit",command=self.edt ,font=("Times 18 italic"))
@@ -1768,6 +2003,18 @@ class newreg(tk.Frame):
                   self.Frame7.destroy()
                   self.Frame8.destroy()
                   self.master.switch_frame(newreg)
+              def extratc(self):
+                  self.Frame14.destroy()
+                  self.Frame11.destroy()
+                  self.Frame1.destroy()
+                  self.Frame2.destroy()
+                  self.Frame3.destroy()
+                  self.Frame4.destroy()
+                  self.Frame5.destroy()
+                  self.Frame6.destroy()
+                  self.Frame7.destroy()
+                  self.Frame8.destroy()
+                  self.master.switch_frame(updatetc)
               def edt(self):
                   self.Frame14.destroy() 
                   self.Frame11.destroy()
@@ -1933,6 +2180,7 @@ class search(tk.Frame):
                       self.filemenu = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red')
                       self.filemenu.add_command(label="Individual Transfer Certificate",command=self.transsing,font=("Times 18 italic"))
                       self.filemenu.add_command(label="Batch Transfer Certificate",command=self.transgrpo,font=("Times 18 italic"))
+                      self.filemenu.add_command(label="Update TC",command=self.extratc,font=("Times 18 italic"))
                       self.menubar.add_cascade(label="Transfer Certificate Generation", menu=self.filemenu,font = "Times 38")
                       self.edit = tk.Menu(self.menubar, tearoff=0,background='green', foreground='yellow',activebackground='blue', activeforeground='red',font=("Times 18 italic"))
                       self.edit.add_command(label="Edit",command=self.edt ,font=("Times 18 italic"))
@@ -2067,6 +2315,10 @@ class search(tk.Frame):
                       self.Frame14.destroy()
                       self.Frame1.destroy()
                       self.master.switch_frame(editspecify)
+                  def extratc(self):
+                      self.Frame14.destroy()
+                      self.Frame1.destroy()
+                      self.master.switch_frame(updatetc)
                   def ser(self):
                       self.Frame14.destroy()
                       self.Frame1.destroy()
