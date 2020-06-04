@@ -14,6 +14,7 @@ pip install mysql-connector
 @author: Bhavani
 """
 #from PIL import Image, ImageTk
+#miniproject
 import re 
 from itertools import cycle
 import datetime
