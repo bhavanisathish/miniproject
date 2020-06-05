@@ -1,1 +1,6 @@
 # miniproject
+
+ABSTRACT 
+ Transfer Certificate  generation  is  a  task  carried  out  by  all  educational  institutions. It  usually  involves  a  lot  of  paper  work  and  searching  all  the  records  for  details. Searching  for  a  particular  class  of  students  or  grouping   them  into  gender, religion, caste can also  be  so  tiring. This involves a lot of paper work. Maintenance of the system is also very difficult and takes a lot of time and efforts. The  aim  of  this  project  is  to  minimise human  labor  and automate  stuff. This project can  be  used  by   education institutes to maintain the records of students easily. This project  allows  the  administrator  to  enter  student  details  in  the  beginning  of   an  academic  year  and  store  them. The details  can  also  be  edited  later. Whenever  he wants, he can  search  a  particular  group  of  students  based  on  gender,  religion, year,  district  or  a  combination  of  any  of  these. At  the  end  of  the  course  or  for  any  other  reasons  if   the  student  wants  to   leave  ,  the  TC  can  be  automatically  generated  just  by  entering  the  date  of  leaving.  This process thus simplifies  the  task. 
+ 
+ 
