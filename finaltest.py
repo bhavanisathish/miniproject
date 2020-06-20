@@ -328,7 +328,7 @@ class pageOne(tk.Frame):
              self.p_d.grid(row=3,column=0,sticky='E')
              self.label=tk.Label(self,text='',background= "midnightblue",foreground="white")
              self.label.grid(row=2,column=1)
-             self.lee=tk.Label(self)
+             self.lee=tk.Label(self,background= "midnightblue")
              self.lee.grid(row=4)
              self.lee2=tk.Label(self,text='HISTORY OF ACGCET',background= "midnightblue",foreground="white",font=("Times 15 italic"))
              self.lee2.grid(row=5,sticky='W')
@@ -1410,6 +1410,7 @@ class edit(tk.Frame):
                         self.ll10.grid(row=1,column=1,sticky='W',pady=5,padx=20,ipady=5)
                         self.e10=ttk.Entry(self.Frame7,font=("Times 14"),width=23)
                         self.e10.grid(row=1,column=2,sticky='W',padx=20,pady=3,ipady=3)
+                        
                         self.e10.insert(0,e[9])
                         
                         self.la23=ttk.Label(self.Frame7,text="Aadhar Number",font=("Times 14 bold"),background='skyblue3',foreground="white")
@@ -1474,6 +1475,7 @@ class edit(tk.Frame):
                         self.ll13.grid(row=1,column=1,sticky='W',pady=5,padx=20,ipady=5)
                         self.e13=ttk.Entry(self.Frame8,font=("Times 14"),width=23)
                         self.e13.grid(row=1,column=2,sticky='W',padx=20,pady=3,ipady=3)
+                        
                         self.e13.insert(0,e[12])
                         
                         self.l14=ttk.Label(self.Frame8,text="Receipt Number",font=("Times 14 bold"),background='skyblue3',foreground="white")
@@ -1498,6 +1500,7 @@ class edit(tk.Frame):
                         self.lla25.grid(row=4,column=1,sticky='W',pady=5,padx=20,ipady=5)
                         self.ea25=ttk.Entry(self.Frame8,font=("Times 14"),width=23)
                         self.ea25.grid(row=4,column=2,sticky='W',padx=20,pady=3,ipady=3)
+                        
                         self.ea25.insert(0,e[24])
                          
                         self.la24=ttk.Label(self.Frame8,text="T.C.No",font=("Times 14 bold"),background='skyblue3',foreground="white")
@@ -1615,9 +1618,9 @@ class edit(tk.Frame):
                 try:
                     if(re.search(regex1,self.ea23.get())):  
                          if(re.search(regex3,self.ea22.get())):  
-                            datetime.datetime.strptime(self.e10.get(), '%Y-%m-%d')
-                            datetime.datetime.strptime(self.e13.get(), '%Y-%m-%d')
-                            datetime.datetime.strptime(self.e15.get(), '%Y-%m-%d')
+                            datetime.datetime.strptime(self.e10.get(), '%d-%m-%Y')
+                            datetime.datetime.strptime(self.e13.get(), '%d-%m-%Y')
+                            datetime.datetime.strptime(self.e15.get(), '%d-%m-%Y')
                             if(self.e1.get()!="" and self.e3.get()!="" and self.e4.get()!="" and self.e5.get()!="" and self.e6.get()!="" and self.e7.get()!="" and self.e8.get() !="" and self.e9.get(),self.e10.get(),self.e11.get(),self.e12.get(),self.e13.get(),self.e14.get(),self.e15.get()!="" and self.e16.get()!="" and self.e17.get() !="" and self.e18.get()!="" and self.e19.get()!="" and self.e20.get()!="" and self.e21.get()!="" and self.ea22.get()!="" and self.ea23.get()!="" ):
                                 self.callme()
                             else:
@@ -1651,6 +1654,8 @@ class edit(tk.Frame):
                         self.community=self.e8.get()
                         self.sex=self.e9.get()
                         self.dob=self.e10.get()
+                        print(str(self.e10.get()))
+                        print(self.dob)
                         self.course=self.e11.get()
                         self.branch=self.e12.get()
                         self.admiton=self.e13.get()
@@ -2121,9 +2126,10 @@ class newreg(tk.Frame):
                 try:
                     if(re.search(regex1,self.aadharno)):  
                          if(re.search(regex3,self.cellno)):  
-                            datetime.datetime.strptime(self.dob, '%Y-%m-%d')
-                            datetime.datetime.strptime(self.receiptdate, '%Y-%m-%d')
-                            datetime.datetime.strptime(self.issuedon, '%Y-%m-%d')
+                            datetime.datetime.strptime(self.dob, '%d-%m-%Y')
+                            datetime.datetime.strptime(self.receiptdate, '%d-%m-%Y') 
+                            datetime.datetime.strptime(self.issuedon, '%d-%m-%Y')
+                            datetime.datetime.strptime(self.e13.get(), '%d-%m-%Y')
                             if(self.name!="" and self.regno !="" and self.rollno !="" and self.father!="" and self.nation !="" and self.religion!="" and self.caste!="" and self.community!="" and self.sex!="" and self.dob!="" and self.course!="" and  self.branch !="" and self.admiton!="" and self.receiptno!="" and self.receiptdate!="" and self.mothertongue!="" and self.state!="" and self.address!="" and self.taluk!="" and self.city!="" and self.district!="" and self.cellno!="" and self.aadharno!="" and self.tcno!="" and self.issuedon!="" and self.yopo!=""):
                                 self.calle()
                             else:
