@@ -143,6 +143,7 @@ class StartPage(tk.Frame):
           self.e2.delete(first=0,last=300)
       def reg(self):
           self.Frame2.destroy()
+          self.Frame1.destroy()
           self.master.switch_frame(registration)
       def passd(self):
             global username,passwords
@@ -170,6 +171,16 @@ class StartPage(tk.Frame):
 class registration(tk.Frame):
     def __init__(self,master):
         tk.Frame.__init__(self,master)
+        self.Frame10 = tk.Frame(self.master)
+        self.Frame10.pack(side="top",  pady=10,padx=10,expand=True )
+        self.Frame10.configure(background='midnightblue')
+        photo=tk.PhotoImage(file="ss.png")  
+        label1221=tk.Label(self.Frame10,text="Alagappa Chettiar Government College of Engineering and Technology,Karaikudi",background= "midnightblue",foreground="white",font =
+                   ('calibri', 30, 'bold'))
+        label1221.grid(row=0,rowspan=1,columnspan=40)
+        label12221=tk.Label(self.Frame10,text="(An autonomous government institution permanently affilitated to Anna University)",background= "midnightblue",foreground="white",font =
+                   ('calibri', 20, 'bold'))
+        label12221.grid(row=1,rowspan=1,columnspan=40)
         
         #self.configure(background='powderblue')
         self.configure(background='midnightblue')
@@ -232,10 +243,11 @@ class registration(tk.Frame):
         self.ent6=ttk.Entry(self,font=("Times 18 italic"))
         self.ent6.grid(row=6,column=1,padx=5,pady=5,ipady=5)
         self.bt1=ttk.Button(self,text="Register",command=self.regg,style = 'W.TButton')
-        self.bt1.grid(row=7,column=1,sticky='S',padx=10,pady=15)
-       
+        self.bt1.grid(row=7,column=2,sticky='S',padx=10,pady=15)
+        self.btt2=ttk.Button(self,text="Back",style = 'W.TButton',command=self.back)
+        self.btt2.grid(row=7,column=0,padx=10,pady=15)
         self.bt2=ttk.Button(self,text="Reset",style = 'W.TButton',command=self.rese)
-        self.bt2.grid(row=7,column=0,padx=30,pady=15)
+        self.bt2.grid(row=7,column=1,padx=10,pady=15)
     def rese(self):  
         self.ent1.delete(first=0,last=300)
         self.ent2.delete(first=0,last=300)
@@ -243,6 +255,11 @@ class registration(tk.Frame):
         self.ent4.delete(first=0,last=300)
         self.ent5.delete(first=0,last=300)
         self.ent6.delete(first=0,last=300)
+    def back(self):
+        self.Frame3.destroy()
+        self.Frame10.destroy()
+        self.master.switch_frame(StartPage)
+        
     def regg(self):
         self.namee=self.ent1.get()
         self.passsword=self.ent2.get()
@@ -258,6 +275,7 @@ class registration(tk.Frame):
             db.execute(sql1, val1)
             db_cur.commit()
             self.Frame3.destroy()
+            self.Frame10.destroy()
             self.master.switch_frame(StartPage)
         else:
             messagebox.showinfo("Registration Error", "You Are Not a Valid Admin.. Please Get Verification From The Admin")
@@ -574,7 +592,7 @@ class updatetc(tk.Frame):
                     #j=1
                     for o in my:
                         reg_no = o[1]
-                        if(datetime.datetime.strptime(self.donw, '%Y-%m-%d') and self.feeey!="" and reg_no !="" and self.schhy!="" and self.meedy!="" and self.schhy!="" ):
+                        if(datetime.datetime.strptime(self.donw, '%d-%m-%Y') and self.feeey!="" and reg_no !="" and self.schhy!="" and self.meedy!="" and self.schhy!="" ):
                              sql0="INSERT INTO `addtcinfo`(`reg_no`, `student_bill`, `scholarship`, `medicalinspection`, `reasonforleaving`, `addofaplication`) VALUES(%s,%s,%s,%s,%s,%s)"
                              val0=(reg_no,self.feeey,self.schhy,self.meedy,self.reasn,self.donw)
                              db.execute(sql0,val0)
@@ -784,8 +802,8 @@ class transfergroup(tk.Frame):
                   pdf.cell(100,10,txt=":              "+str(f[8]))
                   pdf.ln(10)
                   pdf.cell(100,10,txt="     5.  Date of Birth (in figure and words)                        ")
-                  l2=datetime.datetime.strptime(str(f[9]), "%Y-%m-%d").strftime("%d-%m-%Y")
-                  pdf.cell(100,10,txt=":              "+l2)
+                  #l2=datetime.datetime.strptime(str(f[9]), "%Y-%m-%d").strftime("%d-%m-%Y")
+                  pdf.cell(100,10,txt=":              "+str(f[9]))
                   pdf.ln(10)
                   pdf.cell(100,10,txt="         as entered in the admission register                        ")
                   pdf.ln(10)
@@ -793,8 +811,8 @@ class transfergroup(tk.Frame):
                   pdf.cell(100,10,txt=":              "+str(f[10]))
                   pdf.ln(10)
                   pdf.cell(100,10,txt="     7.  Date of Admission to this college                          ")
-                  l3=datetime.datetime.strptime(str(f[12]), "%Y-%m-%d").strftime("%d-%m-%Y")
-                  pdf.cell(100,10,txt=":              "+l3)
+                  #l3=datetime.datetime.strptime(str(f[12]), "%Y-%m-%d").strftime("%d-%m-%Y")
+                  pdf.cell(100,10,txt=":              "+str(f[12]))
                   pdf.ln(10)
                   pdf.cell(100,10,txt="     8.  a) Whether the Student has paid all the                   ")
                   pdf.cell(100,10,txt=":              "+str(mys[1]))
@@ -824,14 +842,14 @@ class transfergroup(tk.Frame):
                   pdf.cell(100,10,txt="     12.  Date on which application for Transfer  ")
                   pdf.ln(10)
                   pdf.cell(100,10,txt="           Certificate was made by the Student or On                    ")
-                  l4=datetime.datetime.strptime(str(mys[5]), "%Y-%m-%d").strftime("%d-%m-%Y")
-                  pdf.cell(100,10,txt=":              "+l4 )
+                  #l4=datetime.datetime.strptime(str(mys[5]), "%Y-%m-%d").strftime("%d-%m-%Y")
+                  pdf.cell(100,10,txt=":              "+str(mys[5]) )
                   pdf.ln(10)
                   pdf.cell(100,10,txt="           his/her behalf by Parent/Guardian")
                   pdf.ln(10)
                   pdf.cell(100,10,txt="     13.  Date of the Transfer Certificate                         ")
-                  l5=datetime.datetime.strptime(str(f[24]), "%Y-%m-%d").strftime("%d-%m-%Y")
-                  pdf.cell(100,10,txt=":              "+l5 )
+                  #l5=datetime.datetime.strptime(str(f[24]), "%Y-%m-%d").strftime("%d-%m-%Y")
+                  pdf.cell(100,10,txt=":              "+str(f[24]) )
                   pdf.ln(10)
                   pdf.cell(100,10,txt="     14.  Medium                                                      ")
                   pdf.cell(100,10,txt=":              English")
@@ -843,6 +861,11 @@ class transfergroup(tk.Frame):
             pdf.output(r)
             if os.path.exists(r):
                      os.startfile(r)
+                     self.Frame14.destroy()
+                     self.Frame11.destroy()
+                     self.right_frame.destroy()
+                     self.left_frame.destroy()
+                     self.master.switch_frame(pageOne)
             
 class transfersingle(tk.Frame):
           
@@ -906,16 +929,15 @@ class transfersingle(tk.Frame):
                 self.l1.grid(row=1,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
                 self.entr1=ttk.Entry(self.right_frame,font=("Times 15 bold"))
                 self.entr1.grid(row=1,column=1,padx=5,pady=1,ipady=5,sticky='W')
-                self.l2=ttk.Label(self.right_frame,text="Community",font=("Times 15 bold"),background= "skyblue3",foreground="black")
-                self.l2.grid(row=2,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
-                
-                
-                
-                self.e2=ttk.Entry(self.right_frame,font=("Times 15"))
-                self.e2.grid(row=2,column=1,padx=5,pady=1,ipady=5,sticky='W')
                 self.vieww=tk.IntVar()
                 self.viewe=tk.IntVar()
                 self.viiew=tk.IntVar()
+                
+                          
+                self.le2=ttk.Label(self.right_frame,text="Leaving Date",font=("Times 15 bold"),background="skyblue3")
+                self.le2.grid(row=2,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
+                self.e2=ttk.Entry(self.right_frame,font=("Times 15 bold"))
+                self.e2.grid(row=2,column=1,padx=5,pady=1,ipady=5,sticky='W')
                 
                 
                 self.l1=ttk.Label(self.right_frame,text="Whether the student has paid all the fees due to the college?",font=("Times 15 bold"),background= "skyblue3",foreground="black")
@@ -1026,7 +1048,7 @@ class transfersingle(tk.Frame):
                 print(self.donw)
                 #print(self.mbso)
                 
-                if(datetime.datetime.strptime(self.donw, '%Y-%m-%d') and self.feeey!="" and setentvar!="" and self.schhy!="" and self.meedy!="" and self.schhy!="" ):
+                if(datetime.datetime.strptime(self.donw, '%d-%m-%Y') and self.feeey!="" and setentvar!="" and self.schhy!="" and self.meedy!="" and self.schhy!="" ):
                          sql0="INSERT INTO `addtcinfo`(`reg_no`, `student_bill`, `scholarship`, `medicalinspection`, `reasonforleaving`, `addofaplication`) VALUES(%s,%s,%s,%s,%s,%s)"
                          val0=(setentvar,self.feeey,self.schhy,self.meedy,self.reasn,self.donw)
                          db.execute(sql0,val0)
@@ -1065,8 +1087,8 @@ class transfersingle(tk.Frame):
                               pdf.cell(100,10,txt=":              "+str(f[8]))
                               pdf.ln(10)
                               pdf.cell(100,10,txt="     5.  Date of Birth (in figure and words)                        ")
-                              l2=datetime.datetime.strptime(str(f[9]), "%Y-%m-%d").strftime("%d-%m-%Y")
-                              pdf.cell(100,10,txt=":              "+l2)
+                              #l2=datetime.datetime.strptime(str(f[9]), "%Y-%m-%d").strftime("%d-%m-%Y")
+                              pdf.cell(100,10,txt=":              "+str(f[9]))
                               pdf.ln(10)
                               pdf.cell(100,10,txt="         as entered in the admission register                        ")
                               pdf.ln(10)
@@ -1074,8 +1096,8 @@ class transfersingle(tk.Frame):
                               pdf.cell(100,10,txt=":              "+str(f[10]))
                               pdf.ln(10)
                               pdf.cell(100,10,txt="     7.  Date of Admission to this college                          ")
-                              l3=datetime.datetime.strptime(str(f[12]), "%Y-%m-%d").strftime("%d-%m-%Y")
-                              pdf.cell(100,10,txt=":              "+l3)
+                              #l3=datetime.datetime.strptime(str(f[12]), "%Y-%m-%d").strftime("%d-%m-%Y")
+                              pdf.cell(100,10,txt=":              "+str(f[12]))
                               pdf.ln(10)
                               pdf.cell(100,10,txt="     8.  a) Whether the Student has paid all the                   ")
                               pdf.cell(100,10,txt=":              "+str(mys[1]))
@@ -1105,14 +1127,14 @@ class transfersingle(tk.Frame):
                               pdf.cell(100,10,txt="     12.  Date on which application for Transfer  ")
                               pdf.ln(10)
                               pdf.cell(100,10,txt="           Certificate was made by the Student or On                    ")
-                              l4=datetime.datetime.strptime(str(mys[5]), "%Y-%m-%d").strftime("%d-%m-%Y")
-                              pdf.cell(100,10,txt=":              "+l4 )
+                              #l4=datetime.datetime.strptime(str(mys[5]), "%Y-%m-%d").strftime("%d-%m-%Y")
+                              pdf.cell(100,10,txt=":              "+str(mys[5]) )
                               pdf.ln(10)
                               pdf.cell(100,10,txt="           his/her behalf by Parent/Guardian")
                               pdf.ln(10)
                               pdf.cell(100,10,txt="     13.  Date of the Transfer Certificate                         ")
-                              l5=datetime.datetime.strptime(str(f[24]), "%Y-%m-%d").strftime("%d-%m-%Y")
-                              pdf.cell(100,10,txt=":              "+l5 )
+                              #l5=datetime.datetime.strptime(str(f[24]), "%Y-%m-%d").strftime("%d-%m-%Y")
+                              pdf.cell(100,10,txt=":              "+str(f[24]))
                               pdf.ln(10)
                               pdf.cell(100,10,txt="     14.  Medium                                                      ")
                               pdf.cell(100,10,txt=":              English")
@@ -1124,6 +1146,11 @@ class transfersingle(tk.Frame):
                               pdf.output(r)
                               if os.path.exists(r):
                                            os.startfile(r)
+                                           self.Frame14.destroy()
+                                           self.Frame11.destroy()
+                                           self.right_frame.destroy()
+                                           self.left_frame.destroy()
+                                           self.master.switch_frame(pageOne)
                               else:
                                   messagebox.showinfo("TC Error", "Enter A Valid Register Number")
                          else:
@@ -1623,6 +1650,17 @@ class edit(tk.Frame):
                             datetime.datetime.strptime(self.e15.get(), '%d-%m-%Y')
                             if(self.e1.get()!="" and self.e3.get()!="" and self.e4.get()!="" and self.e5.get()!="" and self.e6.get()!="" and self.e7.get()!="" and self.e8.get() !="" and self.e9.get(),self.e10.get(),self.e11.get(),self.e12.get(),self.e13.get(),self.e14.get(),self.e15.get()!="" and self.e16.get()!="" and self.e17.get() !="" and self.e18.get()!="" and self.e19.get()!="" and self.e20.get()!="" and self.e21.get()!="" and self.ea22.get()!="" and self.ea23.get()!="" ):
                                 self.callme()
+                                self.Frame14.destroy()
+                                self.Frame11.destroy()
+                                self.Frame1.destroy()
+                                self.Frame2.destroy()
+                                self.Frame3.destroy()
+                                self.Frame4.destroy()
+                                self.Frame5.destroy()
+                                self.Frame6.destroy()
+                                self.Frame7.destroy()
+                                self.Frame8.destroy()
+                                self.master.switch_frame(pageOne)
                             else:
                              messagebox.showinfo("Insert Error", "Fill all the fields")
                                 
@@ -2132,6 +2170,17 @@ class newreg(tk.Frame):
                             datetime.datetime.strptime(self.e13.get(), '%d-%m-%Y')
                             if(self.name!="" and self.regno !="" and self.rollno !="" and self.father!="" and self.nation !="" and self.religion!="" and self.caste!="" and self.community!="" and self.sex!="" and self.dob!="" and self.course!="" and  self.branch !="" and self.admiton!="" and self.receiptno!="" and self.receiptdate!="" and self.mothertongue!="" and self.state!="" and self.address!="" and self.taluk!="" and self.city!="" and self.district!="" and self.cellno!="" and self.aadharno!="" and self.tcno!="" and self.issuedon!="" and self.yopo!=""):
                                 self.calle()
+                                self.Frame14.destroy()
+                                self.Frame11.destroy()
+                                self.Frame1.destroy()
+                                self.Frame2.destroy()
+                                self.Frame3.destroy()
+                                self.Frame4.destroy()
+                                self.Frame5.destroy()
+                                self.Frame6.destroy()
+                                self.Frame7.destroy()
+                                self.Frame8.destroy()
+                                self.master.switch_frame(pageOne)
                             else:
                              messagebox.showinfo("Insert Error", "Fill all the fields")
                                 
@@ -2184,6 +2233,11 @@ class newreg(tk.Frame):
                 #INSERT INTO `studentdetails`(`name`, `reg_number`, `roll_number`, `father_name`, `nationality`, `religion`, `caste`, `community`, `sex`, `dateofbirth`, `course`, `branch`, `admittedon`, `receiptno`, `receiptdate`, `mothertongue`, `state`, `present_address`, `city`, `district`, `cell_number`, `aadhar_number`, `tcno`, `issuedon`) 
                 
                 try:
+                    
+                    sql1="INSERT INTO `studentdetails` (`name`, `reg_number`, `roll_number`, `father_name`, `nationality`, `religion`, `caste`, `community`, `sex`, `dateofbirth`, `course`, `branch`, `admittedon`, `receiptno`, `receiptdate`, `mothertongue`, `state`, `present_address`, `taluk`, `city`, `district`, `cell_number`, `aadhar_number`, `tcno`, `issuedon`, `Year_Of_Passout`,`flag`)VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
+                    val1=(self.name,self.regno,self.rollno,self.father,self.nation,self.religion,self.community,self.caste,self.sex,self.dob,self.course,self.branch,self.admiton,self.receiptno,self.receiptdate,self.mothertongue,self.state,self.address,self.taluk,self.city,self.district,self.cellno, self.aadharno,self.tcno,self.issuedon,self.yopo,'0')
+                    db.execute(sql1, val1)
+                    db_cur.commit()
                     self.Frame14.destroy()
                     self.Frame11.destroy()
                     self.Frame1.destroy()
@@ -2194,10 +2248,6 @@ class newreg(tk.Frame):
                     self.Frame6.destroy()
                     self.Frame7.destroy()
                     self.Frame8.destroy()
-                    sql1="INSERT INTO `studentdetails` (`name`, `reg_number`, `roll_number`, `father_name`, `nationality`, `religion`, `caste`, `community`, `sex`, `dateofbirth`, `course`, `branch`, `admittedon`, `receiptno`, `receiptdate`, `mothertongue`, `state`, `present_address`, `taluk`, `city`, `district`, `cell_number`, `aadhar_number`, `tcno`, `issuedon`, `Year_Of_Passout`)VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)"
-                    val1=(self.name,self.regno,self.rollno,self.father,self.nation,self.religion,self.community,self.caste,self.sex,self.dob,self.course,self.branch,self.admiton,self.receiptno,self.receiptdate,self.mothertongue,self.state,self.address,self.taluk,self.city,self.district,self.cellno, self.aadharno,self.tcno,self.issuedon,self.yopo)
-                    db.execute(sql1, val1)
-                    db_cur.commit()
                     self.master.switch_frame(pageOne) 
                 except mysql.connector.IntegrityError:
                        messagebox.showinfo("Registration Error", "Duplicate entry register number")
@@ -5859,7 +5909,7 @@ class search(tk.Frame):
                           # reli,cast,seex,bos,dis,yopo
                           
                       elif(self.course=="" and self.reli!="" and self.cast!="" and self.seex !=""  and self.bos!=""  and self.tal =="" and self.dis!="" and self.yopo!=""):
-                          db.execute("select *from studentdetails where religion='%s' and caste='%s' and branch='%s' and district='%s' and sex='%s' and Year_Of_Passout='%s'" %(self.reli,self.cast,self.bos,self.dis,self.sex,self.yopo))
+                          db.execute("select *from studentdetails where religion='%s' and caste='%s' and branch='%s' and district='%s' and sex='%s' and Year_Of_Passout='%s'" %(self.reli,self.cast,self.bos,self.dis,self.seex,self.yopo))
                           results = db.fetchall()
                           ws = wb.create_sheet(0)
                           #ws.title = studentdetails
