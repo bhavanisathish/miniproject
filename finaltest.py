@@ -5,7 +5,7 @@ Created on Fri Jun  5 10:37:24 2020
 @author: dell
 """
 
-
+from tkcalendar import DateEntry
 import re 
 from itertools import cycle
 import datetime
@@ -517,7 +517,8 @@ class updatetc(tk.Frame):
                 self.l4.grid(row=9,column=0,padx=10,pady=10,sticky='W')                
                 self.l5=ttk.Label(self.right_frame,text="made by the student or on his/her behalf by parent/guardian",font=("Times 15 bold"),background="skyblue3")
                 self.l5.grid(row=10,column=0,padx=10,pady=1,sticky='W')
-                self.e41=ttk.Entry(self.right_frame,font=("Times 15"))
+                self.e41=DateEntry(self.right_frame, date_pattern='dd-mm-yyyy', font=("Times 15"), borderwidth=2)
+                           
                 self.e41.grid(row=10,column=1,padx=5,pady=1,ipady=5,sticky='W')
                 
                 self.but=ttk.Button(self.right_frame,text="Submit",style = 'W.TButton',command=self.updatz)
@@ -597,10 +598,12 @@ class updatetc(tk.Frame):
                              val0=(reg_no,self.feeey,self.schhy,self.meedy,self.reasn,self.donw)
                              db.execute(sql0,val0)
                              db_cur.commit() 
+                             messagebox.showinfo("TransferCertificate", 'Datas related to transferCetificate were Updated ') 
+                             
                              self.Frame14.destroy()
                              self.Frame11.destroy()
                              self.right_frame.destroy()
-                             self.left_frame.destroy()           
+                             self.left_frame.destroy() 
                              self.master.switch_frame(pageOne) 
                         else:
                             messagebox.showinfo("Transfer Error", "Fill all the fields and Check above details are True") 
@@ -613,7 +616,9 @@ class updatetc(tk.Frame):
                              sql0="INSERT INTO `addtcinfo`(`reg_no`, `student_bill`, `scholarship`, `medicalinspection`, `reasonforleaving`, `addofaplication`) VALUES(%s,%s,%s,%s,%s,%s)"
                              val0=(regg_no,self.feeey,self.schhy,self.meedy,self.reasn,self.donw)
                              db.execute(sql0,val0)
-                             db_cur.commit() 
+                             db_cur.commit()
+                             messagebox.showinfo("TransferCertificate", 'Datas related to transferCetificate were Updated ') 
+                             
                              self.Frame14.destroy()
                              self.Frame11.destroy()
                              self.right_frame.destroy()
@@ -698,7 +703,8 @@ class transfergroup(tk.Frame):
                               
                 self.le2=ttk.Label(self.right_frame,text="Leaving Date",font=("Times 18 bold"),background="skyblue3")
                 self.le2.grid(row=2,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
-                self.ee2=ttk.Entry(self.right_frame,font=("Times 18 bold"))
+                self.ee2=DateEntry(self.right_frame,  date_pattern='dd-mm-yyyy', font=("Times 18 bold"), borderwidth=2)
+            
                 self.ee2.grid(row=2,column=1,padx=5,pady=5,ipady=5,sticky='W')
                 self.le3=ttk.Label(self.right_frame,text="Year Of PassOut",font=("Times 18 bold"),background="skyblue3")
                 self.le3.grid(row=3,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
@@ -770,7 +776,8 @@ class transfergroup(tk.Frame):
             pdf=FPDF()
             #reg=
             i=1
-           
+            msges = 'A transfercertificate has been generated for the batch'+yopo
+            messagebox.showinfo("TransferCertificate", msges) 
             for f in myresult:
                 reg_no=f[1]
                 db.execute("update studentdetails set flag='1' where reg_number='%s'"%(reg_no))
@@ -781,7 +788,7 @@ class transfergroup(tk.Frame):
                 db.execute("SELECT * FROM `addtcinfo` WHERE `reg_no`= '%s' "%(f[1]))
                 mys=db.fetchone()
                 if(mys):
-                  print("2")
+                  
                   pdf.add_page()
                   pdf.set_font("Arial",size=12)
                   name="alagappa.jpg"
@@ -808,7 +815,7 @@ class transfergroup(tk.Frame):
                   pdf.cell(100,10,txt="         as entered in the admission register                        ")
                   pdf.ln(10)
                   pdf.cell(100,10,txt="     6.  Course of Study                                             ")
-                  pdf.cell(100,10,txt=":              "+str(f[10]))
+                  pdf.cell(100,10,txt=":              "+str(f[10])+'('+str(f[11])+')')
                   pdf.ln(10)
                   pdf.cell(100,10,txt="     7.  Date of Admission to this college                          ")
                   #l3=datetime.datetime.strptime(str(f[12]), "%Y-%m-%d").strftime("%d-%m-%Y")
@@ -936,7 +943,8 @@ class transfersingle(tk.Frame):
                           
                 self.le2=ttk.Label(self.right_frame,text="Leaving Date",font=("Times 15 bold"),background="skyblue3")
                 self.le2.grid(row=2,column=0,sticky='W',padx=10,pady=10,ipadx=20,ipady=10)
-                self.e2=ttk.Entry(self.right_frame,font=("Times 15 bold"))
+                self.e2=DateEntry(self.right_frame,  date_pattern='dd-mm-yyyy', font=("Times 15 bold"), borderwidth=2)
+            
                 self.e2.grid(row=2,column=1,padx=5,pady=1,ipady=5,sticky='W')
                 
                 
@@ -970,7 +978,8 @@ class transfersingle(tk.Frame):
                 self.l4.grid(row=9,column=0,padx=10,pady=10,sticky='W')                
                 self.l5=ttk.Label(self.right_frame,text="made by the student or on his/her behalf by parent/guardian",font=("Times 15 bold"),background= "skyblue3",foreground="black")
                 self.l5.grid(row=10,column=0,padx=10,pady=1,sticky='W')
-                self.e41=ttk.Entry(self.right_frame,font=("Times 15 bold"))
+                self.e41=DateEntry(self.right_frame,  date_pattern='dd-mm-yyyy', font=("Times 15 bold"), borderwidth=2)
+            
                 self.e41.grid(row=10,column=1,padx=5,pady=1,ipady=5,sticky='W')
                 #print(entr1.get())
                 self.but=ttk.Button(self.right_frame,text="Submit",style = 'W.TButton',command=self.tranz)
@@ -1065,7 +1074,8 @@ class transfersingle(tk.Frame):
                          mys=db.fetchone()
                          if(f and mys):
                               reg=setentvar
-                               
+                              msge = 'A transfercertificate has been generated for the register number'+reg
+                              messagebox.showinfo("TransferCertificate", msge) 
                               pdf=FPDF()
                               pdf.add_page()
                               pdf.set_font("Arial",size=12)
@@ -1093,7 +1103,7 @@ class transfersingle(tk.Frame):
                               pdf.cell(100,10,txt="         as entered in the admission register                        ")
                               pdf.ln(10)
                               pdf.cell(100,10,txt="     6.  Course of Study                                             ")
-                              pdf.cell(100,10,txt=":              "+str(f[10]))
+                              pdf.cell(100,10,txt=":              "+str(f[10])+'('+str(f[11])+')')
                               pdf.ln(10)
                               pdf.cell(100,10,txt="     7.  Date of Admission to this college                          ")
                               #l3=datetime.datetime.strptime(str(f[12]), "%Y-%m-%d").strftime("%d-%m-%Y")
@@ -1435,7 +1445,8 @@ class edit(tk.Frame):
                         self.l10.grid(row=1,column=0,sticky='W',pady=5,padx=20,ipady=5)
                         self.ll10=ttk.Label(self.Frame7,text="          :",font=("Times 14 bold"),background='skyblue3',foreground="white")
                         self.ll10.grid(row=1,column=1,sticky='W',pady=5,padx=20,ipady=5)
-                        self.e10=ttk.Entry(self.Frame7,font=("Times 14"),width=23)
+                        self.e10=DateEntry(self.Frame7,width=23,date_pattern='dd-mm-yyyy',font=("Times 14"), borderwidth=2)
+            
                         self.e10.grid(row=1,column=2,sticky='W',padx=20,pady=3,ipady=3)
                         
                         self.e10.insert(0,e[9])
@@ -1517,7 +1528,8 @@ class edit(tk.Frame):
                         self.l15.grid(row=3,column=0,sticky='W',pady=5,padx=20,ipady=5)
                         self.ll15=ttk.Label(self.Frame8,text="           :",font=("Times 14 bold"),background='skyblue3',foreground="white")
                         self.ll15.grid(row=3,column=1,sticky='W',pady=5,padx=20,ipady=5)
-                        self.e15=ttk.Entry(self.Frame8,font=("Times 14"),width=23)
+                        self.e15=DateEntry(self.Frame8,width=23,date_pattern='dd-mm-yyyy', font=("Times 14"), borderwidth=2)
+            
                         self.e15.grid(row=3,column=2,sticky='W',padx=20,pady=3,ipady=3)
                         self.e15.insert(0,e[14])
 
@@ -1525,7 +1537,8 @@ class edit(tk.Frame):
                         self.la25.grid(row=4,column=0,sticky='W',pady=5,padx=20,ipady=5)
                         self.lla25=ttk.Label(self.Frame8,text="           :",font=("Times 14 bold"),background='skyblue3',foreground="white")
                         self.lla25.grid(row=4,column=1,sticky='W',pady=5,padx=20,ipady=5)
-                        self.ea25=ttk.Entry(self.Frame8,font=("Times 14"),width=23)
+                        self.ea25=DateEntry(self.Frame8,width=23,date_pattern='dd-mm-yyyy', font=("Times 14"), borderwidth=2)
+            
                         self.ea25.grid(row=4,column=2,sticky='W',padx=20,pady=3,ipady=3)
                         
                         self.ea25.insert(0,e[24])
@@ -1650,17 +1663,7 @@ class edit(tk.Frame):
                             datetime.datetime.strptime(self.e15.get(), '%d-%m-%Y')
                             if(self.e1.get()!="" and self.e3.get()!="" and self.e4.get()!="" and self.e5.get()!="" and self.e6.get()!="" and self.e7.get()!="" and self.e8.get() !="" and self.e9.get(),self.e10.get(),self.e11.get(),self.e12.get(),self.e13.get(),self.e14.get(),self.e15.get()!="" and self.e16.get()!="" and self.e17.get() !="" and self.e18.get()!="" and self.e19.get()!="" and self.e20.get()!="" and self.e21.get()!="" and self.ea22.get()!="" and self.ea23.get()!="" ):
                                 self.callme()
-                                self.Frame14.destroy()
-                                self.Frame11.destroy()
-                                self.Frame1.destroy()
-                                self.Frame2.destroy()
-                                self.Frame3.destroy()
-                                self.Frame4.destroy()
-                                self.Frame5.destroy()
-                                self.Frame6.destroy()
-                                self.Frame7.destroy()
-                                self.Frame8.destroy()
-                                self.master.switch_frame(pageOne)
+                                
                             else:
                              messagebox.showinfo("Insert Error", "Fill all the fields")
                                 
@@ -1715,6 +1718,7 @@ class edit(tk.Frame):
                         val=(self.e1.get(),self.e4.get(),self.e5.get(),self.e6.get(),self.e8.get(),self.e7.get(),self.e9.get(),self.e10.get(),self.e11.get(),self.e12.get(),self.e13.get(),self.e14.get(),self.e15.get(),self.e16.get(),self.e17.get(),self.e18.get(),self.e19.get(),self.e20.get(),self.e21.get(),self.ea22.get(),self.ea23.get(),self.ea24.get(),self.ea25.get(),setvar)
                         db.execute(sql, val)
                         db_cur.commit()
+                        messagebox.showinfo("Edit ", "All the datas are updated ")
                         
                         self.Frame14.destroy()
                         self.Frame11.destroy()
@@ -1927,7 +1931,8 @@ class newreg(tk.Frame):
                 self.l10.grid(row=1,column=0,sticky='W',pady=5,padx=20,ipady=5)
                 self.ll10=ttk.Label(self.Frame7,text="          :",font=("Times 12 bold"),background='skyblue3',foreground="white")
                 self.ll10.grid(row=1,column=1,sticky='W',pady=5,padx=20,ipady=5)
-                self.e10=ttk.Entry(self.Frame7,font=("Times 12"),width=24)
+                self.e10=DateEntry(self.Frame7,width=23,date_pattern='dd-mm-yyyy', font=("Times 12"), borderwidth=2)
+            
                 self.e10.grid(row=1,column=2,sticky='W',padx=20,pady=3,ipady=3)
                                 
                         
@@ -1994,7 +1999,8 @@ class newreg(tk.Frame):
                 self.l13.grid(row=1,column=0,sticky='W',pady=5,padx=20,ipady=5)
                 self.ll13=ttk.Label(self.Frame8,text="                : ",font=("Times 12 bold"),background='skyblue3',foreground="white")
                 self.ll13.grid(row=1,column=1,sticky='W',pady=5,padx=20,ipady=5)
-                self.e13=ttk.Entry(self.Frame8,font=("Times 12"),width=24)
+                self.e13=DateEntry(self.Frame8,width=24,date_pattern='dd-mm-yyyy', font=("Times 12"), borderwidth=2)
+            
                 self.e13.grid(row=1,column=2,sticky='W',padx=20,pady=3,ipady=3)
                                         
                 self.l14=ttk.Label(self.Frame8,text="Receipt Number",font=("Times 12 bold"),background='skyblue3',foreground="white")
@@ -2008,14 +2014,16 @@ class newreg(tk.Frame):
                 self.l15.grid(row=3,column=0,sticky='W',pady=5,padx=20,ipady=5)
                 self.ll15=ttk.Label(self.Frame8,text="                : ",font=("Times 12 bold"),background='skyblue3',foreground="white")
                 self.ll15.grid(row=3,column=1,sticky='W',pady=5,padx=20,ipady=5)
-                self.e15=ttk.Entry(self.Frame8,font=("Times 12"),width=24)
+                self.e15=DateEntry(self.Frame8,width=24,date_pattern='dd-mm-yyyy', font=("Times 12"), borderwidth=2)
+            
                 self.e15.grid(row=3,column=2,sticky='W',padx=20,pady=3,ipady=3)
 
                 self.la25=ttk.Label(self.Frame8,text="Issued ON",font=("Times 12 bold"),background='skyblue3',foreground="white")
                 self.la25.grid(row=4,column=0,sticky='W',pady=5,padx=20,ipady=5)
                 self.lla25=ttk.Label(self.Frame8,text="                : ",font=("Times 12 bold"),background='skyblue3',foreground="white")
                 self.lla25.grid(row=4,column=1,sticky='W',pady=5,padx=20,ipady=5)
-                self.ea25=ttk.Entry(self.Frame8,font=("Times 12"),width=24)
+                self.ea25=DateEntry(self.Frame8,width=24,date_pattern='dd-mm-yyyy', font=("Times 12"), borderwidth=2)
+            
                 self.ea25.grid(row=4,column=2,sticky='W',padx=20,pady=3,ipady=3)
                                          
                 self.la24=ttk.Label(self.Frame8,text="T.C.No",font=("Times 12 bold"),background='skyblue3',foreground="white")
@@ -2170,17 +2178,7 @@ class newreg(tk.Frame):
                             datetime.datetime.strptime(self.e13.get(), '%d-%m-%Y')
                             if(self.name!="" and self.regno !="" and self.rollno !="" and self.father!="" and self.nation !="" and self.religion!="" and self.caste!="" and self.community!="" and self.sex!="" and self.dob!="" and self.course!="" and  self.branch !="" and self.admiton!="" and self.receiptno!="" and self.receiptdate!="" and self.mothertongue!="" and self.state!="" and self.address!="" and self.taluk!="" and self.city!="" and self.district!="" and self.cellno!="" and self.aadharno!="" and self.tcno!="" and self.issuedon!="" and self.yopo!=""):
                                 self.calle()
-                                self.Frame14.destroy()
-                                self.Frame11.destroy()
-                                self.Frame1.destroy()
-                                self.Frame2.destroy()
-                                self.Frame3.destroy()
-                                self.Frame4.destroy()
-                                self.Frame5.destroy()
-                                self.Frame6.destroy()
-                                self.Frame7.destroy()
-                                self.Frame8.destroy()
-                                self.master.switch_frame(pageOne)
+                                
                             else:
                              messagebox.showinfo("Insert Error", "Fill all the fields")
                                 
@@ -2238,6 +2236,8 @@ class newreg(tk.Frame):
                     val1=(self.name,self.regno,self.rollno,self.father,self.nation,self.religion,self.community,self.caste,self.sex,self.dob,self.course,self.branch,self.admiton,self.receiptno,self.receiptdate,self.mothertongue,self.state,self.address,self.taluk,self.city,self.district,self.cellno, self.aadharno,self.tcno,self.issuedon,self.yopo,'0')
                     db.execute(sql1, val1)
                     db_cur.commit()
+                    msg = 'A new record '+self.regno + ' is inserted.'
+                    messagebox.showinfo("Insert", msg)
                     self.Frame14.destroy()
                     self.Frame11.destroy()
                     self.Frame1.destroy()
