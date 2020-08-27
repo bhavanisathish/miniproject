@@ -1341,22 +1341,36 @@ class edit(tk.Frame):
                         self.p2.current(0)
                         
                         self.l7=ttk.Label(self.Frame4,text="Caste",font=("Times 14 bold"),background='skyblue3',foreground="white")
-                        self.l7.grid(row=6,column=0,sticky='W',pady=5,padx=20,ipady=5)
+                        self.l7.grid(row=7,column=0,sticky='W',pady=5,padx=20,ipady=5)
                         self.ll7=ttk.Label(self.Frame4,text=":",font=("Times 14 bold"),background='skyblue3',foreground="white")
-                        self.ll7.grid(row=6,column=1,sticky='W',pady=5,padx=20,ipady=5)
-                        self.e7=ttk.Entry(self.Frame4,font=("Times 14"),width=23)
-                        self.e7.grid(row=6,column=2,sticky='W',padx=20,pady=3,ipady=3)
-                        self.e7.insert(0,e[7])
+                        self.ll7.grid(row=7,column=1,sticky='W',pady=5,padx=20,ipady=5)
+                        self.tt3 = tk.StringVar(self)
+                        self.pp3 =ttk.Combobox(self.Frame4, width=21, textvariable=self.tt3,font=("Times 12"))
                         
+                        self.pp3.grid(row=7,column=2,sticky='W',padx=20,pady=5,ipadx=2,ipady=5)
+                        self.pp3['values']=(e[7])
+                        self.pp3.current(0)
                         self.l8=ttk.Label(self.Frame4,text="Community",font=("Times 14 bold"),background='skyblue3',foreground="white")
-                        self.l8.grid(row=7,column=0,sticky='W',pady=5,padx=20,ipady=5)
+                        self.l8.grid(row=6,column=0,sticky='W',pady=5,padx=20,ipady=5)
                         self.ll8=ttk.Label(self.Frame4,text=":",font=("Times 14 bold"),background='skyblue3',foreground="white")
-                        self.ll8.grid(row=7,column=1,sticky='W',pady=5,padx=20,ipady=5)
+                        self.ll8.grid(row=6,column=1,sticky='W',pady=5,padx=20,ipady=5)
                         self.e8 = tk.StringVar(self)
                         self.p3 =ttk.Combobox(self.Frame4, width=21, textvariable=self.e8,font=("Times 14"))
                         self.p3['values']=(e[6],'OC','BC','BCM','MBC','SC','ST','Others')  
-                        self.p3.grid(row=7,column=2,sticky='W',padx=20,pady=5,ipady=5)
+                        self.p3.grid(row=6,column=2,sticky='W',padx=20,pady=5,ipady=5)
                         self.p3.current(0)
+                        
+                        def valcom(event):  
+                          self.aadharno=self.e8.get()
+                          
+                          if(self.aadharno == 'BC'):
+                              print('ok')
+                              self.pp3['values']=('OC','BCM','MBC','SC','ST','Others') 
+                          
+                        self.p3.bind('<FocusOut>', valcom)
+                        
+                                              
+                
                         
                         self.l14=ttk.Label(self.Frame4,text="Mother Tongue",font=("Times 14 bold"),background='skyblue3',foreground="white")
                         self.l14.grid(row=8,column=0,sticky='W',pady=5,padx=20,ipady=5)
@@ -1458,6 +1472,17 @@ class edit(tk.Frame):
                         self.ea23=ttk.Entry(self.Frame7,font=("Times 14"),width=23)
                         self.ea23.grid(row=2,column=2,sticky='W',padx=20,pady=3,ipady=3)
                         self.ea23.insert(0,e[22])
+                        def valaad(event):  
+                              regex1 = '^\d{4}\d{4}\d{4}$'
+                              self.aadharno=self.ea23.get()
+                              
+                              if(re.search(regex1,self.aadharno)):
+                                  print('ok')
+                              else:
+                                     messagebox.showinfo("Insert Error", "Enter a valid aadhar number")
+                        self.ea23.bind('<FocusOut>', valaad)                                           
+                
+                        
                         
                         self.la22=ttk.Label(self.Frame7,text="Mobile Number",font=("Times 14 bold"),background='skyblue3',foreground="white")
                         self.la22.grid(row=3,column=0,sticky='W',pady=5,padx=20,ipady=5)
@@ -1466,6 +1491,16 @@ class edit(tk.Frame):
                         self.ea22=ttk.Entry(self.Frame7,font=("Times 14"),width=23)
                         self.ea22.grid(row=3,column=2,sticky='W',padx=20,pady=3,ipady=3)
                         self.ea22.insert(0,e[21])
+                        
+                        def valphno(event):  
+                          regex3 = '(0/91)?[7-9][0-9]{9}'
+                          self.cellno=self.ea22.get()
+                          
+                          if(re.search(regex3,self.cellno)):
+                              print('ok')
+                          else:
+                                 messagebox.showinfo("Insert Error", "Enter a valid phone number")
+                        self.ea22.bind('<FocusOut>', valphno)
                         
                         self.l2=ttk.Label(self.Frame7,text="Register Number",font=("Times 14 bold"),background='skyblue3',foreground="white")
                         self.l2.grid(row=4,column=0,sticky='W',pady=5,padx=20,ipady=5)
@@ -1661,7 +1696,7 @@ class edit(tk.Frame):
                             datetime.datetime.strptime(self.e10.get(), '%d-%m-%Y')
                             datetime.datetime.strptime(self.e13.get(), '%d-%m-%Y')
                             datetime.datetime.strptime(self.e15.get(), '%d-%m-%Y')
-                            if(self.e1.get()!="" and self.e3.get()!="" and self.e4.get()!="" and self.e5.get()!="" and self.e6.get()!="" and self.e7.get()!="" and self.e8.get() !="" and self.e9.get(),self.e10.get(),self.e11.get(),self.e12.get(),self.e13.get(),self.e14.get(),self.e15.get()!="" and self.e16.get()!="" and self.e17.get() !="" and self.e18.get()!="" and self.e19.get()!="" and self.e20.get()!="" and self.e21.get()!="" and self.ea22.get()!="" and self.ea23.get()!="" ):
+                            if(self.e1.get()!="" and self.e3.get()!="" and self.e4.get()!="" and self.e5.get()!="" and self.e6.get()!="" and self.tt3.get()!="" and self.e8.get() !="" and self.e9.get(),self.e10.get(),self.e11.get(),self.e12.get(),self.e13.get(),self.e14.get(),self.e15.get()!="" and self.e16.get()!="" and self.e17.get() !="" and self.e18.get()!="" and self.e19.get()!="" and self.e20.get()!="" and self.e21.get()!="" and self.ea22.get()!="" and self.ea23.get()!="" ):
                                 self.callme()
                                 
                             else:
@@ -1691,7 +1726,7 @@ class edit(tk.Frame):
                         self.father=self.e4.get()
                         self.nation=self.e5.get()
                         self.religion=self.e5.get()
-                        self.caste=self.e7.get()
+                        self.caste=self.tt3.get()
                         self.community=self.e8.get()
                         self.sex=self.e9.get()
                         self.dob=self.e10.get()
@@ -1715,7 +1750,7 @@ class edit(tk.Frame):
                         #self.yopo=self.ea26.get()
                         
                         sql="UPDATE `studentdetails` SET `name`= %s,`father_name`=%s,`nationality`=%s,`religion`=%s,`caste`=%s,`community`=%s,`sex`=%s,`dateofbirth`=%s,`course`=%s,`branch`=%s,`admittedon`=%s,`receiptno`=%s,`receiptdate`=%s,`mothertongue`=%s,`state`=%s,`present_address`=%s,taluk=%s,`city`=%s,`district`=%s,`cell_number`=%s,`aadhar_number`=%s,`tcno`=%s,`issuedon`=%s WHERE reg_number=%s"
-                        val=(self.e1.get(),self.e4.get(),self.e5.get(),self.e6.get(),self.e8.get(),self.e7.get(),self.e9.get(),self.e10.get(),self.e11.get(),self.e12.get(),self.e13.get(),self.e14.get(),self.e15.get(),self.e16.get(),self.e17.get(),self.e18.get(),self.e19.get(),self.e20.get(),self.e21.get(),self.ea22.get(),self.ea23.get(),self.ea24.get(),self.ea25.get(),setvar)
+                        val=(self.e1.get(),self.e4.get(),self.e5.get(),self.e6.get(),self.e8.get(),self.tt3.get(),self.e9.get(),self.e10.get(),self.e11.get(),self.e12.get(),self.e13.get(),self.e14.get(),self.e15.get(),self.e16.get(),self.e17.get(),self.e18.get(),self.e19.get(),self.e20.get(),self.e21.get(),self.ea22.get(),self.ea23.get(),self.ea24.get(),self.ea25.get(),setvar)
                         db.execute(sql, val)
                         db_cur.commit()
                         messagebox.showinfo("Edit ", "All the datas are updated ")
@@ -1817,12 +1852,37 @@ class newreg(tk.Frame):
                 self.p4['values']=('Male','Female','Others')  
                 self.p4.grid(row=3,column=2,sticky='W',padx=20,pady=5,ipadx=2,ipady=5)
                 self.p4.current()
+                
+                self.l8=ttk.Label(self.Frame4,text="Community",font=("Times 12 bold"),background='skyblue3',foreground="white")
+                self.l8.grid(row=6,column=0,sticky='W',pady=5,padx=20,ipady=5)
+                self.ll8=ttk.Label(self.Frame4,text=":",font=("Times 12 bold"),background='skyblue3',foreground="white")
+                self.ll8.grid(row=6,column=1,sticky='W',pady=5,padx=20,ipady=5)
+                self.t3 = tk.StringVar(self)
+                self.p3 =ttk.Combobox(self.Frame4, width=21, textvariable=self.t3,font=("Times 12"))
+                self.p3['values']=('OC','BC','BCM','MBC','SC','ST','Others')  
+                self.p3.grid(row=6,column=2,sticky='W',padx=20,pady=5,ipadx=2,ipady=5)
+                self.p3.current()
+                def valcom(event):  
+                  self.aadharno=self.t3.get()
+                  
+                  if(self.aadharno == 'BC'):
+                      print('ok')
+                      self.pp3['values']=('OC','BCM','MBC','SC','ST','Others') 
+                  
+                self.p3.bind('<FocusOut>', valcom)
+                
                 self.l7=ttk.Label(self.Frame4,text="Caste",font=("Times 12 bold"),background='skyblue3',foreground="white")
-                self.l7.grid(row=6,column=0,sticky='W',pady=5,padx=20,ipady=5)
+                self.l7.grid(row=7,column=0,sticky='W',pady=5,padx=20,ipady=5)
                 self.ll7=ttk.Label(self.Frame4,text=":",font=("Times 12 bold"),background='skyblue3',foreground="white")
-                self.ll7.grid(row=6,column=1,sticky='W',pady=5,padx=20,ipady=5)
-                self.e7=ttk.Entry(self.Frame4,font=("Times 12"),width=24)
-                self.e7.grid(row=6,column=2,sticky='W',padx=20,pady=3,ipady=3)
+                self.ll7.grid(row=7,column=1,sticky='W',pady=5,padx=20,ipady=5)
+                self.tt3 = tk.StringVar(self)
+                self.pp3 =ttk.Combobox(self.Frame4, width=21, textvariable=self.tt3,font=("Times 12"))
+                
+                self.pp3.grid(row=7,column=2,sticky='W',padx=20,pady=5,ipadx=2,ipady=5)
+                self.pp3.current()
+                
+                #self.e7=ttk.Entry(self.Frame4,font=("Times 12"),width=24)
+                #self.e7.grid(row=7,column=2,sticky='W',padx=20,pady=3,ipady=3)
                         
                 
                 self.l6=ttk.Label(self.Frame4,text="Religion",font=("Times 12 bold"),background='skyblue3',foreground="white")
@@ -1835,15 +1895,7 @@ class newreg(tk.Frame):
                 self.p2.grid(row=5,column=2,sticky='W',padx=20,pady=5,ipadx=2,ipady=5)
                 self.p2.current()
                 
-                self.l8=ttk.Label(self.Frame4,text="Community",font=("Times 12 bold"),background='skyblue3',foreground="white")
-                self.l8.grid(row=7,column=0,sticky='W',pady=5,padx=20,ipady=5)
-                self.ll8=ttk.Label(self.Frame4,text=":",font=("Times 12 bold"),background='skyblue3',foreground="white")
-                self.ll8.grid(row=7,column=1,sticky='W',pady=5,padx=20,ipady=5)
-                self.t3 = tk.StringVar(self)
-                self.p3 =ttk.Combobox(self.Frame4, width=21, textvariable=self.t3,font=("Times 12"))
-                self.p3['values']=('OC','BC','BCM','MBC','SC','ST','Others')  
-                self.p3.grid(row=7,column=2,sticky='W',padx=20,pady=5,ipadx=2,ipady=5)
-                self.p3.current()
+                
                 
                 self.l14=ttk.Label(self.Frame4,text="Mother Tongue",font=("Times 12 bold"),background='skyblue3',foreground="white")
                 self.l14.grid(row=8,column=0,sticky='W',pady=5,padx=20,ipady=5)
@@ -1942,6 +1994,16 @@ class newreg(tk.Frame):
                 self.lla23.grid(row=2,column=1,sticky='W',pady=5,padx=20,ipady=5)
                 self.ea23=ttk.Entry(self.Frame7,font=("Times 12"),width=24)
                 self.ea23.grid(row=2,column=2,sticky='W',padx=20,pady=3,ipady=3)
+                
+                def valaad(event):  
+                  regex1 = '^\d{4}\d{4}\d{4}$'
+                  self.aadharno=self.ea23.get()
+                  
+                  if(re.search(regex1,self.aadharno)):
+                      print('ok')
+                  else:
+                         messagebox.showinfo("Insert Error", "Enter a valid aadhar number")
+                self.ea23.bind('<FocusOut>', valaad)
                                                 
                 self.la22=ttk.Label(self.Frame7,text="Cell Number",font=("Times 12 bold"),background='skyblue3',foreground="white")
                 self.la22.grid(row=3,column=0,sticky='W',pady=5,padx=20,ipady=5)
@@ -1949,6 +2011,16 @@ class newreg(tk.Frame):
                 self.lla22.grid(row=3,column=1,sticky='W',pady=5,padx=20,ipady=5)
                 self.ea22=ttk.Entry(self.Frame7,font=("Times 12"),width=24)
                 self.ea22.grid(row=3,column=2,sticky='W',padx=20,pady=3,ipady=3)
+                def valphno(event):  
+                  regex3 = '(0/91)?[7-9][0-9]{9}'
+                  self.cellno=self.ea22.get()
+                  
+                  if(re.search(regex3,self.cellno)):
+                      print('ok')
+                  else:
+                         messagebox.showinfo("Insert Error", "Enter a valid phone number")
+                self.ea22.bind('<FocusOut>', valphno)
+                
                 
                 self.l2=ttk.Label(self.Frame7,text="Register Number",font=("Times 12 bold"),background='skyblue3',foreground="white")
                 self.l2.grid(row=4,column=0,sticky='W',pady=5,padx=20,ipady=5)
@@ -2047,7 +2119,7 @@ class newreg(tk.Frame):
                 
                 #self.but=ttk.Button(self,style = 'W.TButton',text="BACK",command=lambda: master.switch_frame(pageOne))
                 #self.but.grid(row=14,column=4,sticky='W',pady=3,padx=40)
-          
+             
               def transsing(self):
                   self.Frame14.destroy()
                   self.Frame11.destroy()
@@ -2140,7 +2212,7 @@ class newreg(tk.Frame):
                 self.father=self.e4.get()
                 self.nation=self.t1.get()
                 self.religion=self.t2.get()
-                self.caste=self.e7.get()
+                self.caste=self.tt3.get()
                 self.community=self.t3.get()
                 self.sex=self.t4.get()
                 self.dob=self.e10.get()
@@ -2207,7 +2279,7 @@ class newreg(tk.Frame):
                 self.father=self.e4.get()
                 self.nation=self.t1.get()
                 self.religion=self.t2.get()
-                self.caste=self.e7.get()
+                self.caste=self.tt3.get()
                 self.community=self.t3.get()
                 self.sex=self.t4.get()
                 self.dob=self.e10.get()
