@@ -294,7 +294,7 @@ class pageOne(tk.Frame):
              label1221=tk.Label(self,text="Alagappa Chettiar Government College of Engineering and Technology,Karaikudi",background= "midnightblue",foreground="white",font =
                    ('calibri', 30, 'bold'))
              label1221.grid(row=0)
-             label12221=tk.Label(self,text="(An autonomous government institution permanently affilitated to anna university)",background= "midnightblue",foreground="white",font =
+             label12221=tk.Label(self,text="(An autonomous government institution permanently affilitated to Anna University)",background= "midnightblue",foreground="white",font =
                    ('calibri', 20, 'bold'))
              label12221.grid(row=1)
              self.configure(background='midnightblue')
@@ -320,7 +320,7 @@ class pageOne(tk.Frame):
              self.search.add_command(label="Search",command=self.ser,font=("Times 18"))
          
              self.menubar.add_cascade(label='Search Details',menu=self.search,font = "Times 38")
-             self.menubar.add_command(label="logout",command=self.logg,font=("Times 18"))
+             self.menubar.add_command(label="Logout",command=self.logg,font=("Times 18"))
              self.menubar.add_command(label=adminname,font=("Times 18"))
          
              #self.menubar.config("Verdana", 14)
@@ -352,7 +352,7 @@ class pageOne(tk.Frame):
              self.lee2.grid(row=5,sticky='W')
              self.lw=tk.Label(self,font=("Times 11 "),text='Dr.RM.Alagappa Chettiar, a man of rare wisdom, and forethought, founded  Alagappa Chettiar Educational Trust  with the sole aim of developing the backward area of Karaikudi into a centre for higher education and provided ',background= "midnightblue",foreground="white")
              self.lw.grid(row=6,column=0,sticky='W')
-             self.lw1=tk.Label(self,text='necessary funds for the establishment of education and provided necessary funds for the establishment of educational institutions. On the Occasion of laying of the foundation stone of the central Electro Chemical Research Institue',background= "midnightblue",foreground="white",font=("Times 11 "))
+             self.lw1=tk.Label(self,text='necessary funds for the establishment of education institutions. On the Occasion of laying of the foundation stone of the central Electro Chemical Research Institue',background= "midnightblue",foreground="white",font=("Times 11 "))
              self.lw1.grid(row=7,column=0,sticky='W')
              self.lw2=tk.Label(self,text='by pandit jawaharlal Nehru on 25th july 1948. Dr.Alagappa Chettiar, in his Welcome address, said “It is my hope to start here an Engineering College immediately. A College with Dr.Alagappa Chettiar and the University of Madras ',background= "midnightblue",foreground="white",font=("Times 11 "))
              self.lw2.grid(row=8,column=0,sticky='W')
@@ -437,7 +437,7 @@ class updatetc(tk.Frame):
                 self.search.add_command(label="Search",command=self.ser,font=("Times 18 italic"))
                 
                 self.menubar.add_cascade(label='Search Details',menu=self.search,font = "Times 38")
-                self.menubar.add_command(label="logout",command=self.logg,font=("Times 18 italic"))
+                self.menubar.add_command(label="Logout",command=self.logg,font=("Times 18 italic"))
                 self.menubar.add_command(label=adminname,font=("Times 18 italic"))
                      
                          #self.menubar.config("Verdana", 14)
@@ -448,7 +448,7 @@ class updatetc(tk.Frame):
                 label1221=tk.Label(self.Frame11,text="Alagappa chettiar Government College of Engineering and Technology,Karaikudi",background= "midnightblue",foreground="white",font =
                                          ('Times', 20, 'bold'))
                 label1221.grid(row=0,rowspan=1,column=1,columnspan=40)
-                label12221=tk.Label(self.Frame11,text="(An autonomous government institution permanently affilitated to anna university)",background= "midnightblue",foreground="white",font =
+                label12221=tk.Label(self.Frame11,text="(An autonomous government institution permanently affilitated to Anna University)",background= "midnightblue",foreground="white",font =
                                           ('Times', 12, 'bold'))
                 label12221.grid(row=1,rowspan=1,column=1,columnspan=40)
                 self.left_frame = tk.Frame(self, width=200, height=800, bg='skyblue3')
@@ -598,7 +598,7 @@ class updatetc(tk.Frame):
                              val0=(reg_no,self.feeey,self.schhy,self.meedy,self.reasn,self.donw)
                              db.execute(sql0,val0)
                              db_cur.commit() 
-                             messagebox.showinfo("TransferCertificate", 'Datas related to transferCetificate were Updated ') 
+                             messagebox.showinfo("TransferCertificate", 'Datas related to Transfer Cetificate were Updated ') 
                              
                              self.Frame14.destroy()
                              self.Frame11.destroy()
@@ -625,7 +625,7 @@ class updatetc(tk.Frame):
                              self.left_frame.destroy()           
                              self.master.switch_frame(pageOne) 
                     else:
-                            messagebox.showinfo("Transfer Error", "Fill all the fields and Check above details are True") 
+                            messagebox.showinfo("Transfer Error", "Fill all the fields and Check whether above details are True") 
           
               
 class transfergroup(tk.Frame):
@@ -655,7 +655,7 @@ class transfergroup(tk.Frame):
                 self.search.add_command(label="Search",command=self.ser,font=("Times 18"))
                 
                 self.menubar.add_cascade(label='Search Details',menu=self.search,font = "Times 38")
-                self.menubar.add_command(label="logout",command=self.logg,font=("Times 18"))
+                self.menubar.add_command(label="Logout",command=self.logg,font=("Times 18"))
                 self.menubar.add_command(label=adminname,font=("Times 18"))
                      
                          #self.menubar.config("Verdana", 14)
@@ -666,7 +666,7 @@ class transfergroup(tk.Frame):
                 label1221=tk.Label(self.Frame11,text="Alagappa chettiar Government College of Engineering and Technology,Karaikudi",background= "midnightblue",foreground="white",font =
                                          ('Times', 26, 'bold'))
                 label1221.grid(row=0,rowspan=1,column=1)
-                label12221=tk.Label(self.Frame11,text="(An autonomous government institution permanently affilitated to anna university)",background= "midnightblue",foreground="white",font =
+                label12221=tk.Label(self.Frame11,text="(An autonomous government institution permanently affilitated to Anna University)",background= "midnightblue",foreground="white",font =
                                           ('Times', 20, 'bold'))
                 label12221.grid(row=1,rowspan=1,column=1)
                 self.l=ttk.Label(self.Frame11,text="Batch Transfer Certificate Details",font=("Times 20 bold"),background="midnightblue", foreground="white")
@@ -695,7 +695,7 @@ class transfergroup(tk.Frame):
                 #self.ll12.grid(row=1,column=1,sticky='W',pady=3,padx=40)
                 self.t6 = tk.StringVar(self)
                 self.p6 =ttk.Combobox(self.right_frame, width=19, textvariable=self.t6,font=("Times 18 bold"))
-                self.p6['values']=('Civil Engineering','Mechanical Engineering','Electrical and Electronics Engineering','Electronics and Communication Engineering','Computer science and Engineering')  
+                self.p6['values']=('Civil Engineering','Mechanical Engineering','Electrical and Electronics Engineering','Electronics and Communication Engineering','Computer Science and Engineering')  
                 self.p6.grid(row=1,column=1,padx=5,pady=5,ipady=5,sticky='W')
                 self.p6.current()
                 
@@ -776,7 +776,7 @@ class transfergroup(tk.Frame):
             pdf=FPDF()
             #reg=
             i=1
-            msges = 'A transfercertificate has been generated for the batch'+yopo
+            msges = 'Transfer certificate has been generated for the batch'+yopo
             messagebox.showinfo("TransferCertificate", msges) 
             for f in myresult:
                 reg_no=f[1]
@@ -912,7 +912,7 @@ class transfersingle(tk.Frame):
                 label1221=tk.Label(self.Frame11,text="Alagappa chettiar Government College of Engineering and Technology,Karaikudi",background= "midnightblue",foreground="white",font =
                                          ('Times', 20, 'bold'))
                 label1221.grid(row=0,rowspan=1,column=1,columnspan=40)
-                label12221=tk.Label(self.Frame11,text="(An autonomous government institution permanently affilitated to anna university)",background= "midnightblue",foreground="white",font =
+                label12221=tk.Label(self.Frame11,text="(An autonomous government institution permanently affilitated to Anna University)",background= "midnightblue",foreground="white",font =
                                           ('Times', 12, 'bold'))
                 label12221.grid(row=1,rowspan=1,column=1,columnspan=40)
                 self.left_frame = tk.Frame(self, width=200, height=800, bg='skyblue3')
@@ -1196,7 +1196,7 @@ class editspecify(tk.Frame):
              self.search.add_command(label="Search",command=self.ser,font=("Times 18"))
              
              self.menubar.add_cascade(label='Search Details',menu=self.search,font = "Times 38")
-             self.menubar.add_command(label="logout",command=self.logg,font=("Times 18"))
+             self.menubar.add_command(label="Logout",command=self.logg,font=("Times 18"))
              self.menubar.add_command(label=adminname,font=("Times 18"))
                  
                      #self.menubar.config("Verdana", 14)
@@ -1270,7 +1270,7 @@ class edit(tk.Frame):
                     self.search.add_command(label="Search",command=self.ser,font=("Times 18"))
                 
                     self.menubar.add_cascade(label='Search Details',menu=self.search,font = "Times 38")
-                    self.menubar.add_command(label="logout",command=self.logg,font=("Times 18"))
+                    self.menubar.add_command(label="Logout",command=self.logg,font=("Times 18"))
                     self.menubar.add_command(label=adminname,font=("Times 18"))
                  
                      #self.menubar.config("Verdana", 14)
@@ -1281,7 +1281,7 @@ class edit(tk.Frame):
                     label1221=tk.Label(self.Frame11,text="Alagappa chettiar Government College of Engineering and Technology,Karaikudi",background= "midnightblue",foreground="white",font =
                                          ('Times', 15, 'bold'))
                     label1221.grid(row=0,rowspan=1,column=1,columnspan=40)
-                    label12221=tk.Label(self.Frame11,text="(An autonomous government institution permanently affilitated to anna university)",background= "midnightblue",foreground="white",font =
+                    label12221=tk.Label(self.Frame11,text="(An autonomous government institution permanently affilitated to Anna University)",background= "midnightblue",foreground="white",font =
                                           ('Times', 8, 'bold'))
                     label12221.grid(row=1,rowspan=1,column=1,columnspan=40)
                     #self._rootwindow.bind('<Configure>', self.onResize)
@@ -1799,7 +1799,7 @@ class newreg(tk.Frame):
                 self.search.add_command(label="Search",command=self.ser,font=("Times 18"))
              
                 self.menubar.add_cascade(label='Search Details',menu=self.search,font = "Times 38")
-                self.menubar.add_command(label="logout",command=self.logg,font=("Times 18"))
+                self.menubar.add_command(label="Logout",command=self.logg,font=("Times 18"))
                 self.menubar.add_command(label=adminname,font=("Times 18"))
              
                  #self.menubar.config("Verdana", 14)
@@ -2353,7 +2353,7 @@ class search(tk.Frame):
                       self.search.add_command(label="Search",command=self.ser,font=("Times 18 italic"))
                      
                       self.menubar.add_cascade(label='Search Details',menu=self.search,font = "Times 38")
-                      self.menubar.add_command(label="logout",command=self.logg,font=("Times 18 italic"))
+                      self.menubar.add_command(label="Logout",command=self.logg,font=("Times 18 italic"))
                       self.menubar.add_command(label=adminname,font=("Times 18 italic"))
                      
                          #self.menubar.config("Verdana", 14)
@@ -2444,7 +2444,7 @@ class search(tk.Frame):
                       self.l11.grid(row=9,column=4,sticky='W',padx=10,pady=5,ipadx=20,ipady=5)
                       self.t5 = tk.StringVar(self)
                       self.p5 =ttk.Combobox(self, width=18, textvariable=self.t5,font=("Times 15"))
-                      self.p5['values']=('BE','ME','BE Parttime')  
+                      self.p5['values']=('BE','ME','BE Part time')  
                       self.p5.grid(row=9,column=5,sticky='W',padx=20,pady=5,ipadx=20,ipady=5)
                       self.p5.current()
                         #self.eta6=ttk.Entry(self,font=("Times 10 italic"))
